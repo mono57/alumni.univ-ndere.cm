@@ -1,0 +1,58 @@
+.form-signin {
+    max-width: 430px;
+    padding: 15px;
+    margin: 0 auto;
+    width: 350px;
+    height: auto;
+    position: absolute;
+    padding: 10px 25px;
+    left: 50%;
+    top: 45%;
+    transform: translateX(-50%) translateY(-50%);
+  }
+  .btn-check{
+      margin-left: 20px;
+  }
+
+  .form_register{
+    padding: 15px;
+    margin: 0 auto;
+    height: auto;
+    position: center;
+    background: rgb(255, 255, 255);
+    margin-right: 20%;
+    margin-left: 20%;
+    border-bottom: 5px solid rgb(255, 255, 255);
+    border-radius: 5px;
+  }
+  .form_register>button{
+    margin-left: 84%;
+  }
+  
+  .global{
+    background: #f5f8fa;
+    padding: 0%;
+    margin: 0%;
+  }
+
+  form.registration-form fieldset{
+    display: block;
+  }
+ 
+  .registration-form{
+    margin-top: 20px;
+  
+  }
+  .container{
+    width: 50%;
+    margin-left: 100px;
+    margin-top: 50px;
+  }
+  .title-registration-form>p{
+    margin-top:0px;
+    padding-left: 10px;
+  }
+  .title-registration-form>h2{
+    margin-bottom:0px;
+  }
+    

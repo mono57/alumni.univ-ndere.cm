@@ -1,0 +1,131 @@
+{% extends "main/_nav.html" %}
+{% block content %}
+{% load static %}
+<style media="screen">
+    .facebook{
+      background-color: blue;
+    }
+    .twitter{
+      background-color: red;
+    }
+    .instagram{
+      background-color: yellow;
+    }
+    .facebook, .twitter, .instagram{
+      width: 300px;
+      padding: 10px;
+      margin: 10px;
+    }
+    section .suivre{
+      display: inline-block;
+      vertical-align: top;
+    }
+    .titre{
+      margin-top: 0px;
+    }
+  
+    .content{
+      display: inline-block;
+      vertical-align: top;
+    }
+    .content>p{
+      text-align: justify;
+    }
+    .content>img{
+      width: 100%;
+      display: block;
+      margin-bottom: 45px;
+      margin-top: 20px;
+    }
+    .content>h1{
+      text-decoration: underline;
+    }
+    .suivre{
+      margin-top: 0px;
+    }
+    
+</style>
+  <div class="container">
+      <div class="row">
+        <div class="col-md-8">
+          <section class="content">
+            <h1>{{evenement.titre}}</h1>
+            <img src="{{evenement.image_illustration.url}}" alt="">
+            <p>{{evenement.description}}</p>
+          </section>
+          <div class="nb-comment">
+              <h2>{% if commentaires|length <= 1 %}
+              {{commentaires|length}} commentaire
+              {% else %}
+              {{commentaires|length}} commentaires
+              {% endif %}</h2>
+            </div>
+            {% for commentaire in commentaires %}
+            <section class="comment">
+                <a href="#">
+                  <small class="pull-right">
+                    <i class="fa fa-clock-o">{{commentaire.date_comment}}</i>
+                  </small>
+                  <h3>{{commentaire.nom_complet}}</h3>
+                </a>
+                <p class="email"><i>{{commentaire.email}}</i></p>
+  
+                <p class="text-comment">{{commentaire.commentaire}}</p>
+              </section>
+            {% endfor %}
+            <fieldset class="">
+            <legend>Laisser un commentaire!!!</legend>
+            <div>
+              <form method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                  <label for="">Nom complet *</label>
+                  {{form.nom}}
+                </div>
+                <div class="form-group">
+                  <label for="">Adresse mail *</label>
+                  {{form.email}}
+                </div>
+                <div class="form-group">
+                  <label for="">Commentaire *</label>
+                  {{form.commentaire}}
+                </div>
+                <button class="btn btn-success" type="submit" name="button">Commenter</button>
+              </form>
+            </div>
+          </fieldset>
+        </div>
+
+        <div class="col-md-4">
+          <section class="">
+            <section class="suivre ombre">
+                <h1>Suivez - nous</h1>
+
+                <div class="facebook ombre">
+                  <h2><i class="fa fa-facebook" aria-hidden="true"></i> Facebook <a href="#"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a></h2>
+
+                  <p></p>
+                </div>
+                <div class="twitter ombre">
+                  <h2><i class="fa fa-twitter" aria-hidden="true"></i> Twitter <a href="#"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a> </h2>
+                  <p></p>
+                </div>
+                <div class="instagram ombre">
+                  <h2><i class="fa fa-instagram" aria-hidden="true"></i> Instagram <a href="#"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a></h2>
+                  <p></p>
+                </div>
+            </section>
+          </section>
+
+        </div>
+      </div>
+
+  </div>
+  <script type="javascript">
+    $("document").ready(
+      
+    )
+  </script>
+{% endblock content %}
+
+  

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block css %}
+
+{% endblock css %}
+
+{% block title %}
+    Ndéré - Alumni
+{% endblock title %}
+{% block content %}
+{% if request.user.is_online %}
+
+{{"utilisateur en ligne"}}
+
+{% else %}
+{{"utilisateur hors ligne"}}
+{% endif %}
+{% endblock content %}

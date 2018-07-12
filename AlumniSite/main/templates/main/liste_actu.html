@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+{% block title %}
+  Actualités
+{% endblock title %}
+
+{% block content %} 
+
+
+<style media="screen">
+  section img{
+    display: block;
+    width: 100%;
+  }
+  .ombre{
+    box-shadow: 0 0 10px #999;
+    padding: 10px;
+    margin: 20px;
+    background-color:#fff;
+  }
+  legend{
+    font-size: 40px;
+  }
+  section p{
+    text-align: justify;
+  }
+  .lirePlus{
+    margin-left: 90px;
+  }
+  .container{
+    width: 75%;
+  }
+  .flotant{
+    float: left;
+    color: red;
+  }
+</style>
+
+  <div class="container">
+
+    <fieldset>
+      <legend>Actualités</legend>
+      <div class="">
+        <div class="row">
+          {% for actualite in actualites %}
+          <div class="col-md-4">
+            <a href="">
+              <section class="ombre">
+                <img src="{{actualite.image_illustration.url}}" alt="">
+                <a href=""> <h2>{{actualite.titre|truncatechars:20}}</h2> </a>
+                <p class="description">{{actualite.texte_de_description|truncatewords:10}}</p>
+
+                <p>{{actualite.date_add|naturalday:"DATE_FORMAT"}}<a class="pull-right" href="">...lire plus</a></p>
+              </section>
+            </a>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </fieldset>
+
+  </div>
+
+{% endblock content %}
+

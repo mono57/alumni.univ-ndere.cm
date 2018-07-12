@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    Inscription
+{% endblock title %}    
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/accounts/style.css' %}">
+{% endblock css %}
+
+{% block content %}
+
+<div class="container bodyRegister">
+    <div class="title-registration-form">
+      <h2>Créer votre compte sur Ndéré - Alumni</h2>
+      <p class="">En remplissant le formulaire suivant</p>
+      <hr>
+    </div>
+    
+    <form class="registration-form" method="POST">
+        {% csrf_token %}
+        {{form.as_ul}}
+            <fieldset>
+            <legend>
+                Informations sur le compte*
+            </legend>
+                
+                <div class="form-row form-bottom">
+                    <div class="col-md-6 form-group">
+                        
+                    </div>
+                    <div class="col-md-6 form-group">
+                            
+                    </div>
+
+
+                            <div class="col-md-12 form-group">
+                                                             
+                            </div>
+                            <div class="form-group col-md-6">
+                                   
+                            </div>
+                            <div class="col-md-6 form-group">
+                                   
+                            </div>
+
+                        </div>
+
+                </fieldset>
+            <fieldset>
+                    <legend>
+                        Parcours académiques*
+                    </legend>
+                        <div class="form-row form-bottom">
+
+                            <div class="form-group col-md-6">
+                                   
+                            </div>
+                            <div class="form-group col-md-6">
+                                   
+                            </div>
+
+                        </div>
+                        <div class="form-row form-bottom">
+
+                            <div class="form-group col-md-6">
+                                    
+                            </div>
+                            <div class="form-group col-md-6">
+                                    
+                            </div>
+
+                        </div>
+
+                </fieldset>
+                <fieldset>
+                <legend>
+                    Informations supplementaires*
+                </legend>
+                    <div class="form-row form-bottom">
+                        <div class="col-md-4 form-group">
+                            
+                        </div>
+
+                            <div class="col-md-4 form-group">
+                                   
+                            </div>
+                            <div class="col-md-4 form-group">
+                                   
+                            </div>
+
+
+                    </div>
+
+                    <button type="submit" class="btn btn-success btn-submit pull-right" name="button">S'inscrire</button>
+                </fieldset>
+        </form>
+ </div>
+
+{% endblock content %}

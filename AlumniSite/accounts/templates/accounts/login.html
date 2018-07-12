@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/accounts/style.css' %}">
+{% endblock css %}
+
+{% block title %}
+    Connexion
+{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <div class="form-signin">
+
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label class="control-label" for="pseudo">Adresse email</label>
+                {{form.email}}    
+            </div>
+            {% if messages %}
+            {% for message in messages %}
+            <div class="form-group">
+                {% if message.tags %}
+                    <label for="message" style="color:#a94447;font-family:Verdana,sans-serif;" class="control-label">
+                        {{message}}
+                    </label>
+                {% endif %}
+            </div>
+            {% endfor %}
+            {% endif %}
+            <div class="form-group">
+                <label class="control-label" for="password">Mot de passe</label>
+                {{form.password}}
+                
+            </div>
+            <div class="form-check btn-check" style="margin-bottom:10px;">
+                {{form.remember}}
+                <label class="form-check-label" for="exampleCheck1">Se souvenir de moi</label>
+            </div>
+            <div class="">
+                <button type="submit" class="btn btn-light">Se connecter</button>
+                <a href="{% url 'register' %}" id="inscription"><button type="button" class="btn btn-link">Créer un compte</button></a>
+            <br>
+            <br><p><a href="{% url 'passwords:password_reset' %}">Mot de passe oublié?</a></p>
+            </div>
+    
+        </form>
+    </div>
+</div>
+{% endblock content %}
+

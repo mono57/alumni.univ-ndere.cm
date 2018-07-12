@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+Communauté
+{% endblock title %}
+{% block content %}
+<style media="screen">
+  .objectifs, .join, .groupe{
+    padding-top: 10px;
+    padding-bottom: 30px;
+    margin: 20px;
+    width: 450px;
+
+  }
+  h2{
+    color: white;
+    font-size: 2em;;
+    text-transform:uppercase;
+  }
+  .objectifs{
+    background-color: #0073c0;
+  }
+  .join{
+      background-color: green;
+  }
+  .groupe{
+      background-color:#bc1a55;
+  }
+</style>
+<div class="container">
+  <div class="row">
+    <a href="#">
+      <div class="col-md-6 text-center objectifs">
+        <img src="{% static 'img/two90.png' %}" alt="">
+        <h2>Nos objectifs</h2>
+        <hr>
+      </div>
+    </a>
+    <a href="#">
+      <div class="col-md-6 text-center join">
+        <img src="{% static 'img/create2.png' %}" alt="">
+        <h2>Nous rejoindre</h2>
+        <hr>
+      </div>
+    </a>
+  </div>
+  <div class="row">
+    <a href="">
+      <div class="col-md-6 text-center groupe">
+        <img src="{% static 'img/family11.png' %}" alt="">
+        <h2>Nos groupes </h2>
+        <hr>
+      </div>
+    </a>
+    <div class="col-md-6 text-center">
+
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

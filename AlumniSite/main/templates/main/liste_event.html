@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load humanize %}
+{% block title %}
+Evenements
+{% endblock title %}
+
+{% block content %}
+
+{% load static %}
+<style media="screen">
+  section img{
+    display: block;
+    width: 100%;
+  }
+  .ombre{
+    box-shadow: 0 0 10px #999;
+    padding: 10px;
+    margin: 10px;
+  }
+  legend{
+    font-size: 40px;
+  }
+  section p{
+    text-align: justify;
+  }
+ 
+  .container{
+    width: 75%;
+  }
+  
+</style>
+
+  <div class="container">
+
+    <fieldset>
+      <legend>Événements</legend>
+      <div class="">
+        <div class="row">
+          {% for evenement in evenements %}
+          <div class="col-md-4">
+              <a href="">
+                <section class="ombre">
+                  <img src="{{evenement.image_illustration.url}}" alt="">
+                  <a href=""> <h2>{{evenement.titre}}</h2> </a>
+                  <p><i class="fa fa-map-marker" aria-hidden="true"></i> &ensp;{{evenement.lieu}}</p>
+                  <p><i class="fa fa-calendar" aria-hidden="true"></i>&ensp; {{evenement.date_evenement}}</p>
+                  <p class="description">{{evenement.description|truncatewords:10}}</p>
+                  <p>{{evenement.date_creation}}<a class="pull-right" href="">...lire plus</a></p>
+                </section>
+              </a>
+            </div>
+          {% endfor %}
+
+        </div>
+      </div>
+    </fieldset>
+    <div class="add-event">
+      <a type="button" href="{% url 'create_event' %}" name="button" class="btn btn-primary">Créer un événement <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+    </div>
+  </div>
+
+{% endblock content %}
+

@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block title %}
+Création d'un événement
+{% endblock title %}
+{% block content %}
+<style media="screen">
+  .form-title{
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 50px;
+    font-size: 40px;
+    margin-top: 10px;
+  }
+  .container{
+    width: 50%;
+  
+  }
+  .title-add{
+    text-decoration: underline;
+  }
+  .namesite{
+    color: green;
+    text-decoration: none;
+  }
+  .containfluid{
+    margin-top: 0px;
+    padding-top: 10px;
+    padding-bottom: 15px;
+ 
+  }
+</style>
+  <div class="containfluid">
+    <div class="container">
+      <h1 class="form-title"><span class="title-add">créer votre événement sur</span> <span class="namesite">ndéré alumni</span></h1>
+   
+    <form class="formcreate-event" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="titre" class="control-label">Titre *</label>
+        {{form.titre.errors}}
+        {{form.titre}}
+      </div>
+      <div class="form-group">
+        <label for="description" class="control-label">Description *</label>
+        {{form.description}}
+        {{form.description.errors}}
+      </div>
+      <div class="form-group">
+        <label for="event" class="control-label">Lieu de l'evenement *</label>
+        {{form.lieu.errors}}
+        {{form.lieu}}
+      </div>
+     
+      <div class="form-group">
+        <label for="image" class="control-label">Image de description *</label>
+        {{form.image_illustration.errors}}
+        {{form.image_illustration}}
+      </div>
+      <div class="form-group">
+        <label for="date" class="control-label">Date de l'événement *</label>
+        <input type="date" class="form-control" name="date_evenement" id="">
+      </div>
+      <div class="row">
+        <button type="submit" class="btn btn-success col-md-6" name="button">Je crée un événement</button> 
+        <a type="button" href="" name="button" class="btn btn-link col-md-6">Tous les événements</a>
+      </div>
+    </form>
+    </div>
+  </div>
+
+{% endblock content %}
+

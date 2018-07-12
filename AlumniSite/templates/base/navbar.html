@@ -1,0 +1,72 @@
+{% url 'home' as home_url %}
+{% url 'event' as events_url %}
+{% url 'news' as news_url %}
+{% url 'login' as login_url %}
+{% url 'logout' as logout_url %}
+{% url 'register' as register_url %}
+{% url 'contact' as contact_url %}
+
+{% url 'forum:community' as community_url %}
+{% url 'donate' as donate_url %}
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
+    <div class='container-fluid'>
+   <a class="navbar-brand" href="{{ home_url }}">
+     <img src="//getbootstrap.com/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="">
+     Ndéré - Alumni
+   </a>
+   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+     <span class="navbar-toggler-icon"></span>
+   </button>
+ 
+   <div class="" id="navbarSupportedContent">
+     <ul class="navbar-nav mr-auto">
+       <li class="nav-item {% if request.path == home_url %}active{% endif %}">
+         <a class="nav-link" href="{{ home_url }}">Accueil <span class="sr-only">(current)</span></a>
+       </li>
+       <li class="nav-item {% if request.path == news_url %}active{% endif %}">
+         <a class="nav-link" href="{{ news_url }}">Actualités</a>
+       </li>
+       <li class="nav-item {% if request.path == events_url %}active{% endif %}">
+         <a class="nav-link" href="{{ events_url }}">Évenements</a>
+       </li>
+       <li class="nav-item {% if request.path == community_url %}active{% endif %}">
+            <a class="nav-link" href="{{ community_url }}">Communauté</a>
+        </li>
+        <li class="nav-item {% if request.path == donate_url %}active{% endif %}">
+            <a class="nav-link" href="{{ donate_url }}">Faire un don</a>
+        </li>
+        <li class="nav-item {% if request.path == contact_url %}active{% endif %}">
+            <a class="nav-link" href="{{ contact_url }}">Contactez - nous</a>
+        </li>
+        {% if request.user.is_authenticated %}
+        
+        
+       <li class="nav-item dropdown">
+         <a type="button" class="btn btn-light dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-user-circle" aria-hidden="true"></i> {{request.user.get_full_name}}
+        </a>
+         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+           <p class="dropdown-item">Salut &ensp; {{request.user.get_short_name}}</p>
+           <div class="dropdown-divider"></div>
+           <a class="dropdown-item" href="{% url 'accounts:profile' %}">Profile</a>
+           <a class="dropdown-item" href="">Agenda</a>
+           <a class="dropdown-item" href="">Notifications</a>
+           <a class='dropdown-item' href=''></a>
+           <div class="dropdown-divider"></div>
+           <a class="dropdown-item" href="{{ logout_url }}">Déconnexion</a>
+         </div>
+       </li>
+       
+       {% else %}
+       
+        <li class="nav-item {% if request.path == login_url %}active{% endif %}">
+         <a class="nav-link" href="{{ login_url }}">Connexion</a>
+       </li>
+       {% endif %}
+     </ul>
+   </div>
+ </div>
+ </nav>
+{% block breadcrumb_base %}
+{% endblock breadcrumb_base %}

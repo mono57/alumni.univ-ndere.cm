@@ -1,0 +1,44 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<!-- Mirrored from light.pinsupreme.com/auth_login.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 21 Jun 2018 14:23:14 GMT -->
+
+<head>
+    <title>Login | Admin</title>
+    <meta charset="utf-8">
+    <meta content="ie=edge" http-equiv="x-ua-compatible">
+    {% include "admin/base/css.html" %}
+</head>
+
+<body class="auth-wrapper">
+    <div class="all-wrapper menu-side with-pattern">
+        <div class="auth-box-w">
+            <div class="logo-w">
+                <a href="">
+                    <img alt="" src="{% static 'admin/img/logo-big.png' %}">
+                </a>
+            </div>
+            <h4 class="auth-header">Administration Ndéré-Alumni</h4>
+            <form method="POST">
+                {% csrf_token %}
+                {{form.errors}}
+                <div class="form-group">
+                    <label for="">Email</label>
+                    <input class="form-control" placeholder="Enter your email" type="text" name="username">
+                    <div class="pre-icon os-icon os-icon-user-male-circle"></div>
+                </div>
+                <div class="form-group">
+                    <label for="">Password</label>
+                    <input class="form-control" placeholder="Enter your password" type="password" name="password">
+                    <div class="pre-icon os-icon os-icon-fingerprint"></div>
+                </div>
+                <div class="buttons-w">
+                    <button class="btn btn-primary" type="submit">Log me in</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

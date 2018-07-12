@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+
+{% block title %}
+Profile {{request.user.get_short_name}}
+{% endblock title %}
+
+{% block content %}
+{% load static %}
+<style media="screen">
+        .box{
+          position: relative;
+    border-radius: 3px;
+    background: #ffffff;
+    border-top: 3px solid #d2d6de;
+        border-top-color: rgb(210, 214, 222);
+    margin-bottom: 20px;
+    width: 100%;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+    }
+    .box-body{
+      border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+    padding: 10px;
+    }
+    .text-muted{
+      color: #777;
+    }
+    .profile-user-img{
+      margin: 0 auto;
+    width: 100px;
+    padding: 3px;
+    border: 3px solid #d2d6de;
+    }
+    .img-circle{
+      border-radius: 50%;
+    }
+    .box-header .with-border{
+      border-bottom: 1px solid #f4f4f4;
+    }
+    .box-header{
+      color: #444;
+    display: block;
+    padding: 10px;
+    position: relative;
+    }
+    .profile-username{
+        text-transform: capitalize;
+    }
+      </style>
+<div class="container">
+        <section class="content">
+          <div class="row">
+  
+            <div class="col-md-3">
+              <div class="box box-primary">
+                <div class="box-body box-profile">
+                  <img src="{% static 'img/logo_user.png' %}" class="profile-user-img img-responsive img-circle" alt="">
+                  <h3 class="profile-username text-center">{{request.user.last_name}} {{request.user.first_name}} </h3>
+                  <p class="text-muted text-center">{{travailler.fonction}}</p>
+                  <ul class="list-group list-group-unbordered">
+                    <li class="list-group-item">
+                      <b>Evenements</b>
+                      <a href="#" class="pull-right">0</a>
+                    </li>
+                    <li class="list-group-item">
+                      <b>Groupes</b>
+                      <a href="#" class="pull-right">0</a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="box box-primary">
+                  <div class="box-header with-border">
+                    <h3 class="box-title">A propos de moi</h3>
+                  </div>
+                  <div class="box-body">
+                    <strong>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      Status
+                    </strong>
+                    <p class="text-muted">
+                    Alumni de l'année
+                  </p>
+                  <hr>
+                    <strong>
+                      <i class="fa fa-book margin-r-5"></i>
+                      Education
+                    </strong>
+                    <p class="text-muted">
+                    Université de N'gaoundéré en {{frequenter.faculte.nom}}
+                  </p>
+                  <hr>
+                  <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
+                  <p class="text-muted">{{habiter.ville}}, Cameroun</p>
+  
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-9">
+              <div class="nav-tabs-costum">
+                <fieldset>
+                  <legend>Paramètres</legend>
+                  <div class="content">
+  
+                <div class="" id="settings">
+                    <form method="POST">
+                        {% csrf_token %}
+                        {% for field in form %}
+                            {{ field.errors }}
+                            <label>{{ field.label }}</label>
+                            <input placeholder="{{ field.label }}" name="{{ field.name }}" class="form-control" />
+                        {% endfor %}
+                        <br />
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+                <!-- /.tab-pane -->
+              </div>
+                </fieldset>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+{% endblock content %}
+

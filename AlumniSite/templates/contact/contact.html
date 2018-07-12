@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+Contactez - nous
+{% endblock title %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/accounts/contact.css' %}">
+{% endblock css %}
+{% block content %}
+
+<section id="contact">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 text-center">
+                <h2 class="section-heading">CONTACTEZ NOUS</h2>
+                <hr class="primary">
+                <p>
+                    Appelez-nous ou envoyez-nous un courriel et nous vous répondrons dans les plus brefs délais!
+                    </p>
+                <div class="regularform">
+                    {% if messages %}
+                    {% for message in messages %}
+                    <div class="done">
+                        <div class="alert alert-success">
+                            <button type="button" class="close" data-dismiss="alert">×</button>
+                            {{message}}
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                    <form method="post" action="" id="contactform" class="text-left">
+                        {% csrf_token %}
+                        {{form.nom}}
+                        {{form.email}}
+                        {{form.message}}
+                        <button type="submit" id="submit" class="contact submit btn btn-primary btn-xl" value="">Envoyer le message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}
