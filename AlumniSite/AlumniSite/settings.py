@@ -12,7 +12,7 @@ SECRET_KEY = '*dchdpc1$$*t4b!6wli-p6=9j3s*3+a0-7qjzbl6j^&87c7r!4'
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'jesuisuntestpython3@gmail.com' # sendgrid
-EMAIL_HOST_PASSWORD = 'AmonoAymar'
+EMAIL_HOST_PASSWORD = '*************'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'jesuisuntestpython3@gmail.com'
