@@ -10,6 +10,9 @@ from main.models import Actualite
 
 User = get_user_model()
 
+def get_staff_user():
+    return User.objects.filter(admin=True) 
+
 class IndexView(LoginRequiredMixin,TemplateView):
     login_url = reverse_lazy('admin_login:login')
     template_name = 'admin/index.html'
@@ -17,14 +20,12 @@ class IndexView(LoginRequiredMixin,TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['etudiants'] = Etudiant.objects.all()
-        context['admins'] = self.get_staff_user()
-        context['users'] = User.objects.all()
+        context['admins'] = get_staff_user()
+        context['users'] = User.objects.all()[:5]
+        context['habitations'] = Habiter.objects.all()
         context['user_not_active'] = self.get_suspend_user()
 
         return context
-
-    def get_staff_user(self):
-        return User.objects.filter(admin=True)
 
     def get_suspend_user(self):
         return User.objects.filter(is_active=False).count()
@@ -95,6 +96,12 @@ class ListViewUser(ListView):
     model = User
     context_object_name = "users"
     template_name = "admin/users_list.html"
+    paginate_by = 10
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['admins'] = get_staff_user()
+        return context
 
 class CreateNews(CreateView):
     template_name = "admin/news_form.html"

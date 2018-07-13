@@ -1,0 +1,296 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"> {% include "admin/base/css.html" %}
+    <title>{% block title %} {% endblock title %} | Alumni</title>
+</head>
+
+<body class="menu-position-side menu-side-left full-screen with-content-panel">
+    <div class="all-wrapper with-side-panel solid-bg-all">
+        <div class="top-bar color-scheme-transparent">
+            <div class="logo-w">
+                <a class="logo" href="{% url 'admin:index' %}">
+                    <div class="logo-element"></div>
+                    <div class="logo-label"><span style="text-transform:capitalize">Admin</span> Ndéré - Alumni</div>
+                </a>
+            </div>
+            <div class="top-menu-controls">
+                <div class="element-search autosuggest-search-activator">
+                    <input placeholder="Entrez un motif..." type="text">
+                </div>
+
+                <div class="messages-notifications os-dropdown-trigger os-dropdown-position-left">
+                    <i class="os-icon os-icon-mail-14"></i>
+                    <div class="new-messages-count">22</div>
+                    <div class="os-dropdown light message-list">
+                        <ul>
+                            <li>
+                                <a href="#">
+                                    <div class="user-avatar-w">
+                                        <img alt="Avatar" src="">
+                                    </div>
+                                    <div class="message-content">
+                                        <h6 class="message-from">John Mayers</h6>
+                                        <h6 class="message-title">Account Update</h6>
+                                    </div>
+                                </a>
+                            </li>
+
+
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="logged-user-w">
+                    <div class="logged-user-i">
+                        <div class="avatar-w">
+                            <img alt="" src="{% static 'admin/img/avatar1.jpg'%}">
+                        </div>
+                        <div class="logged-user-menu color-style-bright">
+                            <div class="logged-user-avatar-info">
+                                <div class="logged-user-info-w">
+                                    <div class="logged-user-name">{{request.user.get_full_name}}</div>
+                                    <div class="logged-user-role">Administrateur</div>
+                                </div>
+                            </div>
+
+                            <ul>
+
+                                <li>
+                                    <a href="users_profile_big.html">
+                                        <i class="os-icon os-icon-user-male-circle2"></i>
+                                        <span>Profile</span>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="#">
+                                        <i class="os-icon os-icon-signs-11"></i>
+                                        <span>Logout</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-8">
+                    {% block content %} {% endblock content %}
+                </div>
+                <div class="col-sm-4">
+                    <div class="content-panel">
+                        <div class="content-panel-close">
+                            <i class="os-icon os-icon-close"></i>
+                        </div>
+                        <div class="element-wrapper">
+                            <h6 class="element-header">Quick Links</h6>
+                            <div class="element-box-tp">
+                                <div class="el-buttons-list full-width">
+                                    <a class="btn btn-white btn-sm" href="{% url 'admin:create_news' %}">
+                                        <i class="os-icon os-icon-delivery-box-2"></i>
+                                        <span>Create New Post</span>
+                                    </a>
+                                    <a class="btn btn-white btn-sm" href="">
+                                        <i class="os-icon os-icon-window-content"></i>
+                                        <span>Customer Comments</span>
+                                    </a>
+                                    <a class="btn btn-white btn-sm" href="#">
+                                        <i class="os-icon os-icon-wallet-loaded"></i>
+                                        <span>Store Settings</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="element-wrapper">
+                            <h6 class="element-header">Administrateurs</h6>
+                            {% for admin in admins %}
+                            <div class="element-box-tp">
+                                <div class="profile-tile">
+                                    <a class="profile-tile-box" href="">
+                                        <div class="pt-avatar-w">
+                                            <img alt="" src="{% static 'admin/img/avatar1.jpg' %}">
+                                        </div>
+                                        <div class="pt-user-name">{{admin.get_full_name}}</div>
+                                    </a>
+                                    <div class="profile-tile-meta">
+                                        <ul>
+                                            <li>Last Login: {% if admin.is_online %}
+                                                <strong>
+                                                    <span class="status-pill smaller green"></span> Online Now</strong>
+                                                {% else %}
+                                                <strong>{{admin.last_login|timesince}}</strong>
+                                                {% endif %}
+                                            </li>
+                                            <li>Tickets:
+                                                <strong>
+                                                    <a href="">12</a>
+                                                </strong>
+                                            </li>
+                                            <li>Response Time:
+                                                <strong>2 hours</strong>
+                                            </li>
+                                        </ul>
+                                        <div class="pt-btn">
+                                            {% if request.user == admin %}
+                                            <button class="btn btn-success btn-sm">Envoyer un message</button>
+                                            {% else %}
+                                            <button class="btn btn-success btn-sm">Envoyer un message</button>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="element-wrapper">
+                            <h6 class="element-header">Recent Activity</h6>
+                            <div class="element-box-tp">
+                                <div class="activity-boxes-w">
+                                    <div class="activity-box-w">
+                                        <div class="activity-time">10 Min</div>
+                                        <div class="activity-box">
+                                            <div class="activity-avatar">
+                                                <img alt="" src="img/avatar1.jpg">
+                                            </div>
+                                            <div class="activity-info">
+                                                <div class="activity-role">John Mayers</div>
+                                                <strong class="activity-title">Opened New Account</strong>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="activity-box-w">
+                                        <div class="activity-time">2 Hours</div>
+                                        <div class="activity-box">
+                                            <div class="activity-avatar">
+                                                <img alt="" src="img/avatar2.jpg">
+                                            </div>
+                                            <div class="activity-info">
+                                                <div class="activity-role">Ben Gossman</div>
+                                                <strong class="activity-title">Posted Comment</strong>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="activity-box-w">
+                                        <div class="activity-time">5 Hours</div>
+                                        <div class="activity-box">
+                                            <div class="activity-avatar">
+                                                <img alt="" src="img/avatar3.jpg">
+                                            </div>
+                                            <div class="activity-info">
+                                                <div class="activity-role">Phil Nokorin</div>
+                                                <strong class="activity-title">Opened New Account</strong>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="activity-box-w">
+                                        <div class="activity-time">2 Days</div>
+                                        <div class="activity-box">
+                                            <div class="activity-avatar">
+                                                <img alt="" src="img/avatar4.jpg">
+                                            </div>
+                                            <div class="activity-info">
+                                                <div class="activity-role">Jenny Miksa</div>
+                                                <strong class="activity-title">Uploaded Image</strong>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="floated-customizer-btn third-floated-btn">
+            <div class="icon-w">
+                <i class="os-icon os-icon-ui-46"></i>
+            </div>
+            <span> Voir le site</span>
+        </div>
+
+        <!--------------------
+START - Chat Popup Box
+-------------------->
+        <div class="floated-chat-w">
+            <div class="floated-chat-i">
+                <div class="chat-close">
+                    <i class="os-icon os-icon-close"></i>
+                </div>
+                <div class="chat-head">
+                    <div class="user-w with-status status-green">
+                        <div class="user-avatar-w">
+                            <div class="user-avatar">
+                                <img alt="" src="{% static 'admin/img/avatar1.jpg' %}">
+                            </div>
+                        </div>
+                        <div class="user-name">
+                            <h6 class="user-title">John Mayers</h6>
+                            <div class="user-role">Account Manager</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-messages ps ps--theme_default" data-ps-id="a37bcc5e-a3c4-915a-ee87-87d0d38f52ff">
+                    <div class="message">
+                        <div class="message-content">Hi, how can I help you?</div>
+                    </div>
+                    <div class="date-break">Mon 10:20am</div>
+                    <div class="message">
+                        <div class="message-content">Hi, my name is Mike, I will be happy to assist you</div>
+                    </div>
+                    <div class="message self">
+                        <div class="message-content">Hi, I tried ordering this product and it keeps showing me error code.</div>
+                    </div>
+                    <div class="ps__scrollbar-x-rail" style="left: 0px; bottom: 0px;">
+                        <div class="ps__scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+                    </div>
+                    <div class="ps__scrollbar-y-rail" style="top: 0px; right: 0px;">
+                        <div class="ps__scrollbar-y" tabindex="0" style="top: 0px; height: 0px;"></div>
+                    </div>
+                </div>
+                <div class="chat-controls">
+                    <input class="message-input" placeholder="Type your message here..." type="text">
+                    <div class="chat-extra">
+                        <a href="#">
+                            <span class="extra-tooltip">Attach Document</span>
+                            <i class="os-icon os-icon-documents-07"></i>
+                        </a>
+                        <a href="#">
+                            <span class="extra-tooltip">Insert Photo</span>
+                            <i class="os-icon os-icon-others-29"></i>
+                        </a>
+                        <a href="#">
+                            <span class="extra-tooltip">Upload Video</span>
+                            <i class="os-icon os-icon-ui-51"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--------------------
+END - Chat Popup Box
+-------------------->
+
+    </div>
+
+</body>
+
+{% include "admin/base/js.html" %} {% block javascript %} {% endblock javascript %}
+<script>
+        $('.btn-sm').click(function(){
+            $('.floated-chat-w').toggleClass('active');
+        });
+    </script>
+</html>

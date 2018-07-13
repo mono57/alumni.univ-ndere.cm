@@ -78,12 +78,12 @@ $(function () {
 
   // #1. CHAT APP
 
-  $('.floated-chat-btn, .floated-chat-w .chat-close').on('click', function () {
+  /*$('.floated-chat-btn, .floated-chat-w .chat-close').on('click', function () {
     $('.floated-chat-w').toggleClass('active');
     return false;
-  });
+  });*/
 
-  $('.message-input').on('keypress', function (e) {
+  /*$('.message-input').on('keypress', function (e) {
     if (e.which == 13) {
       $('.chat-messages').append('<div class="message self"><div class="message-content">' + $(this).val() + '</div></div>');
       $(this).val('');
@@ -95,7 +95,7 @@ $(function () {
   });
 
   $('.floated-chat-w .chat-messages').perfectScrollbar();
-
+*/
   // #2. CALENDAR INIT
 
   if ($("#fullCalendar").length) {

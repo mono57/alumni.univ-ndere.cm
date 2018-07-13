@@ -1,9 +1,10 @@
 {% extends "admin/base.html" %} {% load static %} {% block content %}
 <!--START - Recent Ticket Comments-->
 <div class="element-wrapper">
-    <h6 class="element-header">Recent Ticket Comments</h6>
+    <h6 class="element-header">Nouvels enregistrements</h6>
     <div class="element-box-tp">
         <div class="table-responsive">
+            {% if etudiants %}
             <table class="table table-padded">
                 <thead>
                     <tr>
@@ -47,168 +48,95 @@
                                 <i class="os-icon os-icon-grid-10"></i>
                             </a>
 
-                            <a class="danger">
+                            <a class="danger delete">
                                 <i class="os-icon os-icon-ui-15"></i>
                             </a>
                         </td>
                     </tr>
                     {% endfor %}
-                    <tr class="tr">
-                        <td class="text-center">
-                            <input class="form-control" type="checkbox">
-                        </td>
-                        <td>
-                            <div class="user-with-avatar">
 
-                                <span>full name</span>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="smaller lighter"></div>
-                        </td>
-                        <td>
-                            <span>Today</span>
-
-                        </td>
-                        <td class="text-center">
-                            <a class="badge badge-success-inverted" href="#">matricule</a>
-                        </td>
-                        <td class="nowrap">
-                            <span class="status-pill smaller green"></span>
-                            <span>Active</span>
-                        </td>
-                        <td class="row-actions">
-                            <a class="add" data-id='' id="add">
-                                <i class="os-icon os-icon-grid-10"></i>
-                            </a>
-
-                            <a class="danger">
-                                <i class="os-icon os-icon-ui-15"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr class="tr">
-                        <td class="text-center">
-                            <input class="form-control" type="checkbox">
-                        </td>
-                        <td>
-                            <div class="user-with-avatar">
-
-                                <span>full name</span>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="smaller lighter"></div>
-                        </td>
-                        <td>
-                            <span>Today</span>
-
-                        </td>
-                        <td class="text-center">
-                            <a class="badge badge-success-inverted" href="#">matricule</a>
-                        </td>
-                        <td class="nowrap">
-                            <span class="status-pill smaller green"></span>
-                            <span>Active</span>
-                        </td>
-                        <td class="row-actions">
-                            <a class="add" data-id='' id="add">
-                                <i class="os-icon os-icon-grid-10"></i>
-                            </a>
-
-                            <a class="danger">
-                                <i class="os-icon os-icon-ui-15"></i>
-                            </a>
-                        </td>
-                    </tr>
                 </tbody>
             </table>
+            {% else %}
+
+            <div class="alert alert-info" role="alert">
+                <h3>Aucune demande d'inscription</h3>
+            </div>
+            {% endif %}
         </div>
     </div>
-</div>
+    <h5 class="form-header">Liste des utilisateurs</h5>
 
-<h5 class="form-header">Liste des utilisateurs</h5>
+    <div class="controls-above-table">
+        <div class="row">
+            <div class="col-sm-6">
+                <a class="btn btn-sm btn-secondary" href="{% url 'admin:list_user' %}">Tous les utilisateurs</a>
+            </div>
 
-<!--------------------
-START - Controls Above Table
--------------------->
-<div class="controls-above-table">
-    <div class="row">
-        <div class="col-sm-6">
-            <a class="btn btn-sm btn-secondary" href="{% url 'admin:list_user' %}">Tous les utilisateurs</a>
-            <a class="btn btn-sm btn-danger" href="#">Delete</a>
         </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-bordered table-lg table-v2 table-striped">
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Country</th>
+                    <th>Last Login</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}                    </td>-->
 
+                <tr>
+                    <!--<td class="text-center">
+                        <input class="form-control" type="checkbox">
+                    </td>-->
+                    <td>{{user.first_name}}</td>
+
+                    <td class="text-right">{{user.last_name}}</td>
+                    <td>{{"Ngaoundéré"}}</td>
+                    <td>{{user.date_joined}}</td>
+
+                    <td class="row-actions">
+                        <a href="#">
+                            <i class="os-icon os-icon-ui-49"></i>
+                        </a>
+                        <a href="#">
+                            <i class="os-icon os-icon-grid-10"></i>
+                        </a>
+
+                        <a class="danger" href="#">
+                            <i class="os-icon os-icon-ui-15"></i>
+                        </a>
+                    </td>
+                </tr>
+
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 </div>
-<!--------------------
-END - Controls Above Table
-------------------          -->
-<!--------------------
-START - Table with actions
-------------------  -->
-<div class="table-responsive">
-    <table class="table table-bordered table-lg table-v2 table-striped">
-        <thead>
-            <tr>
-                <th class="text-center">
-                    <input class="form-control" type="checkbox">
-                </th>
-                <th>First and Last Name</th>
-                <th>Country</th>
-                <th>Email</th>
-                <th>Last Login</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for user in users %}
-            <tr>
-                <td class="text-center">
-                    <input class="form-control" type="checkbox">
-                </td>
-                <td>{{user.get_full_name}}</td>
-                <td>
-                    Ngaoundere
-                </td>
-                <td class="text-right">{{user.email}}</td>
-                <td>Organic</td>
-
-                <td class="row-actions">
-                    <a href="#">
-                        <i class="os-icon os-icon-ui-49"></i>
-                    </a>
-                    <a href="#">
-                        <i class="os-icon os-icon-grid-10"></i>
-                    </a>
-                    <a class="danger" href="#">
-                        <i class="os-icon os-icon-ui-15"></i>
-                    </a>
-                </td>
-            </tr>
-
-            {% endfor %}
-        </tbody>
-    </table>
-</div>
-<!--------------------
-END - Table with actions
-------------------            -->
 
 {% endblock content %} {% block javascript %}
 <script>
-    $(".add").on('click',function () {
+    $(".add").on('click', function () {
         var $id = $(this).attr("data-id");
         var $entry = $(this);
         $entry.parent().parent().fadeOut(1500);
-        /*$.ajax({
+        $.ajax({
             url: '{% url "admin:addUser" %}',
             data: 'pk=' + $id,
             dataType: 'JSON',
-            success: function () {
+            success: function (data) {
                 
             }
-        });*/
+        });
+    });
+    $(".delete").click(function () {
+        if (confirm("Êtes vous sûr de vouloir supprimer cet élément?")) {;
+        }
     });
 </script>
 {% endblock javascript %}

@@ -77,6 +77,9 @@ class User(AbstractUser):
 
     objects = UserManager()
 
+    class Meta:
+        ordering = ('-date_joined',)
+
     def __str__(self):
         return '{} {}'.format(self.first_name, self.last_name)
 
