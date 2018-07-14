@@ -8,7 +8,7 @@
             <table class="table table-padded">
                 <thead>
                     <tr>
-                        <th></th>
+                        
                         <th>Nom & Prenom</th>
                         <th>Entrée</th>
                         <th class="text-center">Sortie</th>
@@ -19,29 +19,27 @@
                 </thead>
                 <tbody>
                     {% for etudiant in etudiants %}
-                    <tr class="tr">
-                        <td class="text-center">
-                            <input class="form-control" type="checkbox">
-                        </td>
+                    <tr>
+                       
                         <td>
                             <div class="user-with-avatar">
-
                                 <span>{{etudiant.get_full_name}}</span>
                             </div>
                         </td>
                         <td>
-                            <div class="smaller lighter"></div>
+                            <span>{{etudiant.annee_entree}}</span>
+                            
                         </td>
                         <td>
-                            <span>Today</span>
+                            <span>{{etudiant.annee_sortie}}</span>
 
                         </td>
                         <td class="text-center">
                             <a class="badge badge-success-inverted" href="#">{{etudiant.matricule}}</a>
                         </td>
-                        <td class="nowrap">
-                            <span class="status-pill smaller green"></span>
-                            <span>Active</span>
+                        <td class="text-center">
+                           
+                            <span>{{etudiant.entreprise}}</span>
                         </td>
                         <td class="row-actions">
                             <a class="add" data-id='{{etudiant.id}}' id="add">
@@ -82,12 +80,13 @@
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Country</th>
+                    <th>Date inscription</th>
                     <th>Last Login</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                {% for user in users %}                    </td>-->
+                {% for user in users %}         
 
                 <tr>
                     <!--<td class="text-center">
@@ -98,16 +97,10 @@
                     <td class="text-right">{{user.last_name}}</td>
                     <td>{{"Ngaoundéré"}}</td>
                     <td>{{user.date_joined}}</td>
+                    <td>{{user.last_login}}</td>
 
                     <td class="row-actions">
-                        <a href="#">
-                            <i class="os-icon os-icon-ui-49"></i>
-                        </a>
-                        <a href="#">
-                            <i class="os-icon os-icon-grid-10"></i>
-                        </a>
-
-                        <a class="danger" href="#">
+                        <a class="danger" href="#" alt="Suspendre">
                             <i class="os-icon os-icon-ui-15"></i>
                         </a>
                     </td>
@@ -125,14 +118,14 @@
         var $id = $(this).attr("data-id");
         var $entry = $(this);
         $entry.parent().parent().fadeOut(1500);
-        $.ajax({
+        /*$.ajax({
             url: '{% url "admin:addUser" %}',
             data: 'pk=' + $id,
             dataType: 'JSON',
             success: function (data) {
                 
             }
-        });
+        });*/
     });
     $(".delete").click(function () {
         if (confirm("Êtes vous sûr de vouloir supprimer cet élément?")) {;

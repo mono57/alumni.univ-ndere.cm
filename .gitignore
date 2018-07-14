@@ -8,5 +8,5 @@ share/
 bin/
 include/
 settings.py
-db.sqlite3
+
 *.sqlite3 
