@@ -20,3 +20,19 @@ class SetLastUserLogin:
             print(cache.get("online"))
             print(request.user.is_online)
         return response
+
+class PutDeleteMethodInRequestContext:
+    def __init__(self,get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
+        if 'HTTP_X_METHODOVERRIDE' in request.META.keys():
+            http_method = request.META['HTTP_X_METHODOVERRIDE']
+            if http_method.lower() == 'delete':
+                request.method = 'DELETE'
+                request.META['REQUEST_METHOD'] = 'DELETE'
+                request.DELETE = QueryDict(request.body)
+
+        print(request.META)
+        response = self.get_response(request)
+        return response

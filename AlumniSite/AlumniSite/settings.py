@@ -52,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'admin.middlewares.SetLastUserLogin',
+    'admin.middlewares.PutDeleteMethodInRequestContext',
 ]
 
 CACHES = {

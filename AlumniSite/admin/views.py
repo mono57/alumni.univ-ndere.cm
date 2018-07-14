@@ -30,7 +30,7 @@ class IndexView(LoginRequiredMixin,TemplateView):
     def get_suspend_user(self):
         return User.objects.filter(is_active=False).count()
 
-class AjaxRequestAddUser(View):
+class AjaxRequestProcessUser(View):
     def get(self,request, *args, **kwargs):
         try:
             etudiant = Etudiant.objects.get(pk=request.GET.get('pk'))
@@ -42,6 +42,19 @@ class AjaxRequestAddUser(View):
             'etudiants':Etudiant.objects.all()
         }
         return JsonResponse(data)
+
+    def delete(self, request):
+        try:
+            etudiant = Etudiant.objects.get(pk=request.DELETE.get('pk'))
+        except:
+            print("l'etudiant n'a pas été supprimer")
+        if etudiant:
+            etudiant.delete()
+        data = {
+            'etudiants':Etudiant.objects.all()
+        }
+        return JsonResponse(data)
+        
 
     def make_migrations(self,etudiant):
         new_user = User.objects.create_user(
