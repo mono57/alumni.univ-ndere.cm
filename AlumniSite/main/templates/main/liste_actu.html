@@ -47,9 +47,9 @@
           <div class="col-md-4">
             <a href="">
               <section class="ombre">
-                <img src="{{actualite.image_illustration.url}}" alt="">
+                <img src="{{actualite.image_description.url}}" alt="">
                 <a href=""> <h2>{{actualite.titre|truncatechars:20}}</h2> </a>
-                <p class="description">{{actualite.texte_de_description|truncatewords:10}}</p>
+                <p class="description">{{actualite.text_description|truncatewords:10|safe}}</p>
 
                 <p>{{actualite.date_add|naturalday:"DATE_FORMAT"}}<a class="pull-right" href="">...lire plus</a></p>
               </section>
