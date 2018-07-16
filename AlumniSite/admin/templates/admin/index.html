@@ -100,9 +100,16 @@
                     <td>{{user.last_login}}</td>
 
                     <td class="row-actions">
-                        <a class="danger" href="#">
-                            <i class="os-icon os-icon-ui-15"></i>
+                        {% if user.is_active == False %}
+                        <a class="activated" data-id='{{user.id}}'>
+                            <i class="os-icon os-icon-grid-10"></i>
                         </a>
+                        {% else %}
+                        <a class="danger suspend" data-id='{{user.id}}'>
+                                <i class="os-icon os-icon-ui-15"></i>
+                            </a>
+                        {% endif %}
+                        
                     </td>
                 </tr>
 
@@ -118,13 +125,14 @@
         var $id = $(this).attr("data-id");
         var $entry = $(this);
         $entry.parent().parent().fadeOut(1500);
+        $('.nb-etudiant').val() --;
+        $('.nb-users').val() ++;
         $.ajax({
             url: '{% url "admin:processUser" %}',
             data: 'pk=' + $id,
             dataType: 'JSON',
             success: function (data) {
-                $('.nb-etudiant').val()--;
-                $('.nb-users').val()++;
+
             }
         });
     });
@@ -133,14 +141,34 @@
             var $id = $(this).attr("data-id");
             var $entry = $(this);
             $entry.parent().parent().fadeOut(1500);
+            $('.nb-etudiant').val() --;
             $.ajax({
-                type:'DELETE',
-                url: '{% url "admin:processUser" %}',
+                type: 'GET',
+                url: '{% url "admin:processDeleteUser" %}',
                 data: 'pk=' + $id,
                 dataType: 'JSON',
                 success: function (data) {
-                    $('.nb-etudiant').val()--;
+
                     alert("Etudiant supprimer");
+                }
+            });
+        }
+    });
+    $(".suspend").click(function () {
+        if (confirm("Êtes vous sûre de vouloir suspendre cet utilisateur?")) {
+            var $id = $(this).attr("data-id");
+            var $entry = $(this);
+            $entry.parent().parent().fadeOut(1500);
+
+            $.ajax({
+                type:'GET',
+                url: '{% url "admin:processSuspendUser" %}',
+                data: 'pk=' + $id,
+                dataType: 'JSON',
+                success: function (data) {
+                    $('.nb-users').val()--;
+                    $('.nb-suspend-user').val()++;
+                    
                 }
             });
         }

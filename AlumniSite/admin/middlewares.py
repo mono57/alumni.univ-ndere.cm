@@ -33,6 +33,5 @@ class PutDeleteMethodInRequestContext:
                 request.META['REQUEST_METHOD'] = 'DELETE'
                 request.DELETE = QueryDict(request.body)
 
-        print(request.META)
         response = self.get_response(request)
         return response

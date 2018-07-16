@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views.generic import TemplateView, View, ListView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
@@ -31,15 +31,12 @@ class IndexView(LoginRequiredMixin,TemplateView):
         return User.objects.filter(is_active=False).count()
 
 class AjaxRequestProcessUser(View):
+    http_method_names = ['post', 'delete', 'get' ]
     def get(self,request, *args, **kwargs):
-        try:
-            etudiant = Etudiant.objects.get(pk=request.GET.get('pk'))
-        except:
-            print('Error')
-        if etudiant:
-            self.make_migrations(etudiant)
+        etudiant = get_object_or_404(Etudiant, pk=request.GET.get('pk'))
+        self.make_migrations(etudiant)
         data = {
-            'etudiants':Etudiant.objects.all()
+            'ok':True
         }
         return JsonResponse(data)
 
@@ -130,3 +127,46 @@ class CreateNews(CreateView):
         print(self.get_form_kwargs())
         print(form.errors)
         return super().form_invalid(form)
+
+def ajaxDeleteRequest(request):
+    ok = False
+    if request.method == 'GET':
+        etudiant = Etudiant.objects.get(pk=request.GET['pk']).delete()
+        ok = True
+    data = {
+        'ok':ok
+    }
+    return JsonResponse(data)
+
+def ajaxSuspendRequest(request):
+    ok = False
+    if request.method == 'GET':
+        user = User.objects.get(pk=request.GET.get('pk'))
+        print(user)
+        user.is_active = False
+        user.save()
+        ok = True
+    data = {
+        'ok':ok
+    }
+    return JsonResponse(data)
+
+class ChangeStateUser(View):
+
+    http_method_names = ['get', 'put']
+
+    ok = False
+
+    def get(self, request, *args, **kwargs):
+        user = get_object_or_404(User, pk=request.GET.get('pk'))
+        user.is_active = False
+        user.save()
+        data = {'ok':True}
+        return JsonResponse(data)
+
+    def put(self, request, *args, **kwargs):
+        user = get_object_or_404(User, pk=request.PUT.get('pk'))
+        user.is_active = False
+        suer.save()
+        data = {'ok':True}
+        return JsonResponse(data)
