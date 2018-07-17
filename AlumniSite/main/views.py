@@ -1,10 +1,11 @@
-from django.views.generic import TemplateView, ListView, CreateView
+from django.views.generic import TemplateView, ListView, CreateView, DetailView
 from django.views.generic.edit import FormView
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from .models import Evenement, Actualite
 from main.forms import CreateEventForm, ContactForm
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class IndexView(TemplateView):
@@ -14,6 +15,16 @@ class ListActualite(ListView):
     template_name = 'main/liste_actu.html'
     context_object_name = 'actualites'
     model = Actualite
+
+class DetailNews(DetailView):
+    model = Actualite
+    template_name = 'main/details_news.html'
+    context_object_name = 'news'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['latest_news'] = Actualite.objects.all()[:5]
+        return context
 
 class ListEvenement(ListView):
     template_name = 'main/liste_event.html'
@@ -30,8 +41,7 @@ def create_event(request):
                 titre=form.cleaned_data['titre'],
                 description = form.cleaned_data['description'],
                 lieu = form.cleaned_data['lieu'],
-                acces = form.cleaned_data['acces'], 
-                image_illustration = form.cleaned_data['image_illustration'],
+                image_description = form.cleaned_data['image_description'],
                 date_evenement = form.cleaned_data['date_evenement'],
                 createur = request.user
             )
@@ -48,17 +58,14 @@ def create_event(request):
     return render(request, 'main/create_event.html', context)
 
 
-class CreateEventView(CreateView):
+class CreateEventView(CreateView,LoginRequiredMixin):
     form_class = CreateEventForm
-    model = Evenement
     template_name = 'main/create_event.html'
-    success_url = reverse_lazy('event')
+    success_url = reverse_lazy('main:liste_event')
 
     def form_valid(self, form):
-        
-        form.instance.createur = self.request.user
-        form.save()
-        return HttpResponseRedirect(self.get_success_url())
+
+        return super().form_valid(form)
 
 class ContactView(FormView):
     template_name = 'contact/contact.html'

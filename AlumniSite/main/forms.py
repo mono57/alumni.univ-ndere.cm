@@ -2,18 +2,9 @@ from django import forms
 from .models import Evenement, Actualite
 
 class CreateEventForm(forms.Form):
-    titre = forms.CharField(max_length=200,
-         widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':''})
-    )
-    description = forms.CharField(
-        widget = forms.Textarea(attrs={'class':'form-control', 'placeholder':''})
-    )
-    lieu = forms.CharField(max_length=30,
-     widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':''})
-     )
-    image_illustration = forms.FileField(
-        widget=forms.FileInput(attrs={'class':'form-control'})
-    )
+    class Meta:
+        model = Evenement
+        fields = ['titre', 'description','image_description' ,'lieu', 'date_evenement']
  
 class ActualiteForm(forms.ModelForm):
     class Meta:

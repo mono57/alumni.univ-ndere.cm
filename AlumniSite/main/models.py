@@ -11,12 +11,13 @@ class Evenement(models.Model):
     image_illustration = models.ImageField(upload_to='event_images')
     date_evenement = models.DateTimeField(auto_now=False)
     date_creation = models.DateTimeField(auto_now_add=True)
-    createur = models.ForeignKey(User, on_delete=models.CASCADE)
+    createur = models.OneToOneField(User,on_delete=models.CASCADE)
+    activated = models.BooleanField(default=True)
     
     def __str__(self):
         return "Evenement : {} Date : {} Createur : {}".format(self.titre,self.date_evenement, self.createur)
-    #def get_absolute_usrl(self):
-    #    return reverse('')
+    def get_absolute_url(self):
+        return reverse('details', args=[str(self.id)])
 
 class Actualite(models.Model):
     title = models.CharField(max_length=200)

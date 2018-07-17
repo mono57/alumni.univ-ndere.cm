@@ -7,52 +7,55 @@ Evenements
 {% block content %}
 
 {% load static %}
-<style media="screen">
-  section img{
-    display: block;
-    width: 100%;
-  }
-  .ombre{
-    box-shadow: 0 0 10px #999;
-    padding: 10px;
-    margin: 10px;
-  }
-  legend{
-    font-size: 40px;
-  }
-  section p{
-    text-align: justify;
-  }
- 
-  .container{
-    width: 75%;
-  }
-  
-</style>
 
   <div class="container">
 
     <fieldset>
       <legend>Événements</legend>
-      <div class="">
-        <div class="row">
-          {% for evenement in evenements %}
-          <div class="col-md-4">
-              <a href="">
-                <section class="ombre">
-                  <img src="{{evenement.image_illustration.url}}" alt="">
-                  <a href=""> <h2>{{evenement.titre}}</h2> </a>
-                  <p><i class="fa fa-map-marker" aria-hidden="true"></i> &ensp;{{evenement.lieu}}</p>
-                  <p><i class="fa fa-calendar" aria-hidden="true"></i>&ensp; {{evenement.date_evenement}}</p>
-                  <p class="description">{{evenement.description|truncatewords:10}}</p>
-                  <p>{{evenement.date_creation}}<a class="pull-right" href="">...lire plus</a></p>
-                </section>
-              </a>
+      <div class="event-box style-2 list-type">
+          
+        <!-- Event -->
+        <div class="event">
+
+          <div class="event-date">
+            
+            <h3 class="numb">18</h3>
+            <h6 class="month">March</h6>
+            <div class="day">Monday</div>
+
+          </div>
+
+          <div class="event-img">
+            
+            <a href="#"><img src="images/545x308_img1.jpg" alt=""></a>
+
+          </div>
+          
+          <div class="event-body">
+            
+            
+
+            <p><i class="fa fa-map-marker"></i> Ngaoundere <br>
+            <i class="fa fa-calendar"></i> 22 Mai 2018</p> 
+
+            <p>Aliquam erat volutpat. Duis ac turpis. Donec sit amet eros. Lorem ipsum dolor. Mauris fermentum dictum magna. Sed laoreet aliquam leo. Ut tellus dolor, dapibus eget, elementum vel, cursus eleifend, elit. Aenean auctor wisi et urna.  Aliquam erat volutpat. </p>
+
+            <div class="event-action flex-row align-items-center">
+                  
+              <a href="#" class="btn btn-style-3">More Details</a>
+              <div class="event-icons">
+                
+                <a href="#"><i class="licon-share2"></i></a>
+                <a href="#"><i class="licon-map-marker"></i></a>
+                <a href="#"><i class="licon-at-sign"></i></a>
+
+              </div>
+
             </div>
-          {% endfor %}
+
+          </div>
 
         </div>
-      </div>
     </fieldset>
     <div class="add-event">
       <a type="button" href="{% url 'create_event' %}" name="button" class="btn btn-primary">Créer un événement <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>

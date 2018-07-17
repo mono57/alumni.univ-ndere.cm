@@ -1,0 +1,508 @@
+{% extends "base.html" %} {% load static %} {% block title %} Details {% endblock title %} {% block content %}
+
+<!-- - - - - - - - - - - - - - Content - - - - - - - - - - - - - - - - -->
+<div id="wrapper" class="wrapper-container">
+  <div id="content" class="page-content-wrap">
+
+    <div class="container wide">
+
+      <div class="entry-box single-entry">
+
+        <div class="entry">
+
+          <!-- - - - - - - - - - - - - - Entry body - - - - - - - - - - - - - - - - -->
+          <div class="entry-body">
+
+            <h1 class="entry-title">
+              <a href="#">{{news.title}}</a>
+            </h1>
+            <div class="entry-meta">
+
+              <span>on</span>
+              <time class="entry-date" datetime="2018-03-18">{{news.date_add}}</time>
+              <span>par</span>
+              <a href="#" class="entry-cat">{{news.author}}</a>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="row">
+
+        <main id="main" class="col-lg-9">
+
+          <div class="content-element">
+
+            <div class="entry-box single-entry">
+
+              <!-- Entry -->
+              <div class="entry">
+
+                <!-- - - - - - - - - - - - - - Entry attachment - - - - - - - - - - - - - - - - -->
+                <div class="thumbnail-attachment">
+                  <a href="#">
+                    <img src="{{news.image_description.url}}" alt="">
+                  </a>
+                </div>
+
+                {{news.text_description|safe}}
+
+
+
+
+
+              </div>
+
+            </div>
+
+
+
+          </div>
+
+          <div class="content-element7">
+
+            <h3 class="title">Related Posts</h3>
+
+            <div class="entry-box flex-row item-col-3">
+
+              <!-- Entry -->
+              <div class="entry">
+
+
+
+                <!-- - - - - - - - - - - - - - Entry body - - - - - - - - - - - - - - - - -->
+                <div class="entry-body">
+
+                  <h5 class="entry-title">
+                    <a href="#">Nam Elit Agna Endrerit Sit</a>
+                  </h5>
+                  <div class="entry-meta">
+
+                    <span>on</span>
+                    <time class="entry-date" datetime="2018-03-18">March 2, 2018</time>
+                    <span>by</span>
+                    <a href="#" class="entry-cat">Robert Smith</a>
+                    <span>in</span>
+                    <a href="#">News</a>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="content-element">
+
+            <h3 class="title">Comments</h3>
+
+            <ol class="comments-list">
+
+              <li class="comment">
+
+                <article>
+
+                  <!-- - - - - - - - - - - - - - Avatar - - - - - - - - - - - - - - - - -->
+
+                  <div class="gravatar">
+
+                    <a href="#">
+                      <img src="{% static 'img/logo_user.png' %}" alt="">
+                    </a>
+
+                  </div>
+
+                  <!-- - - - - - - - - - - - - - End of avatar - - - - - - - - - - - - - - - - -->
+
+                  <!-- - - - - - - - - - - - - - Comment body - - - - - - - - - - - - - - - - -->
+
+                  <div class="comment-body">
+
+                    <header class="comment-meta">
+
+                      <h6 class="comment-author">
+                        <a href="#">Camala Haddon</a>
+                      </h6>
+                      <div class="comment-info">
+                        <time datetime="2015-10-17 02:41" class="comment-date">October 17, 2017 at 2:41 pm</time>
+                        <a href="#" class="comment-reply-link">
+                          <i class="licon-reply"></i>Reply</a>
+                      </div>
+
+                    </header>
+
+                    <p>Aenean auctor wisi et urna. Aliquam erat volutpat. Duis ac turpis. Donec sit amet eros.</p>
+
+                  </div>
+                  <!--/ .comment-body-->
+
+                  <!-- - - - - - - - - - - - - - End of comment body - - - - - - - - - - - - - - - - -->
+
+                </article>
+
+              </li>
+
+
+            </ol>
+
+          </div>
+
+          <div class="content-element">
+
+            <h3 class="title">Leave a Comment</h3>
+            <p class="text-size-small">Votre adresse email ne sera pas publiée. Les champs marqués d'un
+              <span class="required"></span> sont requisent.</p>
+
+            <form class="contact-form style-2">
+
+              <div class="contact-item">
+
+                <label class="required">Votre nom</label>
+                <input type="text">
+
+              </div>
+
+              <div class="contact-item">
+
+                <label class="required">Votre Email</label>
+                <input type="email">
+
+              </div>
+
+              <div class="contact-item">
+
+                <label>Site web</label>
+                <input type="url">
+
+              </div>
+
+              <div class="contact-item">
+
+                <label class="required">Commentaires</label>
+                <textarea rows="8"></textarea>
+
+              </div>
+
+              <div class="contact-item">
+
+                <button type="submit" class="btn btn-style-4" data-type="submit">Soumettre</button>
+
+              </div>
+
+            </form>
+
+          </div>
+
+        </main>
+        <aside id="sidebar" class="col-lg-3">
+
+          <!-- Widget -->
+          <div class="widget">
+
+            <form class="search-form style-2">
+
+              <input type="text" placeholder="Search Products">
+              <button type="submit">
+                <i class="licon-magnifier"></i>
+              </button>
+
+            </form>
+
+          </div>
+
+          <!-- Widget -->
+          <!--<div class="widget">
+          
+          <h5 class="widget-title">Categories</h5>
+          
+          <ul class="custom-list style-2">
+            <li><a href="#">Church</a></li>
+            <li><a href="#">God</a></li>
+            <li><a href="#">News</a></li>
+            <li><a href="#">Pray</a></li>
+            <li><a href="#">Stories</a></li>
+          </ul>
+
+        </div>
+      -->
+
+          <!-- Widget -->
+          <div class="widget">
+
+            <h5 class="widget-title">Latest Posts</h5>
+
+            <div class="entry-box entry-small">
+
+              <!-- Entry -->
+              {% for latest in latest_news %}
+              <div class="entry-col">
+
+                <div class="entry">
+
+                  <!-- - - - - - - - - - - - - - Entry attachment - - - - - - - - - - - - - - - - -->
+                  <div class="thumbnail-attachment">
+                    <a href="{% url 'details' pk=latest.id %}">
+                      <img src="{{latest.image_description.url}}" alt="">
+                    </a>
+                  </div>
+
+                  <!-- - - - - - - - - - - - - - Entry body - - - - - - - - - - - - - - - - -->
+                  <div class="entry-body">
+
+                    <h6 class="entry-title">
+                      <a href="{% url 'details' pk=latest.id %}">Auteur : {{latest.author}}</a>
+                    </h6>
+                    <div class="entry-meta">
+
+                      <span>{{latest.date_add}}</span>
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+              {% endfor %}
+
+
+
+
+
+            </div>
+
+          </div>
+
+
+
+
+          <!-- Widget -->
+          <div class="widget">
+
+            <h5 class="widget-title">Calendar</h5>
+            <div class="widget-calendar">
+              <div class="owl-carousel" data-max-items="1">
+
+                <div class="item">
+
+                  <div class="calendar-wrap">
+                    <table>
+                      <tr>
+                        <!--titles for td-->
+                        <th colspan="7">December 2018</th>
+                      </tr>
+                      <tr class="days">
+                        <td>M</td>
+                        <td>T</td>
+                        <td>W</td>
+                        <td>T</td>
+                        <td>F</td>
+                        <td>S</td>
+                        <td>S</td>
+                      </tr>
+                      <tr>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>4</td>
+                        <td>5</td>
+                        <td class="link">
+                          <a href="#">6</a>
+                        </td>
+                        <td>7</td>
+                      </tr>
+                      <tr>
+                        <td>8</td>
+                        <td class="link">
+                          <a href="#">9</a>
+                        </td>
+                        <td>10</td>
+                        <td>11</td>
+                        <td>12</td>
+                        <td>13</td>
+                        <td>14</td>
+                      </tr>
+                      <tr>
+                        <td class="link">
+                          <a href="#">15</a>
+                        </td>
+                        <td>16</td>
+                        <td>17</td>
+                        <td>18</td>
+                        <td class="link current">
+                          <a href="#">20</a>
+                        </td>
+                        <td>20</td>
+                        <td>21</td>
+                      </tr>
+                      <tr>
+                        <td>22</td>
+                        <td>23</td>
+                        <td class="link">
+                          <a href="#">24</a>
+                        </td>
+                        <td>25</td>
+                        <td>26</td>
+                        <td>27</td>
+                        <td>28</td>
+                      </tr>
+                      <tr>
+                        <td>29</td>
+                        <td>30</td>
+                        <td class="next-month">1</td>
+                        <td class="next-month">2</td>
+                        <td class="next-month">3</td>
+                        <td class="next-month">4</td>
+                        <td class="next-month">5</td>
+                      </tr>
+                    </table>
+                  </div>
+
+                </div>
+
+                <div class="item">
+
+                  <div class="calendar-wrap">
+                    <table>
+                      <tr>
+                        <!--titles for td-->
+                        <th colspan="7">November 2018</th>
+                      </tr>
+                      <tr class="days">
+                        <td>M</td>
+                        <td>T</td>
+                        <td>W</td>
+                        <td>T</td>
+                        <td>F</td>
+                        <td>S</td>
+                        <td>S</td>
+                      </tr>
+                      <tr>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>4</td>
+                        <td>5</td>
+                        <td>6</td>
+                        <td>7</td>
+                      </tr>
+                      <tr>
+                        <td>8</td>
+                        <td class="link">
+                          <a href="#">9</a>
+                        </td>
+                        <td>10</td>
+                        <td class="link current">
+                          <a href="#">11</a>
+                        </td>
+                        <td>12</td>
+                        <td>13</td>
+                        <td>14</td>
+                      </tr>
+                      <tr>
+                        <td class="link">
+                          <a href="#">15</a>
+                        </td>
+                        <td>16</td>
+                        <td>17</td>
+                        <td>18</td>
+                        <td>19</td>
+                        <td class="link">
+                          <a href="#">20</a>
+                        </td>
+                        <td>21</td>
+                      </tr>
+                      <tr>
+                        <td>22</td>
+                        <td>23</td>
+                        <td class="link">
+                          <a href="#">24</a>
+                        </td>
+                        <td>25</td>
+                        <td>26</td>
+                        <td>27</td>
+                        <td>28</td>
+                      </tr>
+                      <tr>
+                        <td>29</td>
+                        <td>30</td>
+                        <td>31</td>
+                        <td class="next-month">1</td>
+                        <td class="next-month">2</td>
+                        <td class="next-month">3</td>
+                        <td class="next-month">4</td>
+                      </tr>
+                    </table>
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+
+            <a href="#" class="btn btn-small btn-style-6">« Nov</a>
+
+          </div>
+
+          <!-- Widget -->
+          <div class="widget">
+
+            <h5 class="widget-title">Upcoming Events</h5>
+            <div class="event-box style-2">
+
+              <!-- Event -->
+              <div class="event">
+
+                <div class="event-date">
+
+                  <h3 class="numb">18</h3>
+                  <h6 class="month">March</h6>
+                  <div class="day">Sunday</div>
+
+                </div>
+
+                <div class="event-body">
+
+                  <h6 class="event-title">
+                    <a href="#">Mission Vision School</a>
+                  </h6>
+
+                  <p class="e-info">12:00 AM - 5:00 PM 8901 Marmora Road, Glasgow, D04 89GR</p>
+
+                </div>
+
+              </div>
+
+            </div>
+
+            <a href="#" class="btn btn-small btn-style-6">More Events</a>
+
+          </div>
+
+          <!-- Widget -->
+
+
+        </aside>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
+<!-- - - - - - - - - - - - - end Content - - - - - - - - - - - - - - - -->
+
+
+{% endblock content %}
+{% block javascript %}
+<script>
+
+</script>
+{% endblock javascript %}

@@ -37,28 +37,24 @@ Création d'un événement
       {% csrf_token %}
       <div class="form-group">
         <label for="titre" class="control-label">Titre *</label>
-        {{form.titre.errors}}
-        {{form.titre}}
+       <input type="text" class='form-control' name='titre'>
       </div>
       <div class="form-group">
         <label for="description" class="control-label">Description *</label>
-        {{form.description}}
-        {{form.description.errors}}
+        <input type="text" class='form-control' name='description'>
       </div>
       <div class="form-group">
         <label for="event" class="control-label">Lieu de l'evenement *</label>
-        {{form.lieu.errors}}
-        {{form.lieu}}
+        <input type="text" class='form-control' name='lieu'>
       </div>
      
       <div class="form-group">
         <label for="image" class="control-label">Image de description *</label>
-        {{form.image_illustration.errors}}
-        {{form.image_illustration}}
+        <input type="file" class='form-control' name='image_description'>
       </div>
       <div class="form-group">
         <label for="date" class="control-label">Date de l'événement *</label>
-        <input type="date" class="form-control" name="date_evenement" id="">
+        <input type="date" class="form-control" name="date_evenement">
       </div>
       <div class="row">
         <button type="submit" class="btn btn-success col-md-6" name="button">Je crée un événement</button> 
