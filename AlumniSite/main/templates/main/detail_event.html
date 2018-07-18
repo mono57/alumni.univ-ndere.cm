@@ -1,131 +1,220 @@
-{% extends "main/_nav.html" %}
-{% block content %}
-{% load static %}
-<style media="screen">
-    .facebook{
-      background-color: blue;
-    }
-    .twitter{
-      background-color: red;
-    }
-    .instagram{
-      background-color: yellow;
-    }
-    .facebook, .twitter, .instagram{
-      width: 300px;
-      padding: 10px;
-      margin: 10px;
-    }
-    section .suivre{
-      display: inline-block;
-      vertical-align: top;
-    }
-    .titre{
-      margin-top: 0px;
-    }
-  
-    .content{
-      display: inline-block;
-      vertical-align: top;
-    }
-    .content>p{
-      text-align: justify;
-    }
-    .content>img{
-      width: 100%;
-      display: block;
-      margin-bottom: 45px;
-      margin-top: 20px;
-    }
-    .content>h1{
-      text-decoration: underline;
-    }
-    .suivre{
-      margin-top: 0px;
-    }
-    
-</style>
-  <div class="container">
-      <div class="row">
-        <div class="col-md-8">
-          <section class="content">
-            <h1>{{evenement.titre}}</h1>
-            <img src="{{evenement.image_illustration.url}}" alt="">
-            <p>{{evenement.description}}</p>
-          </section>
-          <div class="nb-comment">
-              <h2>{% if commentaires|length <= 1 %}
-              {{commentaires|length}} commentaire
-              {% else %}
-              {{commentaires|length}} commentaires
-              {% endif %}</h2>
+{% extends "base.html" %} {% load static %} {% block css %}
+<link rel="stylesheet" href="{% static 'font/home/styles.css' %}">
+<link rel="stylesheet" href="{% static 'font/demo-files/demo.css' %}"> {% endblock css %} {% block content %}
+
+<div id="content" class="page-content-wrap">
+  <div class="container wide">
+    <div class="content-element">
+
+      <div class="event-box single-post">
+
+        <div class="event">
+
+          <div class="event-body">
+
+            <h1 class="event-title">{{evenement.titre}}</h1>
+
+            <div class="entry-meta clearfix">
+
+              <p>
+                <i class="fa fa-map-marker"></i> {{evenement.lieu}}
+                <br>
+                <br>
+                <i class="fa fa-calendar"></i> {{evenement.date_evenement}}| Recurring Event (
+                <a href="#">See All</a>)</p>
+
+
+
             </div>
-            {% for commentaire in commentaires %}
-            <section class="comment">
-                <a href="#">
-                  <small class="pull-right">
-                    <i class="fa fa-clock-o">{{commentaire.date_comment}}</i>
-                  </small>
-                  <h3>{{commentaire.nom_complet}}</h3>
-                </a>
-                <p class="email"><i>{{commentaire.email}}</i></p>
-  
-                <p class="text-comment">{{commentaire.commentaire}}</p>
-              </section>
-            {% endfor %}
-            <fieldset class="">
-            <legend>Laisser un commentaire!!!</legend>
-            <div>
-              <form method="POST">
-                {% csrf_token %}
-                <div class="form-group">
-                  <label for="">Nom complet *</label>
-                  {{form.nom}}
+
+          </div>
+
+          <div class="content-element3">
+
+            <div class="row">
+              <div class="col-lg-8">
+
+                <div class="content-element3">
+                  <img src="{{evenement.image_illustration.url}}" alt="">
                 </div>
-                <div class="form-group">
-                  <label for="">Adresse mail *</label>
-                  {{form.email}}
+
+                <div class="content-element3">
+
+                  <div class="row">
+                    <div class="col-lg-6 col-md-6">
+
+                      <h5 class="e-title">Details</h5>
+
+                      <ul class="custom-list">
+
+                        
+                          <li><span>Date : </span> {{evenement.lieu}}</li>
+                          
+                          <li><span>Heure : </span> {{evenement.date_evenement}}</li>
+
+                        <li>
+                          <span>Catégorie:</span>
+                          <a href="#" class="link-text">Training</a>
+                        </li>
+
+
+                      </ul>
+
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+
+                      <h5 class="e-title">Organisateur</h5>
+
+                      <ul class="custom-list">
+
+                        <li>
+                          <span>Nom de l'organisateur:</span> {{evenement.createur.get_full_name}}</li>
+                        <li content="telephone=no">
+                          <span>Tel:</span> (932) 733-3390</li>
+                        <li>
+                          <span>Email:</span>
+                          <a href="#" class="link-text">info@companyname.com</a>
+                        </li>
+
+
+                      </ul>
+
+                    </div>
+
+                  </div>
+
                 </div>
-                <div class="form-group">
-                  <label for="">Commentaire *</label>
-                  {{form.commentaire}}
+
+                <div class="content-element3">
+
+                  <p>{{evenement.description}}</p>
+
                 </div>
-                <button class="btn btn-success" type="submit" name="button">Commenter</button>
-              </form>
+
+                <div class="share-wrap">
+
+                  <span class="share-title">Partager:</span>
+                  <ul class="social-icons share">
+
+                    <li>
+                      <a href="#" class="sh-facebook">
+                        <i class="icon-facebook"></i>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#" class="sh-twitter">
+                        <i class="icon-twitter"></i>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#" class="sh-google">
+                        <i class="icon-gplus-3"></i>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#" class="sh-pinterest">
+                        <i class="icon-pinterest"></i>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#" class="sh-mail">
+                        <i class="icon-mail"></i>
+                      </a>
+                    </li>
+
+                  </ul>
+
+                </div>
+
+              </div>
+
+              <div class="col-lg-4">
+
+                <div id="googleMap" class="map-container content-element3"></div>
+
+                <h5 class="e-title">Localisation</h5>
+
+                <ul class="custom-list">
+
+                  <li>
+                    <span>Venue Name:</span> {{evenement.lieu}}</li>
+                  <li>
+                    <span>Address:</span> 8901 Marmora Road, Glasgow, D04 89GR.</li>
+                  <li>
+                    <span>Email:</span>
+                    <a href="#" class="link-text">info@companyname.com</a>
+                  </li>
+
+
+                </ul>
+
+              </div>
+
             </div>
-          </fieldset>
+
+          </div>
+
         </div>
 
-        <div class="col-md-4">
-          <section class="">
-            <section class="suivre ombre">
-                <h1>Suivez - nous</h1>
-
-                <div class="facebook ombre">
-                  <h2><i class="fa fa-facebook" aria-hidden="true"></i> Facebook <a href="#"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a></h2>
-
-                  <p></p>
-                </div>
-                <div class="twitter ombre">
-                  <h2><i class="fa fa-twitter" aria-hidden="true"></i> Twitter <a href="#"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a> </h2>
-                  <p></p>
-                </div>
-                <div class="instagram ombre">
-                  <h2><i class="fa fa-instagram" aria-hidden="true"></i> Instagram <a href="#"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a></h2>
-                  <p></p>
-                </div>
-            </section>
-          </section>
-
-        </div>
       </div>
 
-  </div>
-  <script type="javascript">
-    $("document").ready(
-      
-    )
-  </script>
-{% endblock content %}
+    </div>
 
-  
+
+    <h3 class="title">Evenements similaires</h3>
+
+    <!-- Isotope -->
+    <div class="isotope three-collumn clearfix event-box no-border style-2 grid-type" data-isotope-options='{"itemSelector" : ".item","layoutMode" : "masonry","transitionDuration":"0.7s","masonry" : {"columnWidth":".item"}}'>
+
+      <!-- Isotope item -->
+      {% for related_event in related_events %}
+      <div class="item">
+
+        <!-- - - - - - - - - - - - - - Event - - - - - - - - - - - - - - - - -->
+        <div class="event">
+
+          <div class="event-img">
+
+            <a href="{% url 'details_events' pk=related_event.pk %}">
+              <img src="{{evenement.image_illustration.url}}" alt="">
+            </a>
+
+          </div>
+
+          <div class="event-body">
+
+            <h5 class="event-title">
+              <a href="{% url 'details_events' pk=related_event.pk %}">{{related_event.titre}}</a>
+            </h5>
+
+            <p class="e-info">
+              <p>
+                <i class="fa fa-map-marker"></i> {{related_event.lieu}}
+                <br>
+                <i class="fa fa-calendar"></i> {{related_event.date_evenement}}</p>
+
+              <p>{{related_event.description|truncatewords:15}}
+              </p>
+
+          </div>
+
+        </div>
+
+      </div>
+      {% endfor %}
+
+
+
+    </div>
+
+  </div>
+</div>
+
+
+{% endblock content %} {% block javascript %}
+<script src="{% static 'plugins/jquery.localScroll.min.js' %}"></script>
+<script src="{% static 'plugins/jquery.scrollTo.min.js' %}"></script>
+<script src="{% static 'plugins/isotope.pkgd.min.js' %}"></script>
+<script src="{% static 'plugins/owl.carousel.min.js' %}"></script>
+
+{% endblock javascript %}

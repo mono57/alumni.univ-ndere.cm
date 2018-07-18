@@ -101,15 +101,16 @@
 
                     <td class="row-actions">
                         {% if user.is_active == False %}
-                        <a class="activated" data-id='{{user.id}}'>
+                       
+                        <a href="javascript:void(0)" class="pr-10 activated" data-id='{{user.id}}' data-toggle="tooltip" title="" data-original-title="completed">
                             <i class="os-icon os-icon-grid-10"></i>
                         </a>
                         {% else %}
                         <a class="danger suspend" data-id='{{user.id}}'>
-                                <i class="os-icon os-icon-ui-15"></i>
-                            </a>
+                            <i class="os-icon os-icon-ui-15"></i>
+                        </a>
                         {% endif %}
-                        
+
                     </td>
                 </tr>
 
@@ -132,7 +133,7 @@
             data: 'pk=' + $id,
             dataType: 'JSON',
             success: function (data) {
-
+                window.location.reload();
             }
         });
     });
@@ -147,8 +148,9 @@
                 url: '{% url "admin:processDeleteUser" %}',
                 data: 'pk=' + $id,
                 dataType: 'JSON',
+                headers: {'X_METHODOVERRIDE': 'DELETE'},
                 success: function (data) {
-
+                    window.location.reload();
                     alert("Etudiant supprimer");
                 }
             });
@@ -161,14 +163,14 @@
             $entry.parent().parent().fadeOut(1500);
 
             $.ajax({
-                type:'GET',
+                type: 'GET',
                 url: '{% url "admin:processSuspendUser" %}',
                 data: 'pk=' + $id,
                 dataType: 'JSON',
                 success: function (data) {
-                    $('.nb-users').val()--;
-                    $('.nb-suspend-user').val()++;
-                    
+                    $('.nb-users').val() --;
+                    $('.nb-suspend-user').val() ++;
+                    window.location.reload();
                 }
             });
         }

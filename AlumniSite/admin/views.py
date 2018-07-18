@@ -31,7 +31,9 @@ class IndexView(LoginRequiredMixin,TemplateView):
         return User.objects.filter(is_active=False).count()
 
 class AjaxRequestProcessUser(View):
+
     http_method_names = ['post', 'delete', 'get' ]
+    
     def get(self,request, *args, **kwargs):
         etudiant = get_object_or_404(Etudiant, pk=request.GET.get('pk'))
         self.make_migrations(etudiant)

@@ -1,7 +1,7 @@
 from django.views.generic import TemplateView, ListView, CreateView, DetailView
 from django.views.generic.edit import FormView
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Evenement, Actualite
 from main.forms import CreateEventForm, ContactForm
 from django.urls import reverse_lazy
@@ -31,6 +31,15 @@ class ListEvenement(ListView):
     context_object_name = 'evenements'
     model = Evenement
 
+class DetailEvent(DetailView):
+    model = Evenement
+    template_name = 'main/detail_event.html'
+    context_object_name = 'evenement'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['related_events'] = Evenement.objects.all()[:5]
+        return context
 
 @login_required(login_url='login')
 def create_event(request):
@@ -38,16 +47,16 @@ def create_event(request):
         form = CreateEventForm(request.POST or None, request.FILES or None)
         if form.is_valid():
             new_event = Evenement(
-                titre=form.cleaned_data['titre'],
-                description = form.cleaned_data['description'],
-                lieu = form.cleaned_data['lieu'],
-                image_description = form.cleaned_data['image_description'],
-                date_evenement = form.cleaned_data['date_evenement'],
+                titre=request.POST.get('titre'),
+                description = request.POST.get('description'),
+                lieu = request.POST.get('lieu'),
+                image_illustration = request.FILES.get('image_description'),
+                date_evenement = request.POST.get('date_evenement'),
                 createur = request.user
             )
             new_event.save()
             print("Enregistrement effectué avec succès")
-            return redirect('main:liste_event')
+            return redirect('event')
         else:
             print(request.POST)
             print(request.FILES)

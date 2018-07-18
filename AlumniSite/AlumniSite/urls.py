@@ -5,7 +5,7 @@ from django.contrib.auth.views import LogoutView
 from django.conf.urls.static import static
 from AlumniSite import settings
 from main.views import IndexView as home_page, ListActualite, ListEvenement, CreateEventView, ContactView,\
-    create_event, DetailNews
+    create_event, DetailNews, DetailEvent
 from accounts.views import *
 
 
@@ -20,6 +20,7 @@ urlpatterns = [
     path('contact-us/', ContactView.as_view(), name='contact'),
     path('list-actualites/', ListActualite.as_view(), name='news'),
     path('news/details/<int:pk>/', DetailNews.as_view(), name='details'),
+    path('event/details/<int:pk>/', DetailEvent.as_view(), name='details_events'),
     path('list-evenement/', ListEvenement.as_view(), name='event'),
     path('events/create-event/', create_event, name='create_event'),
     path('admin/', include('admin.urls')),

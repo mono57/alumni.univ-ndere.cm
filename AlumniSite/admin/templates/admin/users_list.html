@@ -33,11 +33,8 @@
                                         <td class="text-right">Ngaoundéré</td>
                                         <td>{{user.last_login}}</td>
                                         <td class="text-center">
-                                            <div {% if user.is_active %}
-                                            class="status-pill green"
-                                            {% else %}
-                                            class="status-pill red"
-                                            {% endif %}  data-title="Complete" data-toggle="tooltip"></div>
+                                            <div {% if user.is_active %} class="status-pill green" {% else %} class="status-pill red" {% endif %} data-title="Complete"
+                                                data-toggle="tooltip"></div>
                                         </td>
                                         <td class="row-actions">
 
@@ -54,32 +51,31 @@
                         {% if is_paginated %}
                         <div class="controls-below-table">
                             {% if page_obj.has_previous %}
-                                <div class="table-records-pages">
-                                    <ul>
-                                        <li>
-                                            <a href="?page={{page_obj.previous_page_number}}">Previous</a>
-                                        </li>
+                            <div class="table-records-pages">
+                                <ul>
+                                    <li>
+                                        <a href="?page={{page_obj.previous_page_number}}">Previous</a>
                                         
-                                    </ul>
-                                </div>
-                               {%endif%}
-                               Page {{ page_obj.number }} sur {{ page_obj.paginator.num_pages }}
-                           {% if page_obj.has_next %}
-                           
-                           <div class="table-records-pages">
+                                    </li>
+
+                                </ul>
+                            </div>
+                            {%endif%} Page {{ page_obj.number }} sur {{ page_obj.paginator.num_pages }} {% if page_obj.has_next %}
+
+                            <div class="table-records-pages">
                                 <ul>
                                     <li>
                                         <a href="?page={{page_obj.next_page_number}}">Next</a>
                                     </li>
-                                    
+
                                 </ul>
                             </div>
-                           {% endif %}
-                            </div>
-    
-            
+                            {% endif %}
+                        </div>
+
+
                         {% endif %}
-                        
+
                     </div>
                 </div>
             </div>
