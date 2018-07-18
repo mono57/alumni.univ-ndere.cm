@@ -1,0 +1,171 @@
+{% extends "admin/base/navbar.html" %} {% block title %} Statistiques {% endblock title %} {% block content %}
+<div class="layout-w">
+
+    <div class="content-w">
+        <div class="content-i">
+            <div class="content-box">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <!--START - Grid of tablo statistics-->
+                        <div class="element-wrapper">
+                            <div class="element-actions">
+                                <form class="form-inline justify-content-sm-end">
+                                    <select class="form-control form-control-sm rounded">
+                                        <option value="Pending">Today</option>
+                                        <option value="Active">Last Week </option>
+                                        <option value="Cancelled">Last 30 Days</option>
+                                    </select>
+                                </form>
+                            </div>
+                            <h6 class="element-header">Support Service Dashboard</h6>
+                            <div class="element-content">
+                                <div class="tablo-with-chart">
+                                    <div class="row">
+                                        <div class="col-sm-5 col-xxl-4">
+                                            <div class="tablos">
+                                                <div class="row mb-xl-2 mb-xxl-3">
+                                                    <div class="col-sm-6">
+                                                        <a class="element-box el-tablo centered trend-in-corner padded bold-label" href="apps_support_index.html">
+                                                            <div class="value">24</div>
+                                                            <div class="label">New Tickets</div>
+                                                            <div class="trending trending-up-basic">
+                                                                <span>12%</span>
+                                                                <i class="os-icon os-icon-arrow-up2"></i>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <a class="element-box el-tablo centered trend-in-corner padded bold-label" href="apps_support_index.html">
+                                                            <div class="value">12</div>
+                                                            <div class="label">Closed Today</div>
+                                                            <div class="trending trending-down-basic">
+                                                                <span>12%</span>
+                                                                <i class="os-icon os-icon-arrow-down"></i>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <a class="element-box el-tablo centered trend-in-corner padded bold-label" href="apps_support_index.html">
+                                                            <div class="value">52</div>
+                                                            <div class="label">Agent Replies</div>
+                                                            <div class="trending trending-up-basic">
+                                                                <span>12%</span>
+                                                                <i class="os-icon os-icon-arrow-up2"></i>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <a class="element-box el-tablo centered trend-in-corner padded bold-label" href="apps_support_index.html">
+                                                            <div class="value">7</div>
+                                                            <div class="label">New Replies</div>
+                                                            <div class="trending trending-down-basic">
+                                                                <span>12%</span>
+                                                                <i class="os-icon os-icon-arrow-down"></i>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-7 col-xxl-8">
+                                            <!--START - Chart Box-->
+                                            <div class="element-box pl-xxl-5 pr-xxl-5">
+                                                <div class="el-tablo bigger highlight bold-label">
+                                                    <div class="value">12,537</div>
+                                                    <div class="label">Unique Visitors</div>
+                                                </div>
+                                                <div class="el-chart-w">
+                                                    <canvas height="170px" id="lineChart" width="600px"></canvas>
+                                                </div>
+                                            </div>
+                                            <!--END - Chart Box-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--END - Grid of tablo statistics-->
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col-sm-5 col-xxl-6">
+                        <!--START - Questions per Product-->
+                        <div class="element-wrapper">
+
+                            <h6 class="element-header">Questions per Product</h6>
+                            <div class="element-box">
+                                <div class="os-progress-bar primary">
+                                    <div class="bar-labels">
+                                        <div class="bar-label-left">
+                                            <span class="bigger">MailGun</span>
+                                        </div>
+                                        <div class="bar-label-right">
+                                            <span class="info">25 Tickets / 10 Pending</span>
+                                        </div>
+                                    </div>
+                                    <div class="bar-level-1" style="width: 100%">
+                                        <div class="bar-level-2" style="width: 70%">
+                                            <div class="bar-level-3" style="width: 40%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="os-progress-bar primary">
+                                    <div class="bar-labels">
+                                        <div class="bar-label-left">
+                                            <span class="bigger">PhotoBook</span>
+                                        </div>
+                                        <div class="bar-label-right">
+                                            <span class="info">18 Tickets / 7 Pending</span>
+                                        </div>
+                                    </div>
+                                    <div class="bar-level-1" style="width: 100%">
+                                        <div class="bar-level-2" style="width: 40%">
+                                            <div class="bar-level-3" style="width: 20%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="os-progress-bar primary">
+                                    <div class="bar-labels">
+                                        <div class="bar-label-left">
+                                            <span class="bigger">Transferra</span>
+                                        </div>
+                                        <div class="bar-label-right">
+                                            <span class="info">15 Tickets / 12 Pending</span>
+                                        </div>
+                                    </div>
+                                    <div class="bar-level-1" style="width: 100%">
+                                        <div class="bar-level-2" style="width: 60%">
+                                            <div class="bar-level-3" style="width: 30%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="os-progress-bar primary">
+                                    <div class="bar-labels">
+                                        <div class="bar-label-left">
+                                            <span class="bigger">Versioner</span>
+                                        </div>
+                                        <div class="bar-label-right">
+                                            <span class="info">12 Tickets / 4 Pending</span>
+                                        </div>
+                                    </div>
+                                    <div class="bar-level-1" style="width: 100%">
+                                        <div class="bar-level-2" style="width: 30%">
+                                            <div class="bar-level-3" style="width: 10%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--END - Questions per product-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}

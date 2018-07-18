@@ -1,17 +1,17 @@
- {% extends "admin/base/navbar.html" %} {% block title %} Users {% endblock title %} {% block content %} {% load static %}
+ {% extends "admin/base/navbar.html" %} {% block title %} Users {% endblock title %} {% block css %}
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css"> {% endblock css %} {% block content %} {% load static %}
 <div class="layout-w">
 
     <div class="content-w">
         <div class="content-i">
             <div class="content-box">
-
                 <div class="element-wrapper">
-                    <div class="element-box-tp">
-                        <h5 class="form-header">Utilisateurs</h5>
-
-
+                    <h6 class="element-header">Utilisateurs</h6>
+                    <div class="element-box">
+                        <h5 class="form-header">La liste des utilisateurs</h5>
                         <div class="table-responsive">
-                            <table class="table table-bordered table-lg table-v2 table-striped">
+                            <table class="table table-bordered table-lg table-v2 table-striped" id="list_user">
                                 <thead>
                                     <tr>
 
@@ -24,20 +24,17 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+
                                     {% for user in users %}
                                     <tr>
                                         <td>
-                                            <img alt="" src="{% static 'admin/img/avatar1.jpg' %}" width="25px">
+                                            <img alt="" src="" width="25px">
                                         </td>
-                                        <td>{{user.get_full_name}}</td>
+                                        <td>{{user.first_name}} {{user.last_name}}</td>
                                         <td class="text-right">Ngaoundéré</td>
                                         <td>{{user.last_login}}</td>
                                         <td class="text-center">
-                                            <div {% if user.is_active %}
-                                            class="status-pill green"
-                                            {% else %}
-                                            class="status-pill red"
-                                            {% endif %}  data-title="Complete" data-toggle="tooltip"></div>
+                                            <div class="status-pill green" class="status-pill red" data-title="Complete" data-toggle="tooltip"></div>
                                         </td>
                                         <td class="row-actions">
 
@@ -47,47 +44,28 @@
                                         </td>
                                     </tr>
                                     {% endfor %}
-
                                 </tbody>
                             </table>
                         </div>
-                        {% if is_paginated %}
-                        <div class="controls-below-table">
-                            {% if page_obj.has_previous %}
-                                <div class="table-records-pages">
-                                    <ul>
-                                        <li>
-                                            <a href="?page={{page_obj.previous_page_number}}">Previous</a>
-                                        </li>
-                                        
-                                    </ul>
-                                </div>
-                               {%endif%}
-                               Page {{ page_obj.number }} sur {{ page_obj.paginator.num_pages }}
-                           {% if page_obj.has_next %}
-                           
-                           <div class="table-records-pages">
-                                <ul>
-                                    <li>
-                                        <a href="?page={{page_obj.next_page_number}}">Next</a>
-                                    </li>
-                                    
-                                </ul>
-                            </div>
-                           {% endif %}
-                            </div>
-    
-            
-                        {% endif %}
-                        
                     </div>
                 </div>
             </div>
-
         </div>
-
-
     </div>
 </div>
 
-{% endblock content %}
+{% endblock content %} {% block javascript %}
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="{% static 'admin/js/dataTables.bootstrap.min.js' %}"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#list_user').DataTable({
+        
+        });
+    });
+</script>
+
+{% endblock javascript %}

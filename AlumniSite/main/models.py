@@ -9,15 +9,15 @@ class Evenement(models.Model):
     description = models.TextField()
     lieu = models.CharField(max_length=100)
     image_illustration = models.ImageField(upload_to='event_images')
-    date_evenement = models.DateTimeField(auto_now=False)
+    date_evenement = models.DateField(auto_now=True)
+    heure_evenement = models.TimeField(auto_now=True)
     date_creation = models.DateTimeField(auto_now_add=True)
-    createur = models.OneToOneField(User,on_delete=models.CASCADE)
-    activated = models.BooleanField(default=True)
+    createur = models.ForeignKey(User,on_delete=models.CASCADE)
+    activated = models.BooleanField(default=False)
     
     def __str__(self):
         return "Evenement : {} Date : {} Createur : {}".format(self.titre,self.date_evenement, self.createur)
-    def get_absolute_url(self):
-        return reverse('details', args=[str(self.id)])
+    
 
 class Actualite(models.Model):
     title = models.CharField(max_length=200)

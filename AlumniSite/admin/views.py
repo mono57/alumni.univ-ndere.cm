@@ -2,11 +2,14 @@ from django.shortcuts import render, get_object_or_404
 from django.views.generic import TemplateView, View, ListView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
+from django.core import serializers
 from accounts.models import *
 from django.contrib.auth import get_user_model
-from django.http import HttpResponseRedirect, JsonResponse
+from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
 from main.forms import ActualiteForm
-from main.models import Actualite
+from main.models import Actualite, Evenement
+from admin.models import LogEntry
+import json
 
 User = get_user_model()
 
@@ -21,7 +24,7 @@ class IndexView(LoginRequiredMixin,TemplateView):
         context = super().get_context_data(**kwargs)
         context['etudiants'] = Etudiant.objects.all()
         context['admins'] = get_staff_user()
-        context['users'] = User.objects.all()[:5]
+        context['users'] = User.objects.all()
         context['habitations'] = Habiter.objects.all()
         context['user_not_active'] = self.get_suspend_user()
 
@@ -30,28 +33,18 @@ class IndexView(LoginRequiredMixin,TemplateView):
     def get_suspend_user(self):
         return User.objects.filter(is_active=False).count()
 
-class AjaxRequestProcessUser(View):
-    http_method_names = ['post', 'delete', 'get' ]
+class AjaxRequestAddUser(View):
+    
     def get(self,request, *args, **kwargs):
         etudiant = get_object_or_404(Etudiant, pk=request.GET.get('pk'))
+        #LogEntry(user=self.request.user, )
         self.make_migrations(etudiant)
         data = {
-            'ok':True
+            'ok':True,
+            'etudiants':Etudiant.objects.all().count(),
+            'users':User.objects.all().count()
         }
         return JsonResponse(data)
-
-    def delete(self, request):
-        try:
-            etudiant = Etudiant.objects.get(pk=request.DELETE.get('pk'))
-        except:
-            print("l'etudiant n'a pas été supprimer")
-        if etudiant:
-            etudiant.delete()
-        data = {
-            'etudiants':Etudiant.objects.all()
-        }
-        return JsonResponse(data)
-        
 
     def make_migrations(self,etudiant):
         new_user = User.objects.create_user(
@@ -131,23 +124,40 @@ class CreateNews(CreateView):
 def ajaxDeleteRequest(request):
     ok = False
     if request.method == 'GET':
-        etudiant = Etudiant.objects.get(pk=request.GET['pk']).delete()
+        etudiant = Etudiant.objects.get(pk=request.GET.get('pk')).delete()
         ok = True
     data = {
-        'ok':ok
+        'ok':ok,
+        'request_registration':Etudiant.objects.all().count(),
+        'users_count':User.objects.all().count()
     }
     return JsonResponse(data)
 
 def ajaxSuspendRequest(request):
     ok = False
     if request.method == 'GET':
-        user = User.objects.get(pk=request.GET.get('pk'))
-        print(user)
+        user = get_object_or_404(User, pk=request.GET.get('pk'))
         user.is_active = False
         user.save()
         ok = True
     data = {
-        'ok':ok
+        'ok':ok,
+        'suspend_user':User.objects.filter(is_active=False).count(),
+        'users_count':User.objects.all().count()
+    }
+    return JsonResponse(data)
+
+def ajaxActiveRequest(request):
+    ok = False
+    if request.method == 'GET':
+        user = get_object_or_404(User, pk=request.GET.get('pk'))
+        user.is_active = True
+        user.save()
+        ok = True
+    data = {
+        'ok':ok,
+        'suspend_user':User.objects.filter(is_active=False).count(),
+        'users_count':User.objects.all().count()
     }
     return JsonResponse(data)
 
@@ -170,3 +180,19 @@ class ChangeStateUser(View):
         suer.save()
         data = {'ok':True}
         return JsonResponse(data)
+
+class StatsView(TemplateView):
+    template_name = 'admin/statistiques.html'
+
+class ListEventsView(ListView):
+    model = Evenement
+    template_name = "admin/list_events.html"
+    context_object_name = "events"
+
+    def get_context_data(self, **kwargs):
+        return super().get_context_data(**kwargs)
+
+def getUsers(request):
+    users = User.objects.all()
+    data = dict(users)
+    return JsonResponse(data)

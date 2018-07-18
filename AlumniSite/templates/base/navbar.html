@@ -1,72 +1,86 @@
 {% url 'home' as home_url %}
+{% url 'index' as index_url %}
 {% url 'event' as events_url %}
-{% url 'news' as news_url %}
 {% url 'login' as login_url %}
-{% url 'logout' as logout_url %}
+{% url 'logout' as logout_url %} 
 {% url 'register' as register_url %}
 {% url 'contact' as contact_url %}
-
 {% url 'forum:community' as community_url %}
-{% url 'donate' as donate_url %}
+{%url 'donate' as donate_url %} {% load static %}
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
-    <div class='container-fluid'>
-   <a class="navbar-brand" href="{{ home_url }}">
-     <img src="//getbootstrap.com/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="">
-     Ndéré - Alumni
-   </a>
-   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-     <span class="navbar-toggler-icon"></span>
-   </button>
- 
-   <div class="" id="navbarSupportedContent">
-     <ul class="navbar-nav mr-auto">
-       <li class="nav-item {% if request.path == home_url %}active{% endif %}">
-         <a class="nav-link" href="{{ home_url }}">Accueil <span class="sr-only">(current)</span></a>
-       </li>
-       <li class="nav-item {% if request.path == news_url %}active{% endif %}">
-         <a class="nav-link" href="{{ news_url }}">Actualités</a>
-       </li>
-       <li class="nav-item {% if request.path == events_url %}active{% endif %}">
-         <a class="nav-link" href="{{ events_url }}">Évenements</a>
-       </li>
-       <li class="nav-item {% if request.path == community_url %}active{% endif %}">
-            <a class="nav-link" href="{{ community_url }}">Communauté</a>
+<section class="menu cid-qFHAv562qj" once="menu" id="menu1-0">
+
+
+
+  <nav class="navbar navbar-expand beta-menu navbar-dropdown align-items-center navbar-fixed-top navbar-toggleable-sm">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </button>
+    <div class="menu-logo">
+      <div class="navbar-brand">
+        <span class="navbar-logo">
+          <a href="#top">
+            <img src="{% static 'img/uniceshort-199x131.png' %}" alt="Mobirise" title="" style="height: 3.8rem;">
+          </a>
+        </span>
+        <span class="navbar-caption-wrap">
+          <a class="navbar-caption text-black display-4" href="{{ home_url }}">
+            UNICE</a>
+        </span>
+      </div>
+    </div>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true">
+        <li class="nav-item">
+          <a class="nav-link link text-black display-4" href="{{ home_url }}">
+            <span class="mbri-left mbr-iconfont mbr-iconfont-btn"></span>Back to UNICE</a>
         </li>
-        <li class="nav-item {% if request.path == donate_url %}active{% endif %}">
-            <a class="nav-link" href="{{ donate_url }}">Faire un don</a>
+        <li class="nav-item">
+            <a class="nav-link link text-black display-4" href="{{index_url}}">
+              <span class="mbri-home mbr-iconfont mbr-iconfont-btn"></span>
+              Home&nbsp;</a>
+          </li>
+        <li class="nav-item">
+          <a class="nav-link link text-black display-4" href="{{events_url}}">
+            <span class="mbri-calendar mbr-iconfont mbr-iconfont-btn"></span>
+            Events&nbsp;</a>
         </li>
-        <li class="nav-item {% if request.path == contact_url %}active{% endif %}">
-            <a class="nav-link" href="{{ contact_url }}">Contactez - nous</a>
+        <li class="nav-item">
+          <a class="nav-link link text-black display-4" href="#">
+            <span class="mbri-users mbr-iconfont mbr-iconfont-btn"></span>
+            Community</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link link text-black display-4" href="#content4-d">
+            <span class="mbri-layers mbr-iconfont mbr-iconfont-btn"></span>
+            Projects</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link link text-black display-4" href="#features16-h">
+            <span class="mbri-cash mbr-iconfont mbr-iconfont-btn"></span>
+            Donate</a>
         </li>
         {% if request.user.is_authenticated %}
         
-        
-       <li class="nav-item dropdown">
-         <a type="button" class="btn btn-light dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fa fa-user-circle" aria-hidden="true"></i> {{request.user.get_full_name}}
-        </a>
-         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-           <p class="dropdown-item">Salut &ensp; {{request.user.get_short_name}}</p>
-           <div class="dropdown-divider"></div>
-           <a class="dropdown-item" href="{% url 'accounts:profile' %}">Profile</a>
-           <a class="dropdown-item" href="">Agenda</a>
-           <a class="dropdown-item" href="">Notifications</a>
-           <a class='dropdown-item' href=''></a>
-           <div class="dropdown-divider"></div>
-           <a class="dropdown-item" href="{{ logout_url }}">Déconnexion</a>
-         </div>
-       </li>
-       
-       {% else %}
-       
-        <li class="nav-item {% if request.path == login_url %}active{% endif %}">
-         <a class="nav-link" href="{{ login_url }}">Connexion</a>
-       </li>
-       {% endif %}
-     </ul>
-   </div>
- </div>
- </nav>
-{% block breadcrumb_base %}
-{% endblock breadcrumb_base %}
+        {% else %}
+        <li class="nav-item">
+            <a class="nav-link link text-black display-4" href="{{login_url}}">
+              <span class="mbri-code mbr-iconfont mbr-iconfont-btn"></span>
+              Login</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link link text-black display-4" href="{{register_url}}">/Regiter</a>
+          </li>
+          
+        {% endif %}
+      </ul>
+
+    </div>
+  </nav>
+</section>

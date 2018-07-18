@@ -77,10 +77,10 @@
         <table class="table table-bordered table-lg table-v2 table-striped">
             <thead>
                 <tr>
+                    <th>#</th>
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Country</th>
-                    <th>Date inscription</th>
                     <th>Last Login</th>
                     <th>Actions</th>
                 </tr>
@@ -92,24 +92,26 @@
                     <!--<td class="text-center">
                         <input class="form-control" type="checkbox">
                     </td>-->
+                    <td>{{user.pk}}</td>
                     <td>{{user.first_name}}</td>
 
                     <td class="text-right">{{user.last_name}}</td>
                     <td>{{"Ngaoundéré"}}</td>
-                    <td>{{user.date_joined}}</td>
+
                     <td>{{user.last_login}}</td>
 
                     <td class="row-actions">
                         {% if user.is_active == False %}
-                        <a class="activated" data-id='{{user.id}}'>
+
+                        <a class=" activated" data-id='{{user.id}}'>
                             <i class="os-icon os-icon-grid-10"></i>
                         </a>
                         {% else %}
                         <a class="danger suspend" data-id='{{user.id}}'>
-                                <i class="os-icon os-icon-ui-15"></i>
-                            </a>
+                            <i class="os-icon os-icon-ui-15"></i>
+                        </a>
                         {% endif %}
-                        
+
                     </td>
                 </tr>
 
@@ -124,14 +126,25 @@
     $(".add").on('click', function () {
         var $id = $(this).attr("data-id");
         var $entry = $(this);
-        $entry.parent().parent().fadeOut(1500);
-        $('.nb-etudiant').val() --;
-        $('.nb-users').val() ++;
+
         $.ajax({
             url: '{% url "admin:processUser" %}',
             data: 'pk=' + $id,
             dataType: 'JSON',
             success: function (data) {
+                if (data.ok) {
+                    
+                    if(data.request_registration == 0){
+                        $entry.parent().parent().parent().html('<div class="alert alert-info" role="alert"><h3>Aucune demande d\'inscription</h3></div>')
+                    }else{
+                        $entry.parent().parent().fadeOut(1000);
+                    }
+                    $('.nb-etudiant').text(data.request_registration);
+                    $('.nb-users').text(data.users_count);
+                } else {
+                    alert("rien n'a été ajouter");
+                }
+                //window.location.reload();
 
             }
         });
@@ -140,16 +153,26 @@
         if (confirm("Êtes vous sûre de vouloir rejeter cette demande?")) {
             var $id = $(this).attr("data-id");
             var $entry = $(this);
-            $entry.parent().parent().fadeOut(1500);
-            $('.nb-etudiant').val() --;
+
             $.ajax({
                 type: 'GET',
                 url: '{% url "admin:processDeleteUser" %}',
                 data: 'pk=' + $id,
                 dataType: 'JSON',
                 success: function (data) {
+                    if (data.ok) {
+                        if(data.request_registration == 0){
+                            $entry.parent().parent().parent().html('<div class="alert alert-info" role="alert"><h3>Aucune demande d\'inscription</h3></div>')
+                        }else{
+                            $entry.parent().parent().fadeOut(1000);
+                        }
+                        $('.nb-etudiant').text(data.request_registration);
 
-                    alert("Etudiant supprimer");
+                    } else {
+                        alert("Etudiant n'a pas été supprimer");
+                    }
+                    //window.location.reload();
+
                 }
             });
         }
@@ -158,20 +181,40 @@
         if (confirm("Êtes vous sûre de vouloir suspendre cet utilisateur?")) {
             var $id = $(this).attr("data-id");
             var $entry = $(this);
-            $entry.parent().parent().fadeOut(1500);
 
             $.ajax({
-                type:'GET',
+                type: 'GET',
                 url: '{% url "admin:processSuspendUser" %}',
                 data: 'pk=' + $id,
                 dataType: 'JSON',
                 success: function (data) {
-                    $('.nb-users').val()--;
-                    $('.nb-suspend-user').val()++;
-                    
+                    if (data.ok) {
+                        $entry.parent().html('<a class=" activated"><i class="os-icon os-icon-grid-10"></i></a>');
+                        $('.nb-suspend-user').text(data.suspend_user);
+                        $('.nb-users').text(data.users_count);
+                    }
                 }
             });
         }
+    });
+    $(".activated").click(function () {
+
+        var $id = $(this).attr("data-id");
+        var $entry = $(this);
+        $.ajax({
+            type: 'GET',
+            url: '{% url "admin:processActiveUser" %}',
+            data: 'pk=' + $id,
+            dataType: 'JSON',
+            success: function (data) {
+                if (data.ok) {
+                    $entry.parent().html('<a class="danger suspend"><i class="os-icon os-icon-ui-15"></i></a>');
+                    $('.nb-suspend-user').text(data.suspend_user);
+                    $('.nb-users').text(data.users);
+                }
+            }
+        });
+
     });
 </script>
 {% endblock javascript %}

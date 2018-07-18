@@ -1,53 +1,60 @@
-{% extends "base.html" %}
-
+{% extends "base2.html" %}
 {% load static %}
-{% block css %}
-    <link rel="stylesheet" href="{% static 'css/accounts/style.css' %}">
-{% endblock css %}
-
 {% block title %}
-    Connexion
+Login 
 {% endblock title %}
-
-{% block content %}
-<div class="container">
-    <div class="form-signin">
-
-        <form method="POST">
-            {% csrf_token %}
-            <div class="form-group">
-                <label class="control-label" for="pseudo">Adresse email</label>
-                {{form.email}}    
-            </div>
-            {% if messages %}
-            {% for message in messages %}
-            <div class="form-group">
-                {% if message.tags %}
-                    <label for="message" style="color:#a94447;font-family:Verdana,sans-serif;" class="control-label">
-                        {{message}}
-                    </label>
-                {% endif %}
-            </div>
-            {% endfor %}
-            {% endif %}
-            <div class="form-group">
-                <label class="control-label" for="password">Mot de passe</label>
-                {{form.password}}
-                
-            </div>
-            <div class="form-check btn-check" style="margin-bottom:10px;">
-                {{form.remember}}
-                <label class="form-check-label" for="exampleCheck1">Se souvenir de moi</label>
-            </div>
-            <div class="">
-                <button type="submit" class="btn btn-light">Se connecter</button>
-                <a href="{% url 'register' %}" id="inscription"><button type="button" class="btn btn-link">Créer un compte</button></a>
-            <br>
-            <br><p><a href="{% url 'passwords:password_reset' %}">Mot de passe oublié?</a></p>
-            </div>
-    
-        </form>
-    </div>
-</div>
-{% endblock content %}
-
+		{% block content %}
+        <div class="wrapper pa-0">
+			<!-- Main Content -->
+			<div class="page-wrapper pa-0 ma-0 auth-page">
+				<div class="container-fluid">
+					<!-- Row -->
+					<div class="table-struct full-width full-height">
+						<div class="table-cell vertical-align-middle auth-form-wrap">
+							<div class="auth-form  ml-auto mr-auto no-float">
+								<div class="row">
+									<div class="col-sm-12 col-xs-12">
+										<div class="mb-30">
+											<h3 class="text-center txt-dark mb-10">Sign in to Alumni | UNICE UNIV-NDERE</h3>
+											<h6 class="text-center nonecase-font txt-grey">Enter your details below</h6>
+										</div>	
+										<div class="form-wrap">
+											<form method="POST">
+												{% csrf_token %}
+												<div class="form-group">
+													<label class="control-label mb-10" for="exampleInputEmail_2">Email address</label>
+													<input type="email" class="form-control" required="" name="email" placeholder="Enter email">
+												</div>
+												<div class="form-group">
+													<label class="pull-left control-label mb-10" for="exampleInputpwd_2">Password</label>
+													<a class="capitalize-font txt-primary block mb-10 pull-right font-12" href="forgot-password.html">forgot password ?</a>
+													<div class="clearfix"></div>
+													<input type="password" class="form-control" required="" name="password" placeholder="Enter pwd">
+												</div>
+												
+												<div class="form-group">
+													<div class="checkbox checkbox-primary pr-10 pull-left">
+														<input id="checkbox_2" type="checkbox">
+														<label for="checkbox_2"> Keep me logged in</label>
+													</div>
+													<div class="clearfix"></div>
+												</div>
+												<div class="form-group text-center">
+													<button type="submit" class="btn btn-info btn-success btn-rounded">sign in</button>
+												</div>
+											</form>
+										</div>
+									</div>	
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- /Row -->	
+				</div>
+				
+			</div>
+			<!-- /Main Content -->
+		
+		</div>
+        {% endblock content %}
+		

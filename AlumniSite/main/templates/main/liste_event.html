@@ -1,66 +1,71 @@
-{% extends "base.html" %}
-{% load humanize %}
-{% block title %}
-Evenements
-{% endblock title %}
+{% extends "base2.html" %} {% load humanize %} {% block title %} Evenements {% endblock title %} {% block content %} {% load
+static %}
 
-{% block content %}
+<div class="container">
 
-{% load static %}
+  <fieldset class="field-event">
+    <legend>Événements</legend>
+    <div class="event-box style-2 list-type">
 
-  <div class="container">
+      <!-- Event -->
+      {% for evenement in evenements %}
+      <div class="event">
 
-    <fieldset>
-      <legend>Événements</legend>
-      <div class="event-box style-2 list-type">
-          
-        <!-- Event -->
-        <div class="event">
+        <div class="event-date">
 
-          <div class="event-date">
-            
-            <h3 class="numb">18</h3>
-            <h6 class="month">March</h6>
-            <div class="day">Monday</div>
+          <h3 class="numb">{{evenement.date_evenement|date:'d'}}</h3>
+          <h6 class="month">{{evenement.date_evenement|date:'F'}}</h6>
+          <div class="day">{{evenement.date_evenement|date:'o'}}</div>
 
-          </div>
+        </div>
 
-          <div class="event-img">
-            
-            <a href="#"><img src="images/545x308_img1.jpg" alt=""></a>
+        <div class="event-img">
 
-          </div>
-          
-          <div class="event-body">
-            
-            
+          <a href="#">
+            <img src="{{evenement.image_illustration.url}}" alt="">
+          </a>
 
-            <p><i class="fa fa-map-marker"></i> Ngaoundere <br>
-            <i class="fa fa-calendar"></i> 22 Mai 2018</p> 
+        </div>
 
-            <p>Aliquam erat volutpat. Duis ac turpis. Donec sit amet eros. Lorem ipsum dolor. Mauris fermentum dictum magna. Sed laoreet aliquam leo. Ut tellus dolor, dapibus eget, elementum vel, cursus eleifend, elit. Aenean auctor wisi et urna.  Aliquam erat volutpat. </p>
+        <div class="event-body">
 
-            <div class="event-action flex-row align-items-center">
-                  
-              <a href="#" class="btn btn-style-3">More Details</a>
-              <div class="event-icons">
-                
-                <a href="#"><i class="licon-share2"></i></a>
-                <a href="#"><i class="licon-map-marker"></i></a>
-                <a href="#"><i class="licon-at-sign"></i></a>
 
-              </div>
+          <h5 class="event-title">
+            <a href="#">{{evenement.titre}}</a>
+          </h5>
+          <p>
+            <i class="fa fa-map-marker"></i> {{evenement.lieu}}
+            <br>
+            <i class="fa fa-calendar"></i> {{evenement.date_evenement}} à {{evenement.heure_evenement}}</p>
+
+          <p>{{evenement.description|truncatewords:20}}</p>
+
+          <div class="event-action flex-row align-items-center">
+
+            <a href="{% url 'details_events' pk=evenement.pk %}" class="btn btn-style-3">More Details</a>
+            <div class="event-icons">
+
+              <a href="#">
+                <i class="licon-share2"></i>
+              </a>
+              <a href="#">
+                <i class="licon-map-marker"></i>
+              </a>
+              <a href="#">
+                <i class="licon-at-sign"></i>
+              </a>
 
             </div>
 
           </div>
 
         </div>
-    </fieldset>
-    <div class="add-event">
-      <a type="button" href="{% url 'create_event' %}" name="button" class="btn btn-primary">Créer un événement <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+
+      </div>
+      {% endfor %}
     </div>
-  </div>
+  </fieldset>
+ 
+</div>
 
 {% endblock content %}
-

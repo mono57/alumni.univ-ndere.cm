@@ -29,12 +29,12 @@ def login_page(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
-            email = form.cleaned_data['email']
-            password = form.cleaned_data['password']
+            email = request.POST.get('email')
+            password = request.POST.get('password')
             user = authenticate(request, email=email, password = password)
             if user is not None:
                 auth_login(request, user)
-                return redirect('home')
+                return redirect('index')
             messages.info(request, "Vos identifiants de connexion sont incorrects. Veuillez réessayer.")
     else:
         form = LoginForm()

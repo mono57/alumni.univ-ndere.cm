@@ -3,7 +3,7 @@
 {% block title %}
 Communauté
 {% endblock title %}
-{% block content %}
+{% block css %}
 <style media="screen">
   .objectifs, .join, .groupe{
     padding-top: 10px;
@@ -26,8 +26,15 @@ Communauté
   .groupe{
       background-color:#bc1a55;
   }
+  .content1{
+    width: 75%;
+    height: auto;
+  }
 </style>
-<div class="container">
+{% endblock css %}
+{% block content %}
+
+<div class="container content1">
   <div class="row">
     <a href="#">
       <div class="col-md-6 text-center objectifs">
@@ -45,16 +52,13 @@ Communauté
     </a>
   </div>
   <div class="row">
-    <a href="">
+    <a href="{% url 'forum:groupe' %}">
       <div class="col-md-6 text-center groupe">
         <img src="{% static 'img/family11.png' %}" alt="">
         <h2>Nos groupes </h2>
         <hr>
       </div>
     </a>
-    <div class="col-md-6 text-center">
-
-    </div>
   </div>
 </div>
 

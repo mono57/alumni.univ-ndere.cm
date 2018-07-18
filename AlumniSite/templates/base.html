@@ -2,27 +2,26 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{% block title %}
-    {% endblock title %}</title>
-    {% include "base/css.html" %}
-    {% block css %}
-    
-    {% endblock css %}
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+    <meta name="description" content="">
+    <link rel="shortcut icon" href="{% static 'img/uniceshort-199x131.png' %}" type="image/x-icon">
+    <title>{% block title %} {% endblock title %}</title>
+    {% include "base/css.html" %} {% block css %} {% endblock css %}
 </head>
+
 <body>
-    {% include "base/navbar.html" %}
-
-    {% block content %}
-    {% endblock content %}
-
-    {% include "base/js.html" %}
-    {% block javascript %}
-    
-    {% endblock javascript %}
+    {% include "base/navbar2.html" %} {% block content %} {% endblock content %} {% include "base/footer.html" %}
+     {% include "base/js.html" %} {% block javascript %} {% endblock javascript %}
+    <div id="scrollToTop" class="scrollToTop mbr-arrow-up">
+        <a style="text-align: center;">
+            <i></i>
+        </a>
+    </div>
+    <input name="animation" type="hidden">
 </body>
 
 </html>

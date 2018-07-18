@@ -8,6 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge"> {% include "admin/base/css.html" %}
     <title>{% block title %} {% endblock title %} | Alumni</title>
+    {% block css %}
+    
+    {% endblock css %}
 </head>
 
 <body class="menu-position-side menu-side-left full-screen with-content-panel">
@@ -15,8 +18,8 @@
         <div class="top-bar color-scheme-transparent">
             <div class="logo-w">
                 <a class="logo" href="{% url 'admin:index' %}">
-                    <div class="logo-element"></div>
-                    <div class="logo-label"><span style="text-transform:capitalize">Admin</span> Ndéré - Alumni</div>
+                        <img src="{% static 'img/uniceshort-199x131.png' %}" alt="">
+                    <div class="logo-label"> Admin | Unice</div>
                 </a>
             </div>
             <div class="top-menu-controls">
@@ -287,7 +290,8 @@ END - Chat Popup Box
 
 </body>
 
-{% include "admin/base/js.html" %} {% block javascript %} {% endblock javascript %}
+{% include "admin/base/js.html" %} 
+{% block javascript %} {% endblock javascript %}
 <script>
         $('.btn-sm').click(function(){
             $('.floated-chat-w').toggleClass('active');

@@ -4,11 +4,12 @@
 <html>
 
 <head>
-    <title>admin</title>
+    <title>Admin | UNICE</title>
     <meta charset="utf-8">
     <meta content="ie=edge" http-equiv="x-ua-compatible">
     <meta content="width=device-width, initial-scale=1" name="viewport">
-    <link href="favicon.png" rel="shortcut icon"> {% include "admin/base/css.html" %}
+    <link rel="shortcut icon" href="{% static 'img/uniceshort-199x131.png' %}" type="image/x-icon">
+    {% include "admin/base/css.html" %}
 </head>
 
 <body class="menu-position-side menu-side-left full-screen with-content-panel">
@@ -30,8 +31,8 @@
             <div class="menu-w color-scheme-light color-style-transparent menu-position-side menu-side-left menu-layout-compact sub-menu-style-over sub-menu-color-bright selected-menu-color-light menu-activated-on-hover menu-has-selected-link">
                 <div class="logo-w">
                     <a class="logo" href="">
-                        <div class="logo-element"></div>
-                        <div class="logo-label">Clean Admin</div>
+                        <img src="{% static 'img/uniceshort-199x131.png' %}" alt="">
+                        <div class="logo-label">UNICE - ADMIN</div>
                     </a>
                 </div>
                 <div class="logged-user-w avatar-inline">
@@ -41,7 +42,7 @@
                         </div>
                         <div class="logged-user-info-w">
                             <div class="logged-user-name">{{request.user.get_full_name}}</div>
-                            <div class="logged-user-role">Administrateur</div>
+                            <div class="logged-user-role">Administrator</div>
                         </div>
                         <div class="logged-user-toggler-arrow">
                             <div class="os-icon os-icon-chevron-down"></div>
@@ -53,7 +54,7 @@
                                 </div>
                                 <div class="logged-user-info-w">
                                     <div class="logged-user-name">{{request.user.get_full_name}}</div>
-                                    <div class="logged-user-role">Administrateur</div>
+                                    <div class="logged-user-role">Administrator</div>
                                 </div>
                             </div>
                             <div class="bg-icon">
@@ -99,11 +100,11 @@
                         <span>Options</span>
                     </li>
                     <li class=" has-sub-menu">
-                        <a href="apps_bank.html">
+                        <a href="{% url 'admin:statistiques' %}">
                             <div class="icon-w">
                                 <i class="os-icon os-icon-graph-down"></i>
                             </div>
-                            <span>Statistiques</span>
+                            <span>Stats</span>
                         </a>
                         <div class="sub-menu-w">
                             <div class="sub-menu-header">Applications</div>
@@ -152,7 +153,7 @@
                             <div class="icon-w">
                                 <div class="os-icon os-icon-users"></div>
                             </div>
-                            <span>Projets</span>
+                            <span>Projects</span>
                         </a>
 
                     </li>
@@ -161,7 +162,16 @@
                             <div class="icon-w">
                                 <div class="os-icon os-icon-users"></div>
                             </div>
-                            <span>Gerer les projets</span>
+                            <span>Manage Projects</span>
+                        </a>
+
+                    </li>
+                    <li class=" has-sub-menu">
+                        <a href="{% url 'admin:manage_events' %}">
+                            <div class="icon-w">
+                                <div class="os-icon os-icon-users"></div>
+                            </div>
+                            <span>Events</span>
                         </a>
 
                     </li>
@@ -170,7 +180,7 @@
                             <div class="icon-w">
                                 <div class="os-icon os-icon-users"></div>
                             </div>
-                            <span>Dons</span>
+                            <span>Donate</span>
                         </a>
 
                     </li>
@@ -178,9 +188,9 @@
                 </ul>
                 <div class="side-menu-magic">
                     <h4>Admin</h4>
-                    <p>Bienvenue dans le site d'administration</p>
+                    <p>Welcome to the Unice admin site</p>
                     <div class="btn-w">
-                        <a class="btn btn-white btn-rounded" href="{% url 'home' %}" target="_blank">Voir le site</a>
+                        <a class="btn btn-white btn-rounded" href="{% url 'home' %}" target="_blank">Go to site</a>
                     </div>
                 </div>
             </div>
@@ -223,13 +233,6 @@ START - Messages Link in secondary top menu
                                 </ul>
                             </div>
                         </div>
-                        <!--------------------
-END - Messages Link in secondary top menu
--------------------->
-
-                        <!--------------------
-START - User avatar and menu in secondary top menu
--------------------->
                         <div class="logged-user-w">
                             <div class="logged-user-i">
                                 <div class="avatar-w">
@@ -239,14 +242,14 @@ START - User avatar and menu in secondary top menu
                                     <div class="logged-user-avatar-info">
                                         <div class="logged-user-info-w">
                                             <div class="logged-user-name">{{request.user.get_full_name}}</div>
-                                            <div class="logged-user-role">Administrateur</div>
+                                            <div class="logged-user-role">Administrator</div>
                                         </div>
                                     </div>
 
                                     <ul>
 
                                         <li>
-                                            <a href="users_profile_big.html">
+                                            <a href="#">
                                                 <i class="os-icon os-icon-user-male-circle2"></i>
                                                 <span>Profile</span>
                                             </a>
@@ -262,18 +265,8 @@ START - User avatar and menu in secondary top menu
                                 </div>
                             </div>
                         </div>
-                        <!--------------------
-END - User avatar and menu in secondary top menu
--------------------->
                     </div>
-                    <!--------------------
-END - Top Menu Controls
--------------------->
                 </div>
-                <!--------------------
-END - Top Bar
--------------------->
-
                 <div class="content-panel-toggler">
                     <i class="os-icon os-icon-grid-squares-22"></i>
                     <span>Sidebar</span>
@@ -283,21 +276,12 @@ END - Top Bar
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="element-wrapper">
-                                    <div class="element-actions">
-                                        <form class="form-inline justify-content-sm-end">
-                                            <select class="form-control form-control-sm rounded">
-                                                <option value="Pending">Today</option>
-                                                <option value="Active">Last Week </option>
-                                                <option value="Cancelled">Last 30 Days</option>
-                                            </select>
-                                        </form>
-                                    </div>
-                                    <h6 class="element-header">Tableau de board</h6>
+                                    <h6 class="element-header">Dashboard</h6>
                                     <div class="element-content">
                                         <div class="row">
                                             <div class="col-sm-4 col-xxxl-3">
                                                 <a class="element-box el-tablo" href="#">
-                                                    <div class="label">Utilisateurs</div>
+                                                    <div class="label">Active users</div>
                                                     <div class="value nb-users">{{users.count}}</div>
                                                     <div class="trending trending-up-basic">
                                                         <span>{{users.count}}/{{users.count}}</span>
@@ -307,7 +291,7 @@ END - Top Bar
                                             </div>
                                             <div class="col-sm-4 col-xxxl-3">
                                                 <a class="element-box el-tablo" href="#">
-                                                    <div class="label">Utilisateurs suspendus</div>
+                                                    <div class="label">Suspend users</div>
                                                     <div class="value nb-suspend-user">{{user_not_active}}</div>
                                                     <div class="trending trending-down-basic">
                                                         <span>{{user_not_active}}/{{users.count}}</span>
@@ -317,7 +301,7 @@ END - Top Bar
                                             </div>
                                             <div class="col-sm-4 col-xxxl-3">
                                                 <a class="element-box el-tablo" href="#">
-                                                    <div class="label">Nouvel inscription</div>
+                                                    <div class="label">New request</div>
                                                     <div class="value nb-etudiant">{{etudiants.count}}</div>
 
                                                 </a>
@@ -345,12 +329,12 @@ START - Sidebar
                             <i class="os-icon os-icon-close"></i>
                         </div>
                         <div class="element-wrapper">
-                            <h6 class="element-header">Liens rapides</h6>
+                            <h6 class="element-header">Quick links</h6>
                             <div class="element-box-tp">
                                 <div class="el-buttons-list full-width">
                                     <a class="btn btn-white btn-sm" href="{% url 'admin:create_news' %}">
                                         <i class="os-icon os-icon-delivery-box-2"></i>
-                                        <span>Nouvelle Actualité</span>
+                                        <span>Create news</span>
                                     </a>
                                     <a class="btn btn-white btn-sm" href="">
                                         <i class="os-icon os-icon-window-content"></i>
@@ -379,16 +363,16 @@ START - Support Agents
                                     </a>
                                     <div class="profile-tile-meta">
                                         <ul>
-                                            <li>Last Login: {% if request.user.is_online %}
+                                            <li>Last Login: {% if admin.is_online %}
                                                 <strong>
                                                     <span class="status-pill smaller green"></span> Online Now</strong>
                                                 {% else %}
-                                                <strong>{{request.user.last_login|timesince}}</strong>
+                                                <strong>{{admin.last_login|timesince}}</strong>
                                                 {% endif %}
                                             </li>
                                             <li>Tickets:
                                                 <strong>
-                                                    <a href="apps_support_index.html">12</a>
+                                                    <a href="">12</a>
                                                 </strong>
                                             </li>
                                             <li>Response Time:
@@ -396,7 +380,7 @@ START - Support Agents
                                             </li>
                                         </ul>
                                         <div class="pt-btn">
-                                            <a class="btn btn-success btn-sm" href="apps_full_chat.html">Send Message</a>
+                                            <a class="btn btn-success btn-sm" href="">Send Message</a>
                                         </div>
                                     </div>
                                 </div>
@@ -417,50 +401,14 @@ START - Recent Activity
                                         <div class="activity-time">10 Min</div>
                                         <div class="activity-box">
                                             <div class="activity-avatar">
-                                                <img alt="" src="img/avatar1.jpg">
+                                                <img alt="" src="{% static 'admin/img/avatar1.png' %}">
                                             </div>
                                             <div class="activity-info">
                                                 <div class="activity-role">John Mayers</div>
                                                 <strong class="activity-title">Opened New Account</strong>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="activity-box-w">
-                                        <div class="activity-time">2 Hours</div>
-                                        <div class="activity-box">
-                                            <div class="activity-avatar">
-                                                <img alt="" src="img/avatar2.jpg">
-                                            </div>
-                                            <div class="activity-info">
-                                                <div class="activity-role">Ben Gossman</div>
-                                                <strong class="activity-title">Posted Comment</strong>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="activity-box-w">
-                                        <div class="activity-time">5 Hours</div>
-                                        <div class="activity-box">
-                                            <div class="activity-avatar">
-                                                <img alt="" src="img/avatar3.jpg">
-                                            </div>
-                                            <div class="activity-info">
-                                                <div class="activity-role">Phil Nokorin</div>
-                                                <strong class="activity-title">Opened New Account</strong>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="activity-box-w">
-                                        <div class="activity-time">2 Days</div>
-                                        <div class="activity-box">
-                                            <div class="activity-avatar">
-                                                <img alt="" src="img/avatar4.jpg">
-                                            </div>
-                                            <div class="activity-info">
-                                                <div class="activity-role">Jenny Miksa</div>
-                                                <strong class="activity-title">Uploaded Image</strong>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    </div>  
                                 </div>
                             </div>
                         </div>

@@ -20,7 +20,7 @@ DEFAULT_FROM_EMAIL = 'jesuisuntestpython3@gmail.com'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 AUTH_USER_MODEL = 'accounts.User'
 
