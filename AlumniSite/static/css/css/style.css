@@ -128,7 +128,6 @@ table td {
 img {
   vertical-align: top;
   max-width: 100%;
-  -webkit-backface-visibility: hidden;
   -ms-transform: translateZ(0);
   /* IE 9 */
   -webkit-transform: translateZ(0);
@@ -533,9 +532,7 @@ p {
   letter-spacing: 0.3px;
 }
 
-p:not(:last-child) {
-  margin-bottom: 28px;
-}
+
 
 .fw-medium {
   font-weight: 600;
@@ -1256,25 +1253,6 @@ a:hover .tooltip {
   display: inline-block;
 }
 
-button.search-button,
-.shop-cart .sc-cart-btn {
-  font-family: 'Linearicons';
-  font-size: 20px;
-  line-height: 28px;
-  background: none;
-  color: #fff;
-}
-
-button.search-button:before {
-  content: "\e922";
-}
-
-.searchform-wrap .vc-child form input {
-  background-color: #fff;
-  border: none;
-  color: #222;
-  height: 52px;
-}
 
 .close-search-form,
 .close-popup {
@@ -1731,38 +1709,7 @@ button.search-button:before {
 
 /* Page 404 */
 
-.page-404-section {
-  position: relative;
-  padding: 112px 0;
-  text-align: center;
-}
 
-.page-404-section p.text-size-big {
-  color: #333;
-}
-
-.page-404-section .title {
-  font-size: 400px;
-  line-height: 270px;
-  color: #b01933;
-}
-
-.page-404-section .title:not(:last-child) {
-  margin-bottom: 60px;
-}
-
-.page-404-section p a {
-  color: #333;
-}
-
-.page-404-section form input {
-  min-width: 360px;
-  height: 56px;
-}
-
-.page-404-section form .btn {
-  margin-left: 5px;
-}
 
 /* Coming soon */
 
@@ -3710,12 +3657,7 @@ hr.style-5 {
   padding: 0 15px;
 }
 
-.icons-box.style-1 .icons-item .item-box>i {
-  margin-bottom: 26px;
-  font-size: 60px;
-  color: #b01933;
-  display: block;
-}
+
 
 .icons-box.style-1 .icons-item .item-box>i:not([class*="licon-"]) {
   font-style: normal;

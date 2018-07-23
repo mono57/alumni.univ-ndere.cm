@@ -16,7 +16,7 @@ class Evenement(models.Model):
     activated = models.BooleanField(default=False)
     
     def __str__(self):
-        return "Evenement : {} Date : {} Createur : {}".format(self.titre,self.date_evenement, self.createur)
+        return "{}".format(self.titre)
     
 
 class Actualite(models.Model):

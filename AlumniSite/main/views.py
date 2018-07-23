@@ -18,9 +18,16 @@ class HomePageView(TemplateView):
 class IndexView(TemplateView):
     template_name = 'index.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['news'] = Actualite.objects.all()
+        context['events'] = Evenement.objects.all()
+        context['first_event'] = Evenement.objects.first()
+        return context
+
 class ListActualite(ListView):
     template_name = 'main/liste_actu.html'
-    context_object_name = 'actualites'
+    context_object_name = 'news'
     model = Actualite
 
 class DetailNews(DetailView):
@@ -30,7 +37,8 @@ class DetailNews(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['latest_news'] = Actualite.objects.all()[:5]
+        context['latest_news'] = Actualite.objects.all()[:3]
+        context['events'] = Evenement.objects.all()[:3]
         return context
 
 class ListEvenement(ListView):
@@ -46,6 +54,7 @@ class DetailEvent(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['related_events'] = Evenement.objects.all()[:5]
+        
         return context
 
 @login_required(login_url='login')
@@ -90,3 +99,7 @@ class ContactView(FormView):
 
     def form_valid(self,form):
         return super().form_valid(form)
+
+
+class ProjectsView(TemplateView):
+    template_name = "main/projects.html"

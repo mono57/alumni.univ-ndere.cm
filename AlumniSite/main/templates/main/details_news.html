@@ -1,4 +1,4 @@
-{% extends "base2.html" %} {% load static %} {% block title %} Details {% endblock title %} {% block content %}
+{% extends "base.html" %} {% load static %} {% block title %} Details {% endblock title %} {% block content %}
 
 <!-- - - - - - - - - - - - - - Content - - - - - - - - - - - - - - - - -->
 <div id="wrapper" class="wrapper-container">
@@ -14,11 +14,9 @@
           <div class="entry-body">
 
             <h1 class="entry-title">
-              <a href="#">{{news.title}}</a>
+              {{news.title}}
             </h1>
             <div class="entry-meta">
-
-              <span>on</span>
               <time class="entry-date" datetime="2018-03-18">{{news.date_add}}</time>
               <span>par</span>
               <a href="#" class="entry-cat">{{news.author}}</a>
@@ -113,9 +111,9 @@
 
                   <div class="gravatar">
 
-                    <a href="#">
+                    
                       <img src="{% static 'img/logo_user.png' %}" alt="">
-                    </a>
+                   
 
                   </div>
 
@@ -128,11 +126,11 @@
                     <header class="comment-meta">
 
                       <h6 class="comment-author">
-                        <a href="#">Camala Haddon</a>
+                        <label>Camala Haddon</label>
                       </h6>
                       <div class="comment-info">
                         <time datetime="2015-10-17 02:41" class="comment-date">October 17, 2017 at 2:41 pm</time>
-                        <a href="#" class="comment-reply-link">
+                        <!-- - - -  <a href="#" class="comment-reply-link">
                           <i class="licon-reply"></i>Reply</a>
                       </div>
 
@@ -157,42 +155,42 @@
           <div class="content-element">
 
             <h3 class="title">Leave a Comment</h3>
-            <p class="text-size-small">Votre adresse email ne sera pas publiée. Les champs marqués d'un
-              <span class="required"></span> sont réquis.</p>
+            <p class="text-size-small">Your email address will not be published. Fields marked with an 
+              <span class="required"></span>  are required.</p>
 
             <form class="contact-form style-2">
 
               <div class="contact-item">
 
-                <label class="required">Votre nom</label>
-                <input type="text">
+                <label class="required">Your Name</label>
+                <input type="text" class="form-control" required>
 
               </div>
 
               <div class="contact-item">
 
-                <label class="required">Votre Email</label>
-                <input type="email">
+                <label class="required">Your Email</label>
+                <input type="email" class="form-control" required>
 
               </div>
 
               <div class="contact-item">
 
-                <label>Site web</label>
-                <input type="url">
+                <label>Website</label>
+                <input type="url" class="form-control">
 
               </div>
 
               <div class="contact-item">
 
-                <label class="required">Commentaires</label>
-                <textarea rows="8"></textarea>
+                <label class="required">Comment</label>
+                <textarea rows="8" class="form-control" required></textarea>
 
               </div>
 
               <div class="contact-item">
 
-                <button type="submit" class="btn btn-style-4" data-type="submit">Soumettre</button>
+                <button class="btn btn-style-4 submit-comment" data-type="submit">Soumettre</button>
 
               </div>
 
@@ -257,7 +255,7 @@
                   <div class="entry-body">
 
                     <h6 class="entry-title">
-                      <a href="{% url 'details' pk=latest.id %}">Auteur : {{latest.author}}</a>
+                      <a href="{% url 'details' pk=latest.id %}">{{latest.title|truncatechars:25}}</a>
                     </h6>
                     <div class="entry-meta">
 
@@ -290,82 +288,6 @@
             <div class="widget-calendar">
               <div class="owl-carousel" data-max-items="1">
 
-                <div class="item">
-
-                  <div class="calendar-wrap">
-                    <table>
-                      <tr>
-                        <!--titles for td-->
-                        <th colspan="7">December 2018</th>
-                      </tr>
-                      <tr class="days">
-                        <td>M</td>
-                        <td>T</td>
-                        <td>W</td>
-                        <td>T</td>
-                        <td>F</td>
-                        <td>S</td>
-                        <td>S</td>
-                      </tr>
-                      <tr>
-                        <td>1</td>
-                        <td>2</td>
-                        <td>3</td>
-                        <td>4</td>
-                        <td>5</td>
-                        <td class="link">
-                          <a href="#">6</a>
-                        </td>
-                        <td>7</td>
-                      </tr>
-                      <tr>
-                        <td>8</td>
-                        <td class="link">
-                          <a href="#">9</a>
-                        </td>
-                        <td>10</td>
-                        <td>11</td>
-                        <td>12</td>
-                        <td>13</td>
-                        <td>14</td>
-                      </tr>
-                      <tr>
-                        <td class="link">
-                          <a href="#">15</a>
-                        </td>
-                        <td>16</td>
-                        <td>17</td>
-                        <td>18</td>
-                        <td class="link current">
-                          <a href="#">20</a>
-                        </td>
-                        <td>20</td>
-                        <td>21</td>
-                      </tr>
-                      <tr>
-                        <td>22</td>
-                        <td>23</td>
-                        <td class="link">
-                          <a href="#">24</a>
-                        </td>
-                        <td>25</td>
-                        <td>26</td>
-                        <td>27</td>
-                        <td>28</td>
-                      </tr>
-                      <tr>
-                        <td>29</td>
-                        <td>30</td>
-                        <td class="next-month">1</td>
-                        <td class="next-month">2</td>
-                        <td class="next-month">3</td>
-                        <td class="next-month">4</td>
-                        <td class="next-month">5</td>
-                      </tr>
-                    </table>
-                  </div>
-
-                </div>
 
                 <div class="item">
 
@@ -458,31 +380,33 @@
             <div class="event-box style-2">
 
               <!-- Event -->
-              <div class="event">
+             {% for event in events %}
+             <div class="event">
 
-                <div class="event-date">
+              <div class="event-date">
 
-                  <h3 class="numb">18</h3>
-                  <h6 class="month">March</h6>
-                  <div class="day">Sunday</div>
+                <h3 class="numb">{{event.date_evenement|date:'d'}}</h3>
+                <h6 class="month">{{event.date_evenement|date:'F'}}</h6>
+                <div class="day">{{event.date_evenement|date:'o'}}</div>
 
-                </div>
+              </div>
 
-                <div class="event-body">
+              <div class="event-body">
 
-                  <h6 class="event-title">
-                    <a href="#">Mission Vision School</a>
-                  </h6>
+                <h6 class="event-title">
+                  <a href="#">{{event.titre}}</a>
+                </h6>
 
-                  <p class="e-info">12:00 AM - 5:00 PM 8901 Marmora Road, Glasgow, D04 89GR</p>
-
-                </div>
+                <p class="e-info">{{event.heure_evenement}} {{event.lieu}}</p>
 
               </div>
 
             </div>
+             {% endfor %}
 
-            <a href="#" class="btn btn-small btn-style-6">More Events</a>
+            </div>
+
+            <a href="{% url 'event' %}" class="btn btn-small btn-style-6">More Events</a>
 
           </div>
 
@@ -503,6 +427,10 @@
 {% endblock content %}
 {% block javascript %}
 <script>
+
+  $('.submit-comment').click(function(){
+    alert("Vous êtes sur le point d'envoyer un commentaire");
+  });
 
 </script>
 {% endblock javascript %}

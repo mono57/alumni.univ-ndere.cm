@@ -58,3 +58,10 @@ class ProfileAccountView(TemplateView, LoginRequiredMixin):
         context['frequenter'] = Frequenter.objects.get(user=self.request.user)
         context['habiter'] = Habiter.objects.get(user=self.request.user)
         return context
+
+def validate_email(request):
+    email = request.GET.get('email', None)
+    data = {
+        'is_taken':User.objects.filter(email=email).exists()
+    }
+    return JsonResponse(data)

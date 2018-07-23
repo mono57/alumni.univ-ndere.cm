@@ -1,225 +1,132 @@
-{% extends "base2.html" %} {% load static %} {% block title %} Inscription {% endblock title %} {% block css %}
-<link href="{% static 'js/form-wizard/wizard.css' %}" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" href="{% static 'js/form-wizard/form-wizard-data.js' %}">
-{% endblock css %} {% block content %}
+{% extends "base2.html" %} {% load static %} {% block title %} Register {% endblock title %} 
 
+{% block css %}
+<style>
+    .error-message{
+        color:red;
+        margin-bottom: 0px;
+        margin-top: 0px;
+        font-size: 12px;
+    }
+</style>
+{% endblock css %}
 
-<div class="wrapper theme-1-active pimary-color-green">
-    <div class="page-wrapper">
+{% block content %}
+<div class="wrapper pa-0">
+    <!-- Main Content -->
+    <div class="page-wrapper pa-0 ma-0 auth-page">
         <div class="container-fluid">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="panel panel-default">
-                        <div class="panel-wrapper in">
-                            <div class="panel-body">
-                                <form id="example-advanced-form" action="#">
-                                    <h3>
-                                        <span class="number">
-                                            <i class="icon-user-following txt-black"></i>
-                                        </span>
-                                        <span class="head-font capitalize-font">signup</span>
-                                    </h3>
-                                    <fieldset>
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <div class="form-wrap">
-                                                    <div class="form-group">
-                                                        <div class="input-group">
-                                                            <div class="input-group-addon">
-                                                                <i class="icon-user"></i>
-                                                            </div>
-                                                            <input type="text" class="form-control required" name="Username" id="exampleInputuname" placeholder="Username">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <div class="input-group">
-                                                            <div class="input-group-addon">
-                                                                <i class="icon-envelope-open"></i>
-                                                            </div>
-                                                            <input type="email" class="form-control required" id="exampleInputEmail" name="email" placeholder="Enter email">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <div class="input-group">
-                                                            <div class="input-group-addon">
-                                                                <i class="icon-lock"></i>
-                                                            </div>
-                                                            <input id="password-2" type="password" class="form-control required" name="password" placeholder="Enter password">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group mb-0">
-                                                        <div class="input-group">
-                                                            <div class="input-group-addon">
-                                                                <i class="icon-lock"></i>
-                                                            </div>
-                                                            <input type="password" class="form-control required" id="confirm-2" name="confirm" placeholder="confirm password">
-                                                        </div>
-                                                    </div>
-                                                </div>
+            <!-- Row -->
+            <div class="table-struct full-width full-height">
+                <div class="table-cell vertical-align-middle auth-form-wrap">
+                    <div class="auth-form  ml-auto mr-auto no-float">
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <div class="mb-30">
+                                    <h3 class="text-center txt-dark mb-10">Register to Alumni
+                                        <br> UNICE UNIV-NDERE</h3>
+                                    <h6 class="text-center nonecase-font txt-grey">Enter your details below</h6>
+
+                                </div>
+                                <div class="form-wrap">
+                                    <form method="POST">
+                                        {% csrf_token %}
+                                        <div >
+                                            {{form.errors}}
+                                            <div class="form-group col-sm-6">
+                                                <label class="control-label mb-10 required">First Name</label>
+                                                <input type="text" class="form-control" required="" name="nom" placeholder="Enter First Name">
+                                            </div>
+                                            <div class="form-group col-sm-6">
+                                                <label class="control-label mb-10 required">Last Name</label>
+                                                <input type="text" class="form-control" required="" name="prenom" placeholder="Enter Last Name">
                                             </div>
                                         </div>
-                                    </fieldset>
+                                        <p class="error-message">Message to displaying</p>
+                                        <div id="email_block">
 
-                                    <h3>
-                                        <span class="number">
-                                            <i class="icon-bag txt-black"></i>
-                                        </span>
-                                        <span class="head-font capitalize-font">shipping</span>
-                                    </h3>
-                                    <fieldset>
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <div class="form-wrap">
-                                                    <div class="form-group">
-                                                        <label class="control-label mb-10" for="exampleCountry">country:</label>
-                                                        <select id="exampleCountry" class="form-control required" name="country">
-                                                            <option value="1">India</option>
-                                                            <option value="2">Australia</option>
-                                                            <option value="3">USA</option>
-                                                            <option value="4">Japan</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <div class="row">
-                                                            <div class="col-md-6 col-xs-12">
-                                                                <label class="control-label mb-10" for="firstName">first name:</label>
-                                                                <input id="firstName" type="text" name="first_name" class="form-control required" value="" />
-                                                            </div>
-                                                            <div class="span1"></div>
-                                                            <div class="col-md-6 col-xs-12">
-                                                                <label class="control-label mb-10" for="lastName">last name:</label>
-                                                                <input id="lastName" type="text" name="last_name" class="form-control required" value="" />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="control-label mb-10" for="addressDetail">Address:</label>
-                                                        <input id="addressDetail" type="text" name="address" class="form-control required" value="" />
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="control-label mb-10" for="cityName">city:</label>
-                                                        <select id="cityName" class="form-control required" name="country">
-                                                            <option value="">Banglore</option>
-                                                            <option value="">Pune</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="control-label mb-10" for="stateName">state:</label>
-                                                        <select id="stateName" class="form-control required" name="country">
-                                                            <option value="">Karnataka</option>
-                                                            <option value="">Maharashtra</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="control-label mb-10" for="postalCode">zip/postal code:</label>
-                                                        <input id="postalCode" type="text" name="zip_code" data-mask="99999-9999" class="form-control required" value="" />
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="control-label mb-10" for="phoneNumber">phone number:</label>
-                                                        <input type="text" id="phoneNumber" data-mask="+40 999 999 999" name="phone_number" class="form-control required" value=""
-                                                        />
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="control-label mb-10" for="emailAddress">email address:</label>
-                                                        <input id="emailAddress" type="text" name="email_address" class="form-control required" value="" />
-                                                    </div>
-                                                    <div class="form-group mb-0">
-                                                        <div class="checkbox checkbox-success">
-                                                            <input id="checkbox_1" type="checkbox">
-                                                            <label for="checkbox_1">Billing address is same as shipping address.</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                            <div class="form-group col-sm-12">
+                                                <label class="control-label mb-10 required">Email address</label>
+                                                <input type="email" class="form-control" required="" name="nom" placeholder="Enter Email" id="email">
+                                            </div>
+
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="pull-left control-label mb-10 required" for="exampleInputpwd_2">Password</label>
+
+                                            <div class="clearfix"></div>
+                                            <input type="password" class="form-control" required="" name="password" placeholder="Enter pwd" id="password">
+                                        </div>
+
+                                        <div >
+
+                                            <div class="form-group col-sm-6">
+                                                <label class="control-label mb-10 required">Faculty</label>
+                                                <input type="text" class="form-control" required="" name="nom" placeholder="Enter Faculty">
+                                            </div>
+                                            <div class="form-group col-sm-6">
+                                                <label class="control-label mb-10">Last diplome</label>
+                                                <input type="text" class="form-control" name="matricule" placeholder="Your last diplome">
                                             </div>
                                         </div>
-                                    </fieldset>
+                                        <p class="error-message">Message to displaying</p>
+                                        <div>
+                                            
+                                            <div class="form-group col-sm-6">
+                                                <label class="control-label mb-10">Matricule</label>
+                                                <input type="text" class="form-control" name="matricule" placeholder="Enter your matricule">
+                                            </div>
 
-                                    <h3>
-                                        <span class="number">
-                                            <i class="icon-credit-card txt-black"></i>
-                                        </span>
-                                        <span class="head-font capitalize-font">payment</span>
-                                    </h3>
-                                    <fieldset>
-                                        <!--CREDIT CART PAYMENT-->
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <div class="form-group">
-                                                    <label class="control-label mb-10" for="CreditCardType">card type:</label>
-                                                    <select id="CreditCardType" name="CreditCardType" class="form-control required">
-                                                        <option value="5">Visa</option>
-                                                        <option value="6">MasterCard</option>
-                                                        <option value="7">American Express</option>
-                                                        <option value="8">Discover</option>
-                                                    </select>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="control-label mb-10" for="cardNo">Credit Card Number:</label>
-                                                    <input type="text" id="cardNo" data-mask="9999-9999-9999-9999" class="form-control required" name="car_number" value="" />
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="control-label mb-10" for="cvv">card cvv:</label>
-                                                    <input type="text" id="cvv" class="form-control  required" data-mask="999" name="car_code" value="" />
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="control-label mb-10">expiration date:</label>
-                                                    <div class="row">
-                                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                                            <select class="form-control required" name="month">
-                                                                <option value="">Month</option>
-                                                                <option value="1">01</option>
-                                                                <option value="2">02</option>
-                                                                <option value="3">03</option>
-                                                                <option value="4">04</option>
-                                                                <option value="5">05</option>
-                                                                <option value="6">06</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                                            <select class="form-control required" name="year">
-                                                                <option value="1">Year</option>
-                                                                <option value="2">2001</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group mb-0">
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <ul class="cards">
-                                                                <li class="visa hand">
-                                                                    <img src="../img/1-s.png" alt="card" />
-                                                                </li>
-                                                                <li class="mastercard hand">
-                                                                    <img src="../img/2-s.png" alt="card" />
-                                                                </li>
-                                                                <li class="amex hand">
-                                                                    <img src="../img/3-s.png" alt="card" />
-                                                                </li>
-                                                                <li class="amex hand">
-                                                                    <img src="../img/4-s.png" alt="card" />
-                                                                </li>
-                                                            </ul>
-                                                            <div class="clearfix"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
+                                            <div class="form-group col-sm-6">
+                                                <label class="control-label mb-10">Date begin</label>
+                                                <input type="text" class="form-control" name="annee_debut" placeholder="Date begin in the university">
                                             </div>
                                         </div>
-                                        <!--CREDIT CART PAYMENT END-->
-                                    </fieldset>
+                                        <div >
 
-                                </form>
+                                            <div class="form-group col-sm-6">
+                                                <label class="control-label mb-10">Entreprise</label>
+                                                <input type="text" class="form-control" name="entreprise" placeholder="Enter Entreprise">
+                                            </div>
+
+                                            <div class="form-group col-sm-6">
+                                                <label class="control-label mb-10">Job</label>
+                                                <input type="text" class="form-control" name="fonction" placeholder="Your Job">
+                                            </div>
+                                        </div>
+                                        <div>
+
+                                            <div class="form-group col-sm-12">
+                                                <label class="control-label mb-10">Location</label>
+                                                <input type="text" class="form-control" name="residence" placeholder="Enter your Location">
+                                            </div>
+
+
+                                        </div>
+
+                                        <div >
+                                            <div class="form-group text-center">
+                                                <button type="submit" class="btn btn-info btn-success btn-rounded">Register</button>
+                                            </div>
+                                        </div>
+
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <!-- /Row -->
         </div>
+
     </div>
-</div> {% endblock content %} {% block javascript %}
-<script src="{% static 'js/form-wizard/jquery.steps.min.js' %}"></script>
-<script src="{% static 'js/form-wizard/form-wizard-data.js' %}"></script>
-<script src="{% static 'js/init.js' %}"></script>
+    <!-- /Main Content -->
+
+</div>
+{% endblock content %}
+{% block javascript %}
+
+
 {% endblock javascript %}

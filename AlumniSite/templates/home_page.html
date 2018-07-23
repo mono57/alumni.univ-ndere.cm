@@ -2,14 +2,6 @@
 
 <!--<link rel="stylesheet" href="{% static 'css/css/bootstrap/bootstrap-grid.min.css' %}">-->
 
-<link rel="stylesheet" href="{% static 'css/css/home/mobirise-icons/mobirise-icons.css' %}">
-<link rel="stylesheet" href="{% static 'css/css/bootstrap/bootstrap.min.css' %}">
-<link rel="stylesheet" href="{% static 'css/css/home/dropdown/css/style.css' %}">
-<link rel="stylesheet" href="{% static 'css/css/home/socicon/css/styles.css' %}">
-<link rel="stylesheet" href="{% static 'css/css/home/animatecss/animate.min.css' %}">
-<link rel="stylesheet" href="{% static 'css/css/home/style.css' %}">
-<link rel="stylesheet" href="{% static 'css/css/home/mbr-additional.css' %}">
-
 
 <style>
     .cid-qFHAy7dBZK {
@@ -75,17 +67,17 @@
                     <img src="{{new.image_description.url}}" alt="">
                 </div>
                 <div class="card-box">
-                    
+
                     <a href="">
                         <h2 class="card-title py-3 mbr-fonts-style display-5">{{new.title|truncatechars:20}}</h2>
                     </a>
-                    
+
                     <p class="mbr-text mbr-fonts-style display-7">
                         {{new.text_description|truncatewords:20|safe}}
                     </p>
                     <p>{{new.date_add|naturalday:"DATE_FORMAT"}}
-                            <a class="pull-right" href="">...lire plus</a>
-                        </p>
+                        <a class="pull-right" href="{% url 'details' pk=new.pk %}">...lire plus</a>
+                    </p>
                 </div>
             </div>
             {% endfor %}

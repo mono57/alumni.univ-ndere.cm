@@ -6,61 +6,73 @@
 {% endblock title %}
 
 {% block content %} 
+ <!-- - - - - - - - - - - - - - Content - - - - - - - - - - - - - - - - -->
 
+ <div id="content" class="page-content-wrap">
+    <div class="container" style="margin-bottom:50px;"><h1 class="page-title">All news</h1></div>
+    <div class="container wide">
 
-<style media="screen">
-  section img{
-    display: block;
-    width: 100%;
-  }
-  .ombre{
-    box-shadow: 0 0 10px #999;
-    padding: 10px;
-    margin: 20px;
-    background-color:#fff;
-  }
-  legend{
-    font-size: 40px;
-  }
-  section p{
-    text-align: justify;
-  }
-  .lirePlus{
-    margin-left: 90px;
-  }
-  .container{
-    width: 75%;
-  }
-  .flotant{
-    float: left;
-    color: red;
-  }
-</style>
+      
+      <div class="entry-box flex-row item-col-3">
+          
+        <!-- Entry -->
+        {% for new in news %}
+        <div class="entry-col">
 
-  <div class="container">
-
-    <fieldset>
-      <legend>Actualités</legend>
-      <div class="">
-        <div class="row">
-          {% for actualite in actualites %}
-          <div class="col-md-4">
-            <a href="{% url 'details' pk=actualite.id %}">
-              <section class="ombre">
-                <img src="{{actualite.image_description.url}}" alt="">
-                <a href=""> <h2>{{actualite.titre|truncatechars:20}}</h2> </a>
-                <p class="description">{{actualite.text_description|truncatewords:10|safe}}</p>
-
-                <p>{{actualite.date_add|naturalday:"DATE_FORMAT"}}<a class="pull-right" href="">...lire plus</a></p>
-              </section>
-            </a>
+            <div class="entry">
+                  
+              <!-- - - - - - - - - - - - - - Entry attachment - - - - - - - - - - - - - - - - -->
+              <div class="thumbnail-attachment">
+                <a href="{% url 'details' pk=new.pk %}"><img src="{{new.image_description.url}}" alt=""></a>
+              </div>
+              
+              <!-- - - - - - - - - - - - - - Entry body - - - - - - - - - - - - - - - - -->
+              <div class="entry-body">
+                    
+                <h5 class="entry-title"><a href="{% url 'details' pk=new.pk %}">{{new.title}}</a></h5>
+                <div class="entry-meta">
+                  
+                  <span>on</span>
+                  <time class="entry-date" datetime="2018-03-18">{{new.date_add}}</time>
+                  <span>by</span>
+                  <a href="#" class="entry-cat">R{{new.author}}</a>
+                  
+                </div>
+                <p>{{new.text_description|truncatewords:25|safe}}</p>
+  
+                <div class="entry-action">
+                  
+                  14 <i class="fa fa-eye" aria-hidden="true"></i>
+                  &ensp;
+                  25 <i class="fa fa-comments" aria-hidden="true"></i>
+                  <a class="pull-right" href="{% url 'details' pk=new.pk %}">More</a>
+  
+                </div>
+                    
+              </div>
+                    
+            </div>
+  
           </div>
-          {% endfor %}
-        </div>
+  
+        {% endfor %}
+       
+
+      <div class="page-nav justify-content-center">
+        <ul class="pagination">
+          <li><a href="#" class="prev-page"><span>Previous</span></a></li>
+          <li><a href="#">1</a></li>
+          <li class="active"><a href="#">2</a></li>
+          <li><a href="#">3</a></li>
+          <li><a href="#" class="next-page"><span>Next</span></a></li>
+        </ul>
       </div>
-    </fieldset>
+
+    </div>
 
   </div>
+
+  <!-- - - - - - - - - - - - - end Content - - - - - - - - - - - - - - - -->
 
 {% endblock content %}
 

@@ -5,6 +5,7 @@
 {% url 'logout' as logout_url %} 
 {% url 'register' as register_url %}
 {% url 'contact' as contact_url %}
+
 {% url 'forum:community' as community_url %}
 {%url 'donate' as donate_url %} {% load static %}
 
@@ -57,15 +58,11 @@
             Community</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link link text-black display-4" href="#content4-d">
+          <a class="nav-link link text-black display-4" href="{% url 'projects' %}">
             <span class="mbri-layers mbr-iconfont mbr-iconfont-btn"></span>
             Projects</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link link text-black display-4" href="#features16-h">
-            <span class="mbri-cash mbr-iconfont mbr-iconfont-btn"></span>
-            Donate</a>
-        </li>
+        
         {% if request.user.is_authenticated %}
         
         {% else %}

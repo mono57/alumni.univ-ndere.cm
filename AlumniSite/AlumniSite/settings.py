@@ -115,7 +115,7 @@ MEDIA_URL = '/media/'
 
 # Internationalization
 
-LANGUAGE_CODE = 'fr-fr'
+LANGUAGE_CODE = 'en'
 
 TIME_ZONE = 'UTC'
 

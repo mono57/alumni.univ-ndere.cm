@@ -1,9 +1,469 @@
-{% extends "base2.html" %}
-{% load static %}
-{% block title %}
-Alumni
-{% endblock title %}
+{% extends "base2.html" %} {% load static %} {% block title %} Alumni {% endblock title %} {% block css %}
+<style>
+    .left-bg {
+        background-image: url("{% static 'img/960x728.jpg' %}");
+    }
+</style>
+{% endblock css%} {% block content %}
+<!-- - - - - - - - - - - - - - Content - - - - - - - - - - - - - - - - -->
 
-{% block css %}
+<div id="content">
 
-{% endblock css %}
+    <!-- Page section -->
+    <div class="page-section">
+
+        <div class="container wide">
+
+            <div class="row row-wide align-items-center">
+                <div class="col-md-6">
+
+                    <div class="video-holder">
+                        
+                        <img src="{% static 'img/wel.png' %}" alt="">
+                    </div>
+
+                </div>
+                <div class="col-md-6">
+
+                    <div class="pre-title color2">Shortly About us</div>
+                    <h2 class="title2">Welcome to Alumni!
+                        <br> University of Ngaoundéré</h2>
+                    <p>Aenean auctor wisi et urna. Aliquam erat volutpat. Duis ac turpis. Donec sit amet eros. Lorem ipsum dolor.
+                        Mauris fermentum dictum magna. Sed laoreet aliquam leo. Ut tellus dolor, dapibus eget, elementum
+                        vel, cursus eleifend, elit. Aenean auctor wisi et urna. Aliquam erat volutpat. Duis ac turpis. Integer
+                        rutrum ante eu lacus. </p>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="icons-box style-2 flex-row no-gutters item-col-4">
+
+        <!-- - - - - - - - - - - - - - Icon Box Item - - - - - - - - - - - - - - - - -->
+        <div class="icons-wrap">
+
+            <div class="bg-img" data-bg="images/480x336_bg1.jpg"></div>
+            <div class="icons-item">
+                <div class="item-box">
+                    <h3 class="icons-box-title">
+                        <a href="#">First step</a>
+                    </h3>
+                    <p>Introduction to our church</p>
+                    <div class="hidden-area">
+                        <a href="#" class="btn btn-style-3">Read More</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- - - - - - - - - - - - - - Icon Box Item - - - - - - - - - - - - - - - - -->
+        <div class="icons-wrap">
+
+            <div class="bg-img" data-bg="images/480x336_bg2.jpg"></div>
+            <div class="icons-item">
+                <div class="item-box">
+                    <h3 class="icons-box-title">
+                        <a href="#">Our Missions</a>
+                    </h3>
+                    <p>Become a part of the story</p>
+                    <div class="hidden-area">
+                        <a href="#" class="btn btn-style-3">Read More</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- - - - - - - - - - - - - - Icon Box Item - - - - - - - - - - - - - - - - -->
+        <div class="icons-wrap">
+
+            <div class="bg-img" data-bg="images/480x336_bg3.jpg"></div>
+            <div class="icons-item">
+                <div class="item-box">
+                    <h3 class="icons-box-title">
+                        <a href="#">Join our members</a>
+                    </h3>
+                    <p>Find a group that’s right for you</p>
+                    <div class="hidden-area">
+                        <a href="#" class="btn btn-style-3">Read More</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- - - - - - - - - - - - - - Icon Box Item - - - - - - - - - - - - - - - - -->
+        <div class="icons-wrap">
+
+            <div class="bg-img" data-bg="images/480x336_bg4.jpg"></div>
+            <div class="icons-item">
+                <div class="item-box">
+                    <h3 class="icons-box-title">
+                        <a href="#">Donate</a>
+                    </h3>
+                    <p>Give to improve your value</p>
+                    <div class="hidden-area">
+                        <a href="#" class="btn btn-style-3">Read More</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Page section -->
+    <div class="page-section">
+
+        <div class="container wide">
+
+            <h2 class="section-title align-center">Recent news</h2>
+
+            <!-- Entries -->
+            <div class="entry-box flex-row item-col-3">
+                {% for new in news %}
+                <!-- Entry -->
+                <div class="entry-col">
+
+                    <div class="entry">
+
+                        <!-- - - - - - - - - - - - - - Entry attachment - - - - - - - - - - - - - - - - -->
+                        <div class="thumbnail-attachment">
+                            <a href="#">
+                                <img src="{{new.image_description.url}}" alt="">
+                            </a>
+                        </div>
+
+                        <!-- - - - - - - - - - - - - - Entry body - - - - - - - - - - - - - - - - -->
+                        <div class="entry-body">
+
+                            <h5 class="entry-title">
+                                <a href="#">{{new.title}}</a>
+                            </h5>
+                            <div class="entry-meta">
+
+                                <span>on</span>
+                                <time class="entry-date" datetime="2018-03-18">{{new.date_add}}</time>
+                                <span>by</span>
+                                <a href="#" class="entry-cat">{{new.author}}</a>
+
+
+                            </div>
+                            <p>{{new.text_description|truncatewords:25|safe}}</p>
+
+                            <div class="entry-action">
+
+                                <a href="#">
+                                    <i class="licon-camera-play"></i>
+                                </a>
+                                <a href="#">
+                                    <i class="licon-headphones"></i>
+                                </a>
+                                <a href="#">
+                                    <i class="licon-enter-down2"></i>
+                                </a>
+                                <a href="#">
+                                    <i class="licon-file-empty"></i>
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+                {% endfor %}
+                <div class="align-center">
+                    <a href="{% url 'news' %}" class="btn btn-small btn-style-4">More news</a>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Page section 
+        <div class="page-section size2 parallax-section" data-bg="images/1920x800_bg3.jpg">
+
+            <div class="container wide">
+
+                <div class="counter-wrap style-2 item-col-4">
+
+                    <div class="counter">
+                        <div class="count-item">
+                            <h3 class="timer count-number" data-to="58" data-speed="1500">0</h3>
+                            <p>Users</p>
+                        </div>
+                    </div>
+
+                    <div class="counter">
+                        <div class="count-item">
+                            <h3 class="timer count-number" data-to="2064" data-speed="1500">0</h3>
+                            <p>Churches</p>
+                        </div>
+                    </div>
+
+                    <div class="counter">
+                        <div class="count-item">
+                            <h3 class="timer count-number" data-to="937" data-speed="1500">0</h3>
+                            <p>Missionaries</p>
+                        </div>
+                    </div>
+
+                    <div class="counter">
+                        <div class="count-item">
+                            <h3 class="timer count-number" data-to="505487" data-speed="1500">0</h3>
+                            <p>People</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>-->
+
+        <!-- Page section -->
+        <div class="half-bg-col size2 count-event two-cols">
+
+            <div class="img-col-left">
+                <div class="col-bg left-bg" data-bg="{{first_event.image_illustration.url}}"></div>
+            </div>
+
+            <div class="container wide">
+
+                <div class="row align-items-center">
+
+                    <div class="col-lg-6 left-col">
+
+                        <div class="event-holder">
+
+                            <div class="pre-title">Next Event in:</div>
+
+                            <div class="content-element1">
+                                <div class="countdown style-2" data-year="2018" data-month="9" data-day="1" data-hours="15" data-minutes="0" data-seconds="0"></div>
+                            </div>
+
+                            <!-- Events area -->
+                            <div class="event-box">
+
+                                <!-- Events area -->
+                                <div class="event">
+
+                                    <div class="event-body">
+
+                                        <h3 class="event-title">{{first_event.titre}}</h3>
+
+                                        <p class="e-info">{{first_event.date_evenement}} @ {{first_event.heure_evenement}} AM - 5:00 PM
+                                            <br> {{first_event.lieu}}</p>
+
+                                    </div>
+
+                                    <div class="event-action flex-row align-items-center">
+
+                                        <a href="#" class="btn">Register</a>
+                                        <div class="event-icons">
+
+                                            <a href="#">
+                                                <i class="licon-share2"></i>
+                                            </a>
+                                            <a href="#">
+                                                <i class="licon-map-marker"></i>
+                                            </a>
+                                            <a href="#">
+                                                <i class="licon-at-sign"></i>
+                                            </a>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="col-lg-6 right-col">
+
+                        <h2 class="section-title">Upcoming Events</h2>
+
+                        <!-- Events area -->
+                        <div class="event-box style-2">
+
+                            {% for event in events %}
+                            <!-- Event -->
+                            <div class="event">
+
+                                <div class="event-date">
+
+                                    <h3 class="numb">{{event.date_evenement|date:'d'}}</h3>
+                                    <h6 class="month">{{event.date_evenement|date:'F'}}</h6>
+                                    <div class="day">{{event.date_evenement|date:'o'}}</div>
+
+                                </div>
+
+                                <div class="event-body">
+
+                                    <h5 class="event-title">{{event.titre}} </h5>
+
+                                    <p class="e-info">{{event.date_evenement}} @ {{event.heure_evenement}} AM - 5:00 PM {{event.lieu}}</p>
+
+                                </div>
+
+                                <div class="event-action">
+
+                                    <a href="#" class="btn">Register</a>
+                                    <div class="event-icons">
+
+                                        <a href="#">
+                                            <i class="licon-share2"></i>
+                                        </a>
+                                        <a href="#">
+                                            <i class="licon-map-marker"></i>
+                                        </a>
+                                        <a href="#">
+                                            <i class="licon-at-sign"></i>
+                                        </a>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            {% endfor %}
+
+                        </div>
+
+                        <a href="#" class="btn btn-small btn-style-4">More Events</a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Page section -->
+        <div class="page-section-bg parallax-section" data-bg="images/1920x900_bg.jpg">
+
+            <div class="container">
+
+                <div class="carousel-type-1">
+
+                    <div class="owl-carousel testimonial-holder style-2" data-max-items="1" data-autoplay="true">
+
+                        <!-- Slide -->
+                        <div class="item-carousel">
+                            <!-- Carousel Item -->
+                            <!-- - - - - - - - - - - - - - Testimonial - - - - - - - - - - - - - - - - -->
+                            <div class="testimonial">
+
+                                <blockquote>
+                                    <p>Mauris accumsan nulla vel diam. Sed in lacus ut enim adipiscing aliquet. Nulla venenatis.
+                                        In pede mi, aliquet sit amet, euismod in. </p>
+                                </blockquote>
+
+                                <div class="author-box">
+
+                                    <div class="author-info">
+                                        <div class="author">Ivana Wong</div>
+                                        <a href="#" class="author-position">Teacher</a>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <!-- /Carousel Item -->
+                        </div>
+                        <!-- /Slide -->
+
+                        <!-- Slide -->
+                        <div class="item-carousel">
+                            <!-- Carousel Item -->
+                            <!-- - - - - - - - - - - - - - Testimonial - - - - - - - - - - - - - - - - -->
+                            <div class="testimonial">
+
+                                <blockquote>
+                                    <p>Mauris accumsan nulla vel diam. Sed in lacus ut enim adipiscing aliquet. Nulla venenatis.
+                                        In pede mi, aliquet sit amet, euismod in. </p>
+                                </blockquote>
+
+                                <div class="author-box">
+
+                                    <div class="author-info">
+                                        <div class="author">John McCoist</div>
+                                        <a href="#" class="author-position">Musician</a>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <!-- /Carousel Item -->
+                        </div>
+                        <!-- /Slide -->
+
+                        <!-- Slide -->
+                        <div class="item-carousel">
+                            <!-- Carousel Item -->
+                            <!-- - - - - - - - - - - - - - Testimonial - - - - - - - - - - - - - - - - -->
+                            <div class="testimonial">
+
+                                <blockquote>
+                                    <p>Mauris accumsan nulla vel diam. Sed in lacus ut enim adipiscing aliquet. Nulla venenatis.
+                                        In pede mi, aliquet sit amet, euismod in. </p>
+                                </blockquote>
+
+                                <div class="author-box">
+
+                                    <div class="author-info">
+                                        <div class="author">Marta Healy</div>
+                                        <a href="#" class="author-position">Painter</a>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <!-- /Carousel Item -->
+                        </div>
+                        <!-- /Slide -->
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+
+        <!-- Page section -->
+        <div class="page-section-bg">
+
+            <div class="container wide">
+
+                <div class="insta-title align-center">
+
+                    <i class="icon-instagram-5"></i>
+                    <h4>Follow Us On Instagram</h4>
+
+                </div>
+                <div id="instafeed" class="instagram-feed" data-instagram="4"></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- - - - - - - - - - - - - end Content - - - - - - - - - - - - - - - -->
+    {% endblock content %}
