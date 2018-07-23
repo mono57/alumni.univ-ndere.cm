@@ -159,6 +159,7 @@
                 url: '{% url "admin:processDeleteUser" %}',
                 data: 'pk=' + $id,
                 dataType: 'JSON',
+                headers: {'X_METHODOVERRIDE': 'DELETE'},
                 success: function (data) {
                     if (data.ok) {
                         if(data.request_registration == 0){
