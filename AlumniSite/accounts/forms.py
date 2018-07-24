@@ -34,6 +34,26 @@ class EtudiantForm(forms.ModelForm):
         model = Etudiant
         fields = '__all__'
 
+    def clean(self):
+        clean_data = super(EtudiantForm, self).clean()
+        faculte = clean_data['faculte']
+        matricule = clean_data['matricule']
+        annee_entree = clean_data.get('annee_entree')
+        if User.objects.filter(email=clean_data['email']).exists():
+
+            self.add_error('email', "this email is already taken")
+
+        if matricule and Frequenter.objects.filter(matricule=matricule).exists():
+            self.add_error('matricule', 'This matricule is already exist')
+
+        if not matricule:
+            if not faculte and not annee_entree:
+                self.add_error("matricule","Failing registration enter your faculty and year of entry")
+
+            if faculte and not annee_entree or not faculte and annee_entree:
+                self.add_error("matricule","Failing registration please read the registration conditions")
+        return clean_data
+
 
 class LoginForm(forms.Form):
     email = forms.CharField(max_length=255,

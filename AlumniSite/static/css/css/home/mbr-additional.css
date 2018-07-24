@@ -513,9 +513,7 @@ a.text-black:hover,
 a.text-black:focus {
   color: #4d4d4d !important;
 }
-.alert-success {
-  background-color: #70c770;
-}
+
 .alert-info {
   background-color: #82786e;
 }
@@ -615,35 +613,13 @@ a.text-black:focus {
   margin-bottom: .357em;
   padding: 0;
 }
-.alert {
-  color: #ffffff;
-  border-radius: 0;
-  border: 0;
-  font-size: .875rem;
-  line-height: 1.5;
-  margin-bottom: 1.875rem;
-  padding: 1.25rem;
-  position: relative;
-}
-.alert.alert-form::after {
-  background-color: inherit;
-  bottom: -7px;
-  content: "";
-  display: block;
-  height: 14px;
-  left: 50%;
-  margin-left: -7px;
-  position: absolute;
-  transform: rotate(45deg);
-  width: 14px;
-}
 
 .form-control > .mbr-iconfont {
   font-size: 1.6rem;
 }
 .form-control,
 .form-control:focus {
-  border: 1px solid #e8e8e8;
+  border: 1px solid rgb(10, 10, 10);
 }
 .form-active .form-control:invalid {
   border-color: red;

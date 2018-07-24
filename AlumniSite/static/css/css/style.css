@@ -506,7 +506,7 @@ h1:not(:last-child) {
 }
 
 h2:not(:last-child) {
-  margin-bottom: 56px;
+  margin-bottom: 0px;
 }
 
 h3:not(:last-child) {
@@ -2793,103 +2793,6 @@ table.tribe-events-calendar.var2 tr td {
   padding-left: 1px;
 }
 
-/* Menu list */
-
-.menu-list {}
-
-.menu-list:not(.hr-type)>li:not(:last-child) {
-  margin-bottom: 13px;
-}
-
-.menu-list>li>a {
-  letter-spacing: 0.1px;
-  color: #fff;
-  border-bottom: 1px solid transparent;
-}
-
-.menu-list>li>a:hover {
-  border-bottom-color: inherit;
-}
-
-.menu-list.hr-type {
-  display: -webkit-flex;
-  display: -moz-flex;
-  display: -ms-flex;
-  display: -o-flex;
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.menu-list.hr-type>li:not(:last-child) {
-  position: relative;
-  padding-right: 10px;
-  margin-right: 9px;
-}
-
-.menu-list.hr-type>li:not(:last-child):after {
-  content: '';
-  position: absolute;
-  right: 0;
-  top: 50%;
-  height: 15px;
-  margin-top: -7px;
-  width: 1px;
-  background: #999;
-}
-
-/*----------- Blockquotes --------------*/
-
-.blockquote-holder:not(:last-child) {
-  margin-bottom: 28px;
-}
-
-.blockquote-holder {
-  background: #891328;
-  padding: 40px;
-  padding-right: 30px;
-  border-radius: 3px;
-  position: relative;
-  overflow: hidden;
-}
-
-blockquote {
-  color: #fff;
-  font-family: 'Lora', sans-serif;
-}
-
-blockquote p {
-  font-size: 24px;
-  line-height: 36px;
-  font-style: italic;
-}
-
-blockquote .author {
-  font-size: 18px;
-  font-weight: bold;
-  font-family: 'Lato', sans-serif;
-  margin-top: 10px;
-}
-
-blockquote .author span {
-  display: block;
-  font-size: 15px;
-  color: #c9c9c9;
-  font-weight: normal;
-  letter-spacing: 0.5px;
-}
-
-.blockquote-holder.style-2 {
-  background: #f7f7f7;
-  border-left: 3px solid #891328;
-}
-
-.blockquote-holder.style-2 blockquote {
-  color: #333;
-}
-
-.blockquote-holder.style-2 blockquote .author span {
-  color: #999;
-}
 
 /*----------- Dividers --------------*/
 
@@ -3254,101 +3157,6 @@ hr.style-5 {
   padding-top: 0;
 }
 
-/*----------- Alert boxes --------------*/
-
-[class*="alert"] {
-  padding: 28px 70px 28px;
-  margin-bottom: 28px;
-  position: relative;
-  background: #fff;
-  border: 1px solid transparent;
-}
-
-[class*="alert"]:before {
-  content: '';
-  font-family: 'linearicons';
-  position: absolute;
-  left: 30px;
-  top: 50%;
-  margin-top: -13px;
-  font-size: 26px;
-}
-
-[class*="alert"].alert-warning:before {
-  content: "\e956";
-}
-
-[class*="alert"].alert-success:before {
-  content: "\e959";
-}
-
-[class*="alert"].alert-info:before {
-  content: "\e965";
-}
-
-[class*="alert"].alert-error:before {
-  content: "\e95a";
-}
-
-[class*="alert"].alert-warning,
-.warning {
-  border-color: #eb740b;
-  color: #eb740b;
-}
-
-[class*="alert"].alert-success,
-.success {
-  border-color: #6bb95c;
-  color: #6bb95c;
-}
-
-[class*="alert"].alert-info,
-.info {
-  border-color: #0648a2;
-  color: #0648a2;
-}
-
-[class*="alert"].alert-error,
-.error {
-  border-color: #ed4040;
-  color: #ed4040;
-}
-
-[class*="alert"] .close {
-  font-family: 'Linearicons';
-  position: absolute;
-  right: 30px;
-  top: calc(50% - 6px);
-  background: none;
-  font-weight: bold;
-  color: #333334;
-  font-size: 12px;
-}
-
-[class*="alert"] .close:after {
-  content: '\e935';
-}
-
-.message-container-subscribe {
-  display: none;
-}
-
-[class*="message-container"] {
-  display: block;
-  margin-top: 10px;
-  top: 100%;
-  left: 0;
-  position: absolute;
-  z-index: 9;
-}
-
-[class*="message-container"] [class*="alert"] {
-  padding-right: 30px;
-}
-
-.alert-box p {
-  white-space: nowrap;
-}
 
 /*----------- Callouts --------------*/
 

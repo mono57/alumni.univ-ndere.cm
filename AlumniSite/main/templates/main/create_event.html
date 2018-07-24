@@ -1,74 +1,67 @@
-{% extends "base2.html" %}
-{% block title %}
-Création d'un événement
-{% endblock title %}
-{% block content %}
-<style media="screen">
-  .form-title{
-    text-transform: uppercase;
-    text-align: center;
-    margin-bottom: 50px;
-    font-size: 40px;
-    margin-top: 10px;
-  }
-  .container{
-    width: 50%;
-  
-  }
-  .title-add{
-    text-decoration: underline;
-  }
-  .namesite{
-    color: green;
-    text-decoration: none;
-  }
-  .containfluid{
-    margin-top: 0px;
-    padding-top: 10px;
-    padding-bottom: 15px;
- 
-  }
-</style>
-  <div class="containfluid">
-    <div class="container">
-      <h1 class="form-title"><span class="title-add">créer votre événement sur</span> <span class="namesite">ndéré alumni</span></h1>
-   
-    <form class="formcreate-event" method="POST" enctype="multipart/form-data">
-      {% csrf_token %}
-      <div class="form-group">
-        <label for="titre" class="control-label">Titre *</label>
-       <input type="text" class='form-control' name='titre' required>
+{% extends "base2.html" %} {% block title %} Création d'un événement {% endblock title %} {% block content %}
+<div class="wrapper pa-0">
+  <!-- Main Content -->
+  <div class="page-wrapper pa-0 ma-0 auth-page">
+    <div class="container-fluid">
+      <!-- Row -->
+      <div class="table-struct full-width full-height">
+        <div class="table-cell vertical-align-middle auth-form-wrap">
+          <div class="auth-form  ml-auto mr-auto no-float">
+            <div class="row">
+              <div class="col-sm-12 col-xs-12">
+                <div class="mb-30">
+                  <h3 class="text-center txt-dark mb-10">Create event to Alumni <br> UNICE UNIV-NDERE</h3>
+                  <h6 class="text-center nonecase-font txt-grey">Enter the details below</h6>
+                </div>
+                <div class="form-wrap">
+                  <form method="POST" enctype="multipart/form-data">
+                    
+                    {% csrf_token %} 
+                    
+                    <div class="form-group">
+                      <label class="control-label mb-10" for="">What's event's title</label>
+                      <input type="text" class="form-control" name="titre" required>
+                    </div>
+                    <div class="form-group">
+                      <label class="pull-left control-label mb-10" for="">Describe your event</label>
+                      <textarea class="form-control" name="description" required></textarea>
+                    </div>
+                    <div class="form-group">
+                      <label class="pull-left control-label mb-10" for="">Illustration image</label>
+                      <input type="file" name="image_illustration" id="" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                      <label class="pull-left control-label mb-10" for="">Event's location</label>
+                      <input type="text" class="form-control" name="lieu" required>
+                    </div>
+                    <div class="form-group">
+                      <label class="pull-left control-label mb-10" for="">Event's date</label>
+                      <input type="date" class="form-control" name="date_evenement" required>
+                    </div>
+                    <div class="form-group">
+                      <label class="pull-left control-label mb-10" for="">Start time (Hour)</label>
+                      <input type="time" class="form-control" name="heure_debut" required>
+                    </div>
+                    <div class="form-group">
+                      <label class="pull-left control-label mb-10" for="">End time (Hour)</label>
+                      <input type="time" class="form-control" name="heure_fin" required>
+                    </div>
+
+                    <div class="form-group text-center">
+                      <button type="submit" class="btn btn-info btn-success btn-rounded">Create</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="form-group">
-        <label for="description" class="control-label">Description *</label>
-        <input type="text" class='form-control' name='description' required>
-      </div>
-      <div class="form-group">
-        <label for="event" class="control-label">Lieu de l'evenement *</label>
-        <input type="text" class='form-control' name='lieu' required >
-      </div>
-     
-      <div class="form-group">
-        <label for="image" class="control-label">Image de description *</label>
-        <input type="file" class='form-control' name='image_description' required>
-      </div>
-      
-      <div class="form-group">
-        <label for="date" class="control-label">Date de l'événement *</label>
-        <input type="date" class="form-control" name="date_evenement" required>
-        
-      </div>
-      <div class="form-group">
-        <label for="hour" class="control-label">L'heure de l'événement *</label>
-        <input type="time" class="form-control" name="heure_evenement" required>
-      </div>  
-      <div class="row">
-        <button type="submit" class="btn btn-success col-md-6" name="button">Je crée un événement</button> 
-        <a type="button" href="" name="button" class="btn btn-link col-md-6">Tous les événements</a>
-      </div>
-    </form>
+      <!-- /Row -->
     </div>
+
   </div>
+  <!-- /Main Content -->
 
+</div>
 {% endblock content %}
-

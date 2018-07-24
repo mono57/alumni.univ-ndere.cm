@@ -21,16 +21,11 @@
     <link rel="stylesheet" href="{% static 'css/css/home/mbr-additional.css' %}">
     <link rel="stylesheet" href="{% static 'css/css/home/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/css/style.css' %}">
-    <link rel="stylesheet" href="{% static 'css/css/responsive.css' %}"> 
-    {% block css %} {% endblock css %}
+    <link rel="stylesheet" href="{% static 'css/css/responsive.css' %}"> {% block css %} {% endblock css %}
 </head>
 
 <body>
-    {% include "base/navbar.html" %}
-    
-
-
-  {% block content %} {% endblock content %} {% include "base/footer.html" %} {% include "base/js.html"%}
+    {% include "base/navbar.html" %} {% block content %} {% endblock content %} {% include "base/footer.html" %} {% include "base/js.html"%}
     <script src="{% static 'js/home/jquery.touch-swipe.min.js' %}"></script>
     <script src="{% static 'js/home/script.js' %}">
     </script> {% block javascript %} {% endblock javascript %}
@@ -41,5 +36,18 @@
     </div>
     <input name="animation" type="hidden">
 </body>
+<script>
+    $(document).ready(function () {
+        var timer;
+        $('.dropdown button, .dropdown-menu').hover(function () {
+            clearTimeout(timer);
+            $('.dropdown').addClass('open');
+        }, function () {
+            timer = setTimeout(function () {
+                $('.dropdown').removeClass("open");
+            }, 50);
+        });
+    });
+</script>
 
 </html>

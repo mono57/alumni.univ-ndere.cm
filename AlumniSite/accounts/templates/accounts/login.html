@@ -15,21 +15,24 @@
 								</div>
 								<div class="form-wrap">
 									<form method="POST">
-										{% csrf_token %}
-										{% if messages %}
-										<div class="alert alert-danger">
-											<strong style="color:red"> 😭 Please enter a correct email and password.</strong>
+										{% csrf_token %} {% if error %}
+										<div class="form-group">
+											
+											<label for="message" style="color:#a94447;font-family:Verdana,sans-serif;" class="control-label">
+												Sorry, your email or password is invalid. please check again
+											</label>
+											
 										</div>
-										{% endif %}
+										 {% endif %}
 										<div class="form-group">
 											<label class="control-label mb-10" for="exampleInputEmail_2">Email address</label>
-											<input type="email" class="form-control" required="" name="email" placeholder="Enter email">
+											{{form.email}}
 										</div>
 										<div class="form-group">
 											<label class="pull-left control-label mb-10" for="exampleInputpwd_2">Password</label>
-											<a class="capitalize-font txt-primary block mb-10 pull-right font-12" href="forgot-password.html">forgot password ?</a>
+											<a class="capitalize-font txt-primary block mb-10 pull-right font-12" href="{% url 'passwords:password_reset' %}">forgot password ?</a>
 											<div class="clearfix"></div>
-											<input type="password" class="form-control" required="" name="password" placeholder="Enter pwd">
+											{{form.password}}
 										</div>
 
 										<div class="form-group">
@@ -45,7 +48,7 @@
 									</form>
 								</div>
 							</div>
-						</div>
+						</div>	
 					</div>
 				</div>
 			</div>

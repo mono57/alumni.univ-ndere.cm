@@ -4,7 +4,7 @@ from .models import Evenement, Actualite
 class CreateEventForm(forms.Form):
     class Meta:
         model = Evenement
-        fields = ['titre', 'description','image_description' ,'lieu', 'date_evenement',]
+        fields = ['titre', 'description','image_illustration' ,'lieu', 'date_evenement','heure_debut', 'heure_fin']
  
 class ActualiteForm(forms.ModelForm):
     class Meta:

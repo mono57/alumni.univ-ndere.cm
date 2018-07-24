@@ -7,6 +7,7 @@ from main.forms import CreateEventForm, ContactForm
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+
 class HomePageView(TemplateView):
     template_name = 'home_page.html'
     
@@ -59,17 +60,22 @@ class DetailEvent(DetailView):
 
 @login_required(login_url='login')
 def create_event(request):
+    
     if request.method == 'POST':
         form = CreateEventForm(request.POST or None, request.FILES or None)
+        print(request.FILES)
         if form.is_valid():
             new_event = Evenement(
                 titre=request.POST.get('titre'),
                 description = request.POST.get('description'),
                 lieu = request.POST.get('lieu'),
-                image_illustration = request.FILES.get('image_description'),
+                image_illustration = request.FILES.get('image_illustration'),
                 date_evenement = request.POST.get('date_evenement'),
+                heure_debut = request.POST.get('heure_debut'),
+                heure_fin = request.POST.get('heure_fin'),
                 createur = request.user
             )
+            print(form.cleaned_data)
             new_event.save()
             print("Enregistrement effectué avec succès")
             return redirect('event')

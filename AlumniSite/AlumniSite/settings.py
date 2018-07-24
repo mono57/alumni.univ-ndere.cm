@@ -24,7 +24,7 @@ ALLOWED_HOSTS = ['*']
 
 AUTH_USER_MODEL = 'accounts.User'
 
-LOGOUT_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = 'index'
 # Application definition
 
 INSTALLED_APPS = [

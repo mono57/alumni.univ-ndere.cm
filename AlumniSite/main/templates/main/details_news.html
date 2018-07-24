@@ -131,7 +131,7 @@
                       <div class="comment-info">
                         <time datetime="2015-10-17 02:41" class="comment-date">October 17, 2017 at 2:41 pm</time>
                         <!-- - - -  <a href="#" class="comment-reply-link">
-                          <i class="licon-reply"></i>Reply</a>
+                          <i class="licon-reply"></i>Reply</a>-->
                       </div>
 
                     </header>
@@ -190,7 +190,7 @@
 
               <div class="contact-item">
 
-                <button class="btn btn-style-4 submit-comment" data-type="submit">Soumettre</button>
+                <button class="btn btn-style-4 submit-comment" data-id="{{news.pk}}" type="submit" id="submit">Soumettre</button>
 
               </div>
 
@@ -206,7 +206,7 @@
 
             <form class="search-form style-2">
 
-              <input type="text" placeholder="Search Products">
+              <input type="text" placeholder="Search" class="form-control">
               <button type="submit">
                 <i class="licon-magnifier"></i>
               </button>
@@ -428,8 +428,18 @@
 {% block javascript %}
 <script>
 
-  $('.submit-comment').click(function(){
-    alert("Vous êtes sur le point d'envoyer un commentaire");
+  $('#submit').click(function(){
+
+    var $id  = $(this).attr('data-id');
+
+    $.ajax({
+      url:'',
+      data: 'pk=' + $id,
+      dataType: 'json',
+      success: function(){
+        $('.entry-box').appendTo('');
+      }
+    });
   });
 
 </script>

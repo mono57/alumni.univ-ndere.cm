@@ -3,12 +3,15 @@ from django.views.generic import TemplateView, View, ListView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.core import serializers
+from django.core.mail import send_mail
+from django.template.loader import get_template
+from django.contrib.sites.shortcuts import get_current_site
 from accounts.models import *
 from django.contrib.auth import get_user_model
 from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
 from main.forms import ActualiteForm
 from main.models import Actualite, Evenement
-from admin.models import LogEntry
+
 import json
 
 User = get_user_model()
@@ -35,6 +38,8 @@ class IndexView(LoginRequiredMixin,TemplateView):
 
 class AjaxRequestAddUser(View):
     
+    template = 'admin/activate_confirm.html'
+
     def get(self,request, *args, **kwargs):
         etudiant = get_object_or_404(Etudiant, pk=request.GET.get('pk'))
         #LogEntry(user=self.request.user, )
@@ -44,6 +49,7 @@ class AjaxRequestAddUser(View):
             'etudiants':Etudiant.objects.all().count(),
             'users':User.objects.all().count()
         }
+        
         return JsonResponse(data)
 
     def make_migrations(self,etudiant):
@@ -92,7 +98,7 @@ class AjaxRequestAddUser(View):
             entreprise = new_entreprise 
         )
         new_travailler.save()
-        
+        send_mail_(new_user, self.template)
         etudiant.delete()
 
 class ListViewUser(ListView):
@@ -122,9 +128,12 @@ class CreateNews(CreateView):
         return super().form_invalid(form)
 
 def ajaxDeleteRequest(request):
+    template = 'admin/activate_rejet.html'
+
     ok = False
     if request.method == 'GET':
         etudiant = Etudiant.objects.get(pk=request.GET.get('pk')).delete()
+        
         ok = True
     data = {
         'ok':ok,
@@ -196,3 +205,26 @@ def getUsers(request):
     users = User.objects.all()
     data = dict(users)
     return JsonResponse(data)
+
+
+def send_mail_(user, template):
+
+    current_site = get_current_site(request)
+
+    context_ = {
+        'user': user,
+        'domain': current_site.domain,
+    }
+    print(context_)
+    subject = "Activation accounts"
+    to_email = user.email
+    messages = get_template(template).render(context_)
+    try:
+        send_mail(
+            subject,
+            messages,
+            from_email = settings.DEFAULT_FROM_EMAIL,
+            recipient_list = [to_email]
+        )
+    except:
+        print("the email activation can't been send")

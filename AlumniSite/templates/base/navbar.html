@@ -4,10 +4,10 @@
 {% url 'login' as login_url %}
 {% url 'logout' as logout_url %} 
 {% url 'register' as register_url %}
-{% url 'contact' as contact_url %}
-
+{% url 'contact' as contact_url %} 
 {% url 'forum:community' as community_url %}
-{%url 'donate' as donate_url %} {% load static %}
+{%url 'donate' as donate_url %} 
+{% load static %}
 
 <section class="menu cid-qFHAv562qj" once="menu" id="menu1-0">
 
@@ -43,10 +43,10 @@
             <span class="mbri-left mbr-iconfont mbr-iconfont-btn"></span>Back to UNICE</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link link text-black display-4" href="{{index_url}}">
-              <span class="mbri-home mbr-iconfont mbr-iconfont-btn"></span>
-              Home&nbsp;</a>
-          </li>
+          <a class="nav-link link text-black display-4" href="{{index_url}}">
+            <span class="mbri-home mbr-iconfont mbr-iconfont-btn"></span>
+            Home&nbsp;</a>
+        </li>
         <li class="nav-item">
           <a class="nav-link link text-black display-4" href="{{events_url}}">
             <span class="mbri-calendar mbr-iconfont mbr-iconfont-btn"></span>
@@ -62,19 +62,32 @@
             <span class="mbri-layers mbr-iconfont mbr-iconfont-btn"></span>
             Projects</a>
         </li>
-        
+
         {% if request.user.is_authenticated %}
-        
+        <li class="">
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                  aria-expanded="false">
+                  {{request.user.get_full_name}}
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" href="{% url 'accounts:profile' %}" style="text-align:left";>Profile</a>
+                  <a class="dropdown-item" href="{% url 'create_event' %}">Create events</a>
+                  <a class="dropdown-item" href="{{logout_url}}"><i class="fa fa-logout"></i> Logout</a>
+                </div>
+              </div>
+        </li>
+
         {% else %}
         <li class="nav-item">
-            <a class="nav-link link text-black display-4" href="{{login_url}}">
-              <span class="mbri-code mbr-iconfont mbr-iconfont-btn"></span>
-              Login</a>
-          </li>
-          <li class="nav-item">
-              <a class="nav-link link text-black display-4" href="{{register_url}}">/Regiter</a>
-          </li>
-          
+          <a class="nav-link link text-black display-4" href="{{login_url}}">
+            <span class="mbri-code mbr-iconfont mbr-iconfont-btn"></span>
+            Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link link text-black display-4" href="{{register_url}}">/Regiter</a>
+        </li>
+
         {% endif %}
       </ul>
 

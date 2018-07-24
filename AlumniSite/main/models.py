@@ -8,9 +8,10 @@ class Evenement(models.Model):
     titre = models.CharField(max_length=200)
     description = models.TextField()
     lieu = models.CharField(max_length=100)
-    image_illustration = models.ImageField(upload_to='event_images')
+    image_illustration = models.ImageField(upload_to='event_images', blank=False)
     date_evenement = models.DateField(auto_now=True)
-    heure_evenement = models.TimeField(auto_now=True)
+    heure_debut = models.TimeField(auto_now=True)
+    heure_fin = models.TimeField(auto_now=True)
     date_creation = models.DateTimeField(auto_now_add=True)
     createur = models.ForeignKey(User,on_delete=models.CASCADE)
     activated = models.BooleanField(default=False)
@@ -28,3 +29,10 @@ class Actualite(models.Model):
     
     def __str__(self):
         return "Titre : {}".format(self.title)
+
+class Comment(models.Model):
+    author = models.CharField(max_length=50)
+    email = models.EmailField()
+    website = models.URLField(blank=True)
+    add_at = models.DateTimeField(auto_now_add=True, auto_now=True)
+    new = models.ForeignKey(Actualite, on_delete=models.CASCADE)

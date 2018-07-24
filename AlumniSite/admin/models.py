@@ -1,4 +1,4 @@
-from django.db import models
+"""from django.db import models
 from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.models import ContentType
 
@@ -25,3 +25,4 @@ class LogEntry(models.Model):
     object_id = models.PositiveIntegerField()
     date = models.DateTimeField(auto_now_add=True)
 # Create your models here.
+"""

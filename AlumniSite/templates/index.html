@@ -3,6 +3,18 @@
     .left-bg {
         background-image: url("{% static 'img/960x728.jpg' %}");
     }
+    .first_step{
+        background-image:url("{% static 'img/first_step.jpeg' %}");
+    }
+    .our_missions{
+        background-image:url("{% static 'img/our_missions.jpeg' %}");
+    }
+    .join_us{
+        background-image:url("{% static 'img/join_us.png' %}");
+    }
+    .donate{
+        background-image:url("{% static 'img/donate.png' %}");
+    }
 </style>
 {% endblock css%} {% block content %}
 <!-- - - - - - - - - - - - - - Content - - - - - - - - - - - - - - - - -->
@@ -45,13 +57,13 @@
         <!-- - - - - - - - - - - - - - Icon Box Item - - - - - - - - - - - - - - - - -->
         <div class="icons-wrap">
 
-            <div class="bg-img" data-bg="images/480x336_bg1.jpg"></div>
+            <div class="bg-img first-step"></div>
             <div class="icons-item">
                 <div class="item-box">
                     <h3 class="icons-box-title">
                         <a href="#">First step</a>
                     </h3>
-                    <p>Introduction to our church</p>
+                    <p>Introduction to Alumni</p>
                     <div class="hidden-area">
                         <a href="#" class="btn btn-style-3">Read More</a>
                     </div>
@@ -63,7 +75,7 @@
         <!-- - - - - - - - - - - - - - Icon Box Item - - - - - - - - - - - - - - - - -->
         <div class="icons-wrap">
 
-            <div class="bg-img" data-bg="images/480x336_bg2.jpg"></div>
+            <div class="bg-img our_missions"></div>
             <div class="icons-item">
                 <div class="item-box">
                     <h3 class="icons-box-title">
@@ -81,7 +93,7 @@
         <!-- - - - - - - - - - - - - - Icon Box Item - - - - - - - - - - - - - - - - -->
         <div class="icons-wrap">
 
-            <div class="bg-img" data-bg="images/480x336_bg3.jpg"></div>
+            <div class="bg-img joins_us"></div>
             <div class="icons-item">
                 <div class="item-box">
                     <h3 class="icons-box-title">
@@ -99,7 +111,7 @@
         <!-- - - - - - - - - - - - - - Icon Box Item - - - - - - - - - - - - - - - - -->
         <div class="icons-wrap">
 
-            <div class="bg-img" data-bg="images/480x336_bg4.jpg"></div>
+            <div class="bg-img donate"></div>
             <div class="icons-item">
                 <div class="item-box">
                     <h3 class="icons-box-title">
@@ -231,7 +243,7 @@
         <div class="half-bg-col size2 count-event two-cols">
 
             <div class="img-col-left">
-                <div class="col-bg left-bg" data-bg="{{first_event.image_illustration.url}}"></div>
+                <div class="col-bg left-bg" data-bg="{% static 'img/960x728_bg1.jpg' %}"></div>
             </div>
 
             <div class="container wide">
@@ -258,7 +270,7 @@
 
                                         <h3 class="event-title">{{first_event.titre}}</h3>
 
-                                        <p class="e-info">{{first_event.date_evenement}} @ {{first_event.heure_evenement}} AM - 5:00 PM
+                                        <p class="e-info">{{first_event.date_evenement}} @ {{first_event.heure_debut}} {{first_event.heure_debut}}
                                             <br> {{first_event.lieu}}</p>
 
                                     </div>

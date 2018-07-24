@@ -1,0 +1,10 @@
+Hello, {{user}}
+
+Your accounts has not been activated. 
+
+http://{{ domain }}/register/
+
+
+Thank you,
+
+Alumni Unice University of NGAOUNDÉRÉ
