@@ -106,7 +106,7 @@ class User(AbstractUser):
     @property
     def is_admin(self):
         return self.admin
-
+        
     def cache_online(self):
         return cache.get("online")
 

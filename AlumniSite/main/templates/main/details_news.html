@@ -1,4 +1,4 @@
-{% extends "base.html" %} {% load static %} {% block title %} Details {% endblock title %} {% block content %}
+{% extends "base.html" %} {% load static %}{% load social_share %} {% block title %} Details {% endblock title %} {% block content %}
 
 <!-- - - - - - - - - - - - - - Content - - - - - - - - - - - - - - - - -->
 <div id="wrapper" class="wrapper-container">
@@ -60,7 +60,30 @@
 
 
           </div>
+          <div class="share-wrap">
 
+            <span class="share-title">Partager:</span>
+            <ul class="social-icons share">
+
+              <li>
+                <a href="" class="sh-facebook">
+                  <i class="fa fa-facebook" aria-hidden="true"></i>
+                </a>
+              </li>
+              <li>
+                <a href="" class="sh-twitter">
+                  <i class="fa fa-twitter" aria-hidden="true"></i>
+                </a>
+              </li>
+              <li>
+                <a href="" class="sh-google">
+                  <i class="fa fa-google-plus" aria-hidden="true"></i>
+                </a>
+              </li>
+             
+            </ul>
+
+          </div>
           <div class="content-element7">
 
             <h3 class="title">Related Posts</h3>
@@ -99,10 +122,11 @@
 
           <div class="content-element">
 
-            <h3 class="title">Comments</h3>
+            <h3 class="title"> {{news.comments.count}} Comments</h3>
 
             <ol class="comments-list">
 
+              {% for comment in news.comments %}
               <li class="comment">
 
                 <article>
@@ -126,17 +150,17 @@
                     <header class="comment-meta">
 
                       <h6 class="comment-author">
-                        <label>Camala Haddon</label>
+                        <label>{{comment.author}}</label>
                       </h6>
                       <div class="comment-info">
-                        <time datetime="2015-10-17 02:41" class="comment-date">October 17, 2017 at 2:41 pm</time>
+                        <time datetime="2015-10-17 02:41" class="comment-date">{{comment.add_at}}</time>
                         <!-- - - -  <a href="#" class="comment-reply-link">
                           <i class="licon-reply"></i>Reply</a>-->
                       </div>
 
                     </header>
 
-                    <p>Aenean auctor wisi et urna. Aliquam erat volutpat. Duis ac turpis. Donec sit amet eros.</p>
+                    <p>{{comment.text}}</p>
 
                   </div>
                   <!--/ .comment-body-->
@@ -146,6 +170,7 @@
                 </article>
 
               </li>
+              {% endfor %}
 
 
             </ol>
@@ -159,38 +184,38 @@
               <span class="required"></span>  are required.</p>
 
             <form class="contact-form style-2">
-
+              {% csrf_token %}
               <div class="contact-item">
 
                 <label class="required">Your Name</label>
-                <input type="text" class="form-control" required>
+                <input type="text" class="form-control" required id="author">
 
               </div>
 
               <div class="contact-item">
 
                 <label class="required">Your Email</label>
-                <input type="email" class="form-control" required>
+                <input type="email" class="form-control" required id="email">
 
               </div>
 
               <div class="contact-item">
 
                 <label>Website</label>
-                <input type="url" class="form-control">
+                <input type="url" class="form-control" id="website">
 
               </div>
 
               <div class="contact-item">
 
                 <label class="required">Comment</label>
-                <textarea rows="8" class="form-control" required></textarea>
+                <textarea rows="8" class="form-control" required id="text"></textarea>
 
               </div>
 
               <div class="contact-item">
 
-                <button class="btn btn-style-4 submit-comment" data-id="{{news.pk}}" type="submit" id="submit">Soumettre</button>
+                <button class="btn btn-style-4 submit-comment" data-id="{{news.pk}}" type="button" id="submit">Soumettre</button>
 
               </div>
 
@@ -428,16 +453,22 @@
 {% block javascript %}
 <script>
 
-  $('#submit').click(function(){
+  $('#submit').click(function(event){
 
     var $id  = $(this).attr('data-id');
-
+    var $author = $('#author').val();
+    var $email = $('#email').val();
+    var $website = $('#website').val();
+    var $text = $('#text').val();
+    event.preventDefault();
     $.ajax({
-      url:'',
-      data: 'pk=' + $id,
+      url:'{% url "addComment" %}',
+      data: 'pk=' + $id + '&author=' + $author + '&email=' + $email + '&website=' + $website + '&text=' + $text,
       dataType: 'json',
-      success: function(){
-        $('.entry-box').appendTo('');
+      success: function(data){
+        if(data.ok){
+          location.reload();
+        }
       }
     });
   });

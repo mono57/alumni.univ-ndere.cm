@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.urls import reverse
+from main.managers import CommentManager
 
 User = get_user_model()
 
@@ -29,10 +30,19 @@ class Actualite(models.Model):
     
     def __str__(self):
         return "Titre : {}".format(self.title)
+    
+    @property
+    def comments(self):
+        instance = self
+        qs = Comment.objects.filter_by_instance(instance)
+        return qs
 
 class Comment(models.Model):
     author = models.CharField(max_length=50)
     email = models.EmailField()
     website = models.URLField(blank=True)
-    add_at = models.DateTimeField(auto_now_add=True, auto_now=True)
+    text = models.TextField()
+    add_at = models.DateTimeField(auto_now=True)
     new = models.ForeignKey(Actualite, on_delete=models.CASCADE)
+
+    objects = CommentManager()

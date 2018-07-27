@@ -1,11 +1,12 @@
-from django.views.generic import TemplateView, ListView, CreateView, DetailView
+from django.views.generic import TemplateView, ListView, CreateView, DetailView, View
 from django.views.generic.edit import FormView
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
-from .models import Evenement, Actualite
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Evenement, Actualite, Comment
 from main.forms import CreateEventForm, ContactForm
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import JsonResponse
 
 
 class HomePageView(TemplateView):
@@ -40,6 +41,7 @@ class DetailNews(DetailView):
         context = super().get_context_data(**kwargs)
         context['latest_news'] = Actualite.objects.all()[:3]
         context['events'] = Evenement.objects.all()[:3]
+        
         return context
 
 class ListEvenement(ListView):
@@ -109,3 +111,20 @@ class ContactView(FormView):
 
 class ProjectsView(TemplateView):
     template_name = "main/projects.html"
+
+class AddComment(View):
+        
+    def get(self, request):
+        new = get_object_or_404(Actualite, pk=request.GET.get('pk'))
+        new_comment = Comment(
+            author = request.GET.get('author'),
+            email = request.GET.get('email'),
+            website = request.GET.get('website'),
+            text = request.GET.get('text'),
+            new = new
+        )
+        new_comment.save()
+        data = {
+            'ok':True,
+        }
+        return JsonResponse(data)

@@ -11,6 +11,7 @@ from accounts.views import *
 urlpatterns = [
     path('',views.HomePageView.as_view(), name='home' ),
     path('alumni/',views.IndexView.as_view(), name='index' ),
+    path('comment/add/',views.AddComment.as_view(), name='addComment' ),
     path('login/', login_page, name='login'),
     path('register/', CreateEtudiant.as_view(), name='register'),
     path('account/', include('accounts.passwords.urls')),
