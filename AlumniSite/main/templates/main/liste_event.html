@@ -1,71 +1,71 @@
 {% extends "base2.html" %} {% load humanize %} {% block title %} Evenements {% endblock title %} {% block content %} {% load
 static %}
+<div id="content" class="page-content-wrap">
+  <div class="container">
 
-<div class="container">
+    <fieldset class="field-event">
+      <h1 class="page-title">Events</h1>
+      <div class="event-box style-2 list-type">
 
-  <fieldset class="field-event">
-    <legend>Événements</legend>
-    <div class="event-box style-2 list-type">
+        <!-- Event -->
+        {% for evenement in evenements %}
+        <div class="event">
 
-      <!-- Event -->
-      {% for evenement in evenements %}
-      <div class="event">
+          <div class="event-date">
 
-        <div class="event-date">
+            <h3 class="numb">{{evenement.date_evenement|date:'d'}}</h3>
+            <h6 class="month">{{evenement.date_evenement|date:'F'}}</h6>
+            <div class="day">{{evenement.date_evenement|date:'o'}}</div>
 
-          <h3 class="numb">{{evenement.date_evenement|date:'d'}}</h3>
-          <h6 class="month">{{evenement.date_evenement|date:'F'}}</h6>
-          <div class="day">{{evenement.date_evenement|date:'o'}}</div>
+          </div>
 
-        </div>
+          <div class="event-img">
 
-        <div class="event-img">
+            <a href="#">
+              <img src="{{evenement.image_illustration.url}}" alt="">
+            </a>
 
-          <a href="#">
-            <img src="{{evenement.image_illustration.url}}" alt="">
-          </a>
+          </div>
 
-        </div>
-
-        <div class="event-body">
+          <div class="event-body">
 
 
-          <h5 class="event-title">
-            <a href="#">{{evenement.titre}}</a>
-          </h5>
-          <p>
-            <i class="fa fa-map-marker"></i> {{evenement.lieu}}
-            <br>
-            <i class="fa fa-calendar"></i> {{evenement.date_evenement}} à {{evenement.heure_evenement}}</p>
+            <h5 class="event-title">
+              <a href="#">{{evenement.titre}}</a>
+            </h5>
+            <p>
+              <i class="fa fa-map-marker"></i> {{evenement.lieu}}
+              <br>
+              <i class="fa fa-calendar"></i> {{evenement.date_evenement}} à {{evenement.heure_evenement}}</p>
 
-          <p>{{evenement.description|truncatewords:20}}</p>
+            <p>{{evenement.description|truncatewords:20}}</p>
 
-          <div class="event-action flex-row align-items-center">
+            <div class="event-action flex-row align-items-center">
 
-            <a href="{% url 'details_events' pk=evenement.pk %}" class="btn btn-style-3">More Details</a>
-            <div class="event-icons">
+              <a href="{% url 'details_events' pk=evenement.pk %}" class="btn btn-style-3">More Details</a>
+              <div class="event-icons">
 
-              <a href="#">
-                <i class="licon-share2"></i>
-              </a>
-              <a href="#">
-                <i class="licon-map-marker"></i>
-              </a>
-              <a href="#">
-                <i class="licon-at-sign"></i>
-              </a>
+                <a href="#">
+                  <i class="licon-share2"></i>
+                </a>
+                <a href="#">
+                  <i class="licon-map-marker"></i>
+                </a>
+                <a href="#">
+                  <i class="licon-at-sign"></i>
+                </a>
+
+              </div>
 
             </div>
 
           </div>
 
         </div>
-
+        {% endfor %}
       </div>
-      {% endfor %}
-    </div>
-  </fieldset>
- 
+    </fieldset>
+  </div>
 </div>
 
 {% endblock content %}

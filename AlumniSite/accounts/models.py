@@ -128,8 +128,7 @@ class Faculte(models.Model):
 class Frequenter(models.Model):
     matricule = models.CharField(max_length=10)
     dernier_diplome = models.CharField(max_length=30)
-    annee_entree = models.IntegerField()
-    #annee_sortie = models.PositiveIntegerField()
+    entree = models.DateField(null=True)
     user = models.OneToOneField(User,on_delete=models.CASCADE)
     faculte = models.ForeignKey(Faculte, on_delete=models.CASCADE)  
 
@@ -163,8 +162,7 @@ class Etudiant(models.Model):
     mot_de_passe = models.CharField(max_length=20)
     residence = models.CharField(max_length=20, blank=True)
     matricule = models.CharField(max_length=15, blank=True)
-    annee_entree = models.DateField(null=True)
-    #annee_sortie = models.IntegerField()
+    entree = models.DateField(null=True, auto_now_add=True)
     faculte = models.CharField(max_length=50, blank=True)
     diplome = models.CharField(max_length=30, blank=True)
     entreprise = models.CharField(max_length=20, blank=True)

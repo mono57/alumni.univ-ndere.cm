@@ -43,6 +43,7 @@ class DetailNews(DetailView):
         context['events'] = Evenement.objects.all()[:3]
         
         return context
+    
 
 class ListEvenement(ListView):
     template_name = 'main/liste_event.html'
@@ -57,7 +58,7 @@ class DetailEvent(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['related_events'] = Evenement.objects.all()[:5]
-        
+        print(self.get_object())
         return context
 
 @login_required(login_url='login')

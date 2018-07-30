@@ -23,7 +23,7 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 AUTH_USER_MODEL = 'accounts.User'
-
+LOGIN_URL = 'login'
 LOGOUT_REDIRECT_URL = 'index'
 # Application definition
 

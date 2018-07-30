@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.urls import reverse
-from main.managers import CommentManager
+from main.managers import CommentManager, NewsManager, EventsManager
 
 User = get_user_model()
 
@@ -17,9 +17,11 @@ class Evenement(models.Model):
     createur = models.ForeignKey(User,on_delete=models.CASCADE)
     activated = models.BooleanField(default=False)
     
+    objects = EventsManager()
+
     def __str__(self):
         return "{}".format(self.titre)
-    
+   
 
 class Actualite(models.Model):
     title = models.CharField(max_length=200)
@@ -27,7 +29,11 @@ class Actualite(models.Model):
     text_description = models.TextField(blank=True)
     image_description = models.ImageField(upload_to='actuality_images')
     date_add = models.DateTimeField(auto_now=True)
+
+    nb_vues = models.IntegerField()
     
+    objects = NewsManager()
+
     def __str__(self):
         return "Titre : {}".format(self.title)
     
@@ -36,6 +42,8 @@ class Actualite(models.Model):
         instance = self
         qs = Comment.objects.filter_by_instance(instance)
         return qs
+    
+    
 
 class Comment(models.Model):
     author = models.CharField(max_length=50)
