@@ -12,8 +12,6 @@
     <title>{% block title %} {% endblock title %} | UNICE</title>
     {% include "base/css.html" %}
 
-    <link rel="stylesheet" href="{% static 'css/css/home/mobirise-icons/mobirise-icons.css' %}">
-    <link rel="stylesheet" href="{% static 'css/css/bootstrap/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/css/home/dropdown/css/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/css/home/socicon/css/styles.css' %}">
     <link rel="stylesheet" href="{% static 'css/css/home/animatecss/animate.min.css' %}">
@@ -28,6 +26,7 @@
     {% include "base/navbar.html" %} {% block content %} {% endblock content %} {% include "base/footer.html" %} {% include "base/js.html"%}
     <script src="{% static 'js/home/jquery.touch-swipe.min.js' %}"></script>
     <script src="{% static 'js/home/script.js' %}">
+        
     </script> {% block javascript %} {% endblock javascript %}
     <div id="scrollToTop" class="scrollToTop mbr-arrow-up">
         <a style="text-align: center;">
@@ -36,18 +35,18 @@
     </div>
     <input name="animation" type="hidden">
 </body>
-<script>
-    $(document).ready(function () {
-        var timer;
-        $('.dropdown button, .dropdown-menu').hover(function () {
-            clearTimeout(timer);
-            $('.dropdown').addClass('open');
-        }, function () {
-            timer = setTimeout(function () {
-                $('.dropdown').removeClass("open");
-            }, 50);
-        });
-    });
-</script>
 
+<script>
+        $(document).ready(function () {
+            var timer;
+            $('.dropdown button, .dropdown-menu').hover(function () {
+                clearTimeout(timer);
+                $('.dropdown').addClass('open');
+            }, function () {
+                timer = setTimeout(function () {
+                    $('.dropdown').removeClass("open");
+                }, 50);
+            });
+        });
+</script>
 </html>

@@ -1,0 +1,89 @@
+{% extends "admin/base.html" %} {% load static %} {% block title %} Projets {% endblock title %} {% block content %}
+
+<div class="content-i">
+    <div class="content-box">
+        <div class="element-wrapper">
+            <h6 class="element-header">La liste des projects<a class="btn btn-white btn-sm pull-right" href="{% url 'admin:create_project' %}">
+                    <i class="os-icon os-icon-file-text"></i>
+                    <span>Ajouter un projet</span>
+                </a></h6>
+            
+            <div class="element-box">
+                   
+                <div class="table-responsive">
+                    <table id="listNews" width="100%" class="table table-striped table-lightfont">
+                        <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Date de lancement</th>
+                                <th>Durée</th>
+                                <th>Montant</th>
+                                
+                                <th class="text-center">Actions</th>
+                            </tr>
+                        </thead>
+                        
+                        <tbody>
+                            {% for project in projects %}
+                            <tr>
+                                <td>{{project.name}}</td>
+                                <td>{{project.start_date}}</td>
+                                <td>{{project.time}} ans</td>
+                                <td>{{project.montant}}</td>
+                                <td class="row-actions text-center">
+                                    {% if project.activated %}
+                                    <a><div class="status-pill green"></div></a>
+                                    {% else %}
+                                    <a class="activated" data-id='{{project.id}}'>
+                                        <i class="os-icon os-icon-grid-10"></i>
+                                    </a>
+                                    {% endif %}
+                                    <a href="{% url 'admin:details_project' project.pk %}">Details</a>
+                                    <a class="danger" href="">
+                                        <i class="os-icon os-icon-ui-15"></i>
+                                    </a>
+                                    
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <td colspan='5' class="text-center">Aucun projet</td>
+
+                            {% endfor %}
+
+
+                        </tbody>
+                    </table>
+                </div>
+                
+            </div>
+           
+        </div>
+    </div>
+</div>
+
+{% endblock content %} {% block javascript %}
+
+<script>
+    $(document).ready(function () {
+        $("#listNews").DataTable({
+
+        });
+        $(".activated").click(function () {
+            var $id = $(this).attr("data-id");
+            $.ajax({
+                type: 'GET',
+                url: '{% url "admin:project_activation" %}',
+                data: 'pk=' + $id,
+                dataType: 'JSON',
+                success: function (data) {
+                    if (data.ok) {
+                        
+                        location.reload()
+                    }
+                }
+            });
+        })
+
+    })
+</script>
+{% endblock javascript %}

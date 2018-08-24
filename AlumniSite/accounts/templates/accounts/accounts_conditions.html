@@ -1,21 +1,30 @@
-{% extends "base2.html" %} {% block title %} Registration {% endblock title %} {% block content %}
+{% extends "base2.html" %} {% block title %} Conditions d'inscription {% endblock title %} {% block content %}
 <div id="content" class="page-content-wrap">
     <div class="container">
 
-
-        Conditions for creating an account on Alumni University of Ngaoundere!
-
+        <h5 class="element-header"> Les conditions pour être membres des alumni de l'université de N'Gaoundéré
+        </h5>
+        <br>
         <ol>
-            <li>Having attended the University of Ngaoundéré</li>
-            <li>Accounts validation constraints</li>
+            <li>Avoir étudier à l'université de N'Gaoundéré ( au moins dans une des <a href="http://univ-ndere.com/facultes">12 écoles</a> )</li>
+            <li>Contraintes de validation de compte</li>
             <ul>
-                <li>Fill in all required fields</li>
-                <li>If you forget registration number, please fill in the fields Faculty and year of entry at the University
-                    of Ngaoundéré After that your account will be checked by one of our administrators</li>
+                <li>Remplissez tous les champs requisent c'est à dire les champs marqués d'un (<span class="required"></span>) ;</li>
+                
+                <li>J'ai fréquenter plusieurs établissement (école ou faculté). Pour cela renseigner le dernier 
+                    établissement parmis lesquels vous avez fréquenté et le matricule associé si vous en souvenez.
+                </li>
+                <li>Matricule oublié? alors renseigner le champ établissement et l'année d'entrée
+                    à l'universtité de N'Gaoundéré;
+                </li>
+                <li>Après renseignement et soumission du formulaire d'inscription, votre demande sera soumis à des vérification
+                    par nos administrateurs. Soyez juste patient car cela peut prendre quelques jours (peut être quelques sémaines) !!!
+                </li>
+                <li>N'oubliez pas de completer votre profile après que le processus de création de compte ait terminé.</li>
             </ul>
         </ol>
 
-        <p>Thank you for your understanding</p>
+        <a class="pull-right btn btn-success txt-primary block mb-10 font-12" href="{% url 'register' %}">Retour au formulaire d'inscription</a>
     </div>
 </div>
 {% endblock content %}

@@ -1,0 +1,190 @@
+{% extends "base2.html" %}
+{% block title %}
+Details Project
+{% endblock title %}
+{% block css %}
+<style>
+    
+</style>
+{% endblock css %}
+
+{% block content %}
+
+<div id="content" class="page-content-wrap">
+
+    <div class="container wide">
+        <div class="content-element">
+
+            <div class="single-post">
+
+                <h1 class="title">Détails</h1>
+
+                <br>
+                <br>
+                <div class="content-element3">
+                        <h2>{{project.name}}</h2>
+                    <div class="row">
+                        <div class="col-md-8 col-sm-12">
+
+                            <h5 class="e-title">Description</h5>
+                            <p>{{project.description}}</p>
+
+                            <div class="share-wrap">
+
+                                <span class="share-title">Partager:</span>
+                                <ul class="social-icons share">
+
+                                    <li>
+                                        <a href="#" class="sh-facebook">
+                                            <i class="fa fa-facebook"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="sh-twitter">
+                                            <i class="fa fa-twitter"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="sh-google">
+                                            <i class="fa fa-google-plus"></i>
+                                        </a>
+                                    </li>
+                                   
+
+                                </ul>
+
+                            </div>
+
+                        </div>
+                        <div class="col-md-4 col-sm-12">
+
+                            <h5 class="e-title">Details</h5>
+                            <ul class="custom-list">
+
+                                <li>
+                                    <span>Début d'éxecution:</span> <u>{{project.start_date}}</u></li>
+                                <li>
+                                    <span>Durée:</span>
+                                    <div class="badge badge-success-inverted">{{project.time}} ans
+                                    </div>
+                                </li>
+                                <li>
+                                    <span>Budget:</span>
+                                    <div class="badge badge-danger">{{project.montant}} FCFA
+                                        </div>
+                                </li>
+                                <li>
+                                    <span>Lieu:</span>
+                                    <div class="badge badge-dark">{{project.execute}} 
+                                        </div>
+                                </li>
+                                <li class="clearfix">
+
+
+                                    <div class="tagcloud">
+
+
+                                        {% include "main/contribution_form.html" %}
+                                        
+
+                                    </div>
+
+                                </li>
+
+                            </ul>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <h3>La liste des contributeurs pour ce projet</h3>
+            <div class="table-responsive">
+                    <table class="table table-padded">
+                       
+                        <tbody>
+                            {% for contributeur in project.contributions %} 
+                            <tr>
+
+                                
+
+                                <td class="text-center">
+
+                                    <span class="smaller lighter">{{contributeur.alumni}}</span>
+                                </td>
+                                <td class="text-center">
+                                    <a class="badge badge-success-inverted">{{contributeur.montant}}</a>
+                                </td>
+                                <td class="text-center">
+                                        {% if contributeur.mode_payement == '1' %}
+                                        Orange Money
+                                        {% endif %}
+                                       
+                                        {%if contributeur.mode_payement == '2' %}
+                                        MTN Money
+                                        {% endif %}
+                                        {%if contributeur.mode_payement == '3' %}
+                                        Express Union
+                                        {% endif %}
+                                    </td>
+                    
+                            </tr>
+                            
+                            {% empty %}
+                            <td colspan="5" class="text-center">
+                                <div class="smaller lighter">Aucune contribution pour ce projet</div>
+                            </td>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+{% block javascript %}
+<script>
+
+        $(document).ready(function(){
+            $('#payement').change(function(){
+                if ($(this).val() == '1'){
+                    $('#mtn').css('display', 'none');
+                    $('#orange').css('display', 'none');
+                    $('#express-union').css('display', 'block');
+                }else if ($(this).val() == '2'){
+                    $('#express-union').css('display', 'none');
+                    $('#orange').css('display', 'none');
+                    $('#mtn').css('display', 'block');
+                }else{
+                    $('#mtn').css('display', 'none');
+                    $('#express-union').css('display', 'none');
+                    $('#orange').css('display', 'block');
+                }
+            })
+            $('#contrib').click(function(){
+                var $id  = $(this).attr('data-id');
+                var $content = $('#montant').val();
+                var $button = $(this);
+                if ($content.length != 0) {
+                    $button.attr('data-dismiss', 'modal');
+                    
+                    $.ajax({
+                        url: '{% url "contribution" %}',
+                        data: 'montant=' + $content + '&project='+$id+'&mode='+$('#payement').val(),
+                        dataType: 'json',
+                        success: function (data) {
+                            if (data.ok) {
+                                $('#montant').val('');
+                                alert("Merci de votre aide");
+                                
+                            }
+                        }
+                        
+                    })
+                }
+            })
+        })
+    
+    </script>
+{% endblock javascript %}

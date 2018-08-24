@@ -1,13 +1,5 @@
-{% url 'home' as home_url %}
-{% url 'index' as index_url %}
-{% url 'event' as events_url %}
-{% url 'login' as login_url %}
-{% url 'logout' as logout_url %} 
-{% url 'register' as register_url %}
-{% url 'contact' as contact_url %} 
-{% url 'forum:community' as community_url %}
-{%url 'donate' as donate_url %} 
-{% load static %}
+{% url 'home' as home_url %} {% url 'index' as index_url %} {% url 'event' as events_url %} {% url 'news' as news_url %}
+{% url 'login' as login_url %} {% url 'logout' as logout_url %} {% url 'register' as register_url %} {% url 'contact' as contact_url %} {% url 'forum:community' as community_url %} {%url 'donate' as donate_url %} {% load static %}
 
 <section class="menu cid-qFHAv562qj" once="menu" id="menu1-0">
 
@@ -27,7 +19,7 @@
       <div class="navbar-brand">
         <span class="navbar-logo">
           <a href="#top">
-            <img src="{% static 'img/uniceshort-199x131.png' %}" alt="Mobirise" title="" style="height: 3.8rem;">
+            <img src="{% static 'img/uniceshort-199x131.png' %}" title="" style="height: 3.8rem;">
           </a>
         </span>
         <span class="navbar-caption-wrap">
@@ -40,53 +32,62 @@
       <ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true">
         <li class="nav-item">
           <a class="nav-link link text-black display-4" href="{{ home_url }}">
-            <span class="mbri-left mbr-iconfont mbr-iconfont-btn"></span>Back to UNICE</a>
+            <i class="fa fa-arrow-left" aria-hidden="true"></i>&ensp; Retour
+          </a>
         </li>
         <li class="nav-item">
           <a class="nav-link link text-black display-4" href="{{index_url}}">
-            <span class="mbri-home mbr-iconfont mbr-iconfont-btn"></span>
-            Home&nbsp;</a>
+            <i class="fa fa-home" aria-hidden="true"></i> &ensp; Accueil&nbsp;
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link link text-black display-4" href="{{news_url}}">
+            <i class="fa fa-search" aria-hidden="true"></i> &ensp; Actualités
+          </a>
         </li>
         <li class="nav-item">
           <a class="nav-link link text-black display-4" href="{{events_url}}">
-            <span class="mbri-calendar mbr-iconfont mbr-iconfont-btn"></span>
-            Events&nbsp;</a>
+            <i class="fa fa-calendar-check-o" aria-hidden="true"></i>&nbsp; Événements
+          </a>
         </li>
         <li class="nav-item">
           <a class="nav-link link text-black display-4" href="{% url 'forum:community' %}">
-            <span class="mbri-users mbr-iconfont mbr-iconfont-btn"></span>
-            Community</a>
+            <i class="fa fa-users" aria-hidden="true"></i> &ensp; Communauté
+          </a>
         </li>
         <li class="nav-item">
           <a class="nav-link link text-black display-4" href="{% url 'projects' %}">
-            <span class="mbri-layers mbr-iconfont mbr-iconfont-btn"></span>
-            Projects</a>
+            <i class="fa fa-tasks" aria-hidden="true"></i> &ensp; Projets
+          </a>
         </li>
 
         {% if request.user.is_authenticated %}
-        <li class="">
-            <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                  aria-expanded="false">
-                  {{request.user.get_full_name}}
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" href="{% url 'accounts:profile' %}" style="text-align:left";>Profile</a>
-                  <a class="dropdown-item" href="{% url 'create_event' %}">Create events</a>
-                  <a class="dropdown-item" href="{{logout_url}}"><i class="fa fa-logout"></i> Logout</a>
-                </div>
-              </div>
+        <li class="nav-item">
+
+          <div class="dropdown show">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              {{request.user.get_full_name}}
+            </button>
+
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" href="{% url 'accounts:profile' request.user.pk %}" style="text-align:left" ;>Profile</a>
+              <a class="dropdown-item" href="{% url 'forum:manage_group' %}">Gérer</a>
+              <a class="dropdown-item" href="{% url 'forum:list_request' %}" style="text-align:left" ;>Notifications &ensp;
+                <span style="color:blue"> {{request.user.get_request|length}}</span>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="{{logout_url}}">
+                <i class="fa fa-logout"></i> Deconnexion</a>
+            </div>
+          </div>
         </li>
 
         {% else %}
         <li class="nav-item">
           <a class="nav-link link text-black display-4" href="{{login_url}}">
-            <span class="mbri-code mbr-iconfont mbr-iconfont-btn"></span>
-            Login</a>
+            <i class="fa fa-sign-in" aria-hidden="true"></i>&nbsp; Se Connecter</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link link text-black display-4" href="{{register_url}}">/Regiter</a>
-        </li>
+
 
         {% endif %}
       </ul>

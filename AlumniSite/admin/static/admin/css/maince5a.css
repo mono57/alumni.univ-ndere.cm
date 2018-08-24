@@ -5,47 +5,6 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 
-:root {
-    --blue: #047bf8;
-    --indigo: #6610f2;
-    --purple: #6f42c1;
-    --pink: #e83e8c;
-    --red: #e65252;
-    --orange: #fd7e14;
-    --yellow: #fbe4a0;
-    --green: #24b314;
-    --teal: #20c997;
-    --cyan: #5bc0de;
-    --white: #fff;
-    --gray: #636c72;
-    --gray-dark: #343a40;
-    --primary: #047bf8;
-    --secondary: #292b2c;
-    --success: #24b314;
-    --info: #5bc0de;
-    --warning: #fbe4a0;
-    --danger: #e65252;
-    --light: #f8f9fa;
-    --dark: #343a40;
-    --breakpoint-xs: 0;
-    --breakpoint-sm: 576px;
-    --breakpoint-md: 768px;
-    --breakpoint-lg: 992px;
-    --breakpoint-xl: 1250px;
-    --breakpoint-xxl: 1450px;
-    --breakpoint-xxxl: 1550px;
-    --breakpoint-xxxxl: 1650px;
-    --font-family-sans-serif: "Avenir Next W01", "Proxima Nova W01", "Rubik", -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace
-}
-
-*,
-*::before,
-*::after {
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box
-}
-
 html {
     font-family: sans-serif;
     line-height: 1.15;
@@ -3227,7 +3186,7 @@ select.form-control-lg:not([size]):not([multiple]),
 .form-inline {
     display: -webkit-box;
     display: -ms-flexbox;
-    display: flex;
+    display: block;
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
     -ms-flex-flow: row wrap;
@@ -12846,17 +12805,6 @@ body {
     overflow-x: hidden
 }
 
-body:before {
-    content: "";
-    position: absolute;
-    z-index: -1;
-    background: -webkit-gradient(linear, left top, right bottom, from(#D7BBEA), to(#65A8F1));
-    background: linear-gradient(to bottom right, #D7BBEA, #65A8F1);
-    top: 0px;
-    left: 0px;
-    bottom: 0px;
-    right: 0px
-}
 
 body.full-screen {
     padding: 0px

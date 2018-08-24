@@ -1,9 +1,5 @@
-{% extends "base2.html" %} {% load static %}
+{% extends "base2.html" %} {% load static %} {% block title %} Events {% endblock title %} {% block css %}
 
-{% load social_share %}
-{% block title %}
-Events
-{% endblock title %} {% block css %}
 <link rel="stylesheet" href="{% static 'font/home/styles.css' %}">
 <link rel="stylesheet" href="{% static 'font/demo-files/demo.css' %}"> {% endblock css %} {% block content %}
 
@@ -24,9 +20,9 @@ Events
               <p>
                 <i class="fa fa-map-marker"></i> {{evenement.lieu}}
                 <br>
-                <br>
-                <i class="fa fa-calendar"></i> {{evenement.date_evenement}}| Recurring Event (
-                <a href="{% url 'event' %}">See All</a>)</p>
+                
+                <i class="fa fa-calendar"></i> {{evenement.date_evenement}}| (
+                <a href="{% url 'event' %}">Tout voir</a>)</p>
 
 
 
@@ -52,17 +48,18 @@ Events
 
                       <ul class="custom-list">
 
-                        
-                          <li><span>Date : </span> {{evenement.date_evenement}}</li>
-                          
-                          <li><span>Heure : </span> {{evenement.heure_evenement}}</li>
 
                         <li>
-                          <span>Catégorie:</span>
-                          <a href="#" class="link-text">Training</a>
+                          <span>Date : </span> {{evenement.date_evenement}}</li>
+
+                        <li>
+                          <span>Heure de debut: </span> {{evenement.heure_debut}}
+
                         </li>
+                        <li>
 
-
+                          <span>Heure de fin: </span> {{evenement.heure_fin}}
+                        </li>
                       </ul>
 
                     </div>
@@ -73,14 +70,12 @@ Events
                       <ul class="custom-list">
 
                         <li>
-                          <span>Nom de l'organisateur:</span> {{evenement.createur.get_full_name}}</li>
-                        <li content="telephone=no">
-                          <span>Tel:</span> (932) 733-3390</li>
+                          <span>Nom:</span> {{evenement.createur.get_full_name}}</li>
+                        </li>
                         <li>
                           <span>Email:</span>
-                          <a href="#" class="link-text">info@companyname.com</a>
+                          {{evenement.createur.email}}
                         </li>
-
 
                       </ul>
 
@@ -102,21 +97,22 @@ Events
                   <ul class="social-icons share">
 
                     <li>
-                      <a href="" class="sh-facebook">
+                      <a href="https://www.facebook.com/sharer/sharer.php?u=http://127.0.0.1:8000/" class="sh-facebook">
                         <i class="fa fa-facebook" aria-hidden="true"></i>
                       </a>
                     </li>
                     <li>
-                      <a href="" class="sh-twitter">
+                      <a href="https://twitter.com/home?status=I'm%20going%20to%20learn%20to%20Code...%20Come%20build%20an%20web%20apsp%20with%20me!%20%23CFE%20and%20@justinmitchel%20http://codingforentrepreneurs.com/"
+                        class="sh-twitter">
                         <i class="fa fa-twitter" aria-hidden="true"></i>
                       </a>
                     </li>
                     <li>
-                      <a href="" class="sh-google">
+                      <a href="https://plus.google.com/share?url=http://127.0.0.1:8000" class="sh-google">
                         <i class="fa fa-google-plus" aria-hidden="true"></i>
                       </a>
                     </li>
-                   
+
                   </ul>
 
                 </div>
@@ -125,19 +121,15 @@ Events
 
               <div class="col-lg-4">
 
-                <div id="googleMap" class="map-container content-element3"></div>
+
 
                 <h5 class="e-title">Localisation</h5>
 
                 <ul class="custom-list">
 
                   <li>
-                    <span>Venue Name:</span> {{evenement.lieu}}</li>
-                  <li>
-                    <span>Address:</span> 8901 Marmora Road, Glasgow, D04 89GR.</li>
-                  <li>
-                    <span>Email:</span>
-                    <a href="#" class="link-text">info@companyname.com</a>
+                    <span>Lieu:</span> {{evenement.lieu}}</li>
+
                   </li>
 
 
@@ -156,49 +148,50 @@ Events
     </div>
 
 
-    <h3 class="title">Evenements similaires</h3>
+    <h3 class="title">Autres événements</h3>
 
     <!-- Isotope -->
-    <div class="isotope three-collumn clearfix event-box no-border style-2 grid-type" data-isotope-options='{"itemSelector" : ".item","layoutMode" : "masonry","transitionDuration":"0.7s","masonry" : {"columnWidth":".item"}}'>
+    <div class="isotope three-collumn clearfix event-box no-border style-2 grid-type">
 
-      <!-- Isotope item -->
-      {% for related_event in related_events %}
-      <div class="item">
-
-        <!-- - - - - - - - - - - - - - Event - - - - - - - - - - - - - - - - -->
-        <div class="event">
-
-          <div class="event-img">
-
-            <a href="{% url 'details_events' pk=related_event.pk %}">
-              <img src="{{evenement.image_illustration.url}}" alt="">
-            </a>
-
+        {% for related_event in related_events %}
+        <div class="item">
+  
+          <!-- - - - - - - - - - - - - - Event - - - - - - - - - - - - - - - - -->
+          <div class="event">
+  
+            <div class="event-img">
+  
+              <a href="{% url 'details_events' pk=related_event.pk %}">
+                <img src="{{related_event.image_illustration.url}}" alt="">
+              </a>
+  
+            </div>
+  
+            <div class="event-body">
+  
+              <h5 class="event-title">
+                <a href="{% url 'details_events' pk=related_event.pk %}">{{related_event.titre}}</a>
+              </h5>
+  
+              <p class="e-info">
+                <p>
+                  <i class="fa fa-map-marker"></i> {{related_event.lieu}}
+                  <br>
+                  <i class="fa fa-calendar"></i> {{related_event.date_evenement}}</p>
+  
+                <p>{{related_event.description|truncatewords:15}}
+                </p>
+  
+            </div>
+  
           </div>
-
-          <div class="event-body">
-
-            <h5 class="event-title">
-              <a href="{% url 'details_events' pk=related_event.pk %}">{{related_event.titre}}</a>
-            </h5>
-
-            <p class="e-info">
-              <p>
-                <i class="fa fa-map-marker"></i> {{related_event.lieu}}
-                <br>
-                <i class="fa fa-calendar"></i> {{related_event.date_evenement}}</p>
-
-              <p>{{related_event.description|truncatewords:15}}
-              </p>
-
-          </div>
-
+  
         </div>
-
-      </div>
-      {% endfor %}
-
-
+        {% empty %}
+        <div>
+            <h5 class="title">Aucun autre événement</h5>
+        </div>
+        {% endfor %}
 
     </div>
 

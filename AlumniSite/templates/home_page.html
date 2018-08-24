@@ -19,14 +19,14 @@
             <div class="mbr-white col-md-10">
                 <h1 class="mbr-section-title mbr-bold pb-3 mbr-fonts-style display-1">
                     <br>
-                    <br>WELCOME TO UNICE</h1>
+                    <br>BIENVENUE à UNICE</h1>
 
                 <p class="mbr-text pb-3 mbr-fonts-style display-2">The University of Ngaoundere Innovation Centre of Excellence
                     <br>
                     <br>
                 </p>
                 <div class="mbr-section-btn">
-                    <a class="btn btn-md btn-white display-4" href="#features16-h">LEARN MORE</a>
+                    <a class="btn btn-md btn-white display-4" href="#features16-h">Lire plus</a>
                 </div>
             </div>
         </div>
@@ -46,11 +46,11 @@
             <div class="title col-12 col-md-8">
                 <h2 class="align-center mbr-fonts-style display-1">
                     <strong>
-                        What's news?</strong>
+                        Les actualités</strong>
                 </h2>
-                <h3 class="mbr-section-subtitle align-center mbr-light mbr-fonts-style display-2">The recents news say what?
+                <h3 class="mbr-section-subtitle align-center mbr-light mbr-fonts-style display-2">Les recentes nouvelles disent quoi?
                 </h3>
-
+<br>
             </div>
         </div>
     </div>
@@ -58,30 +58,52 @@
 
 <section class="news cid-qFJElyBaOD" id="news">
 
-    <div class="container">
+    <div class="container-fluid">
         <div class="media-container-row">
+            <div class="entry-box flex-row item-col-3">
+                {% for new in news %}
+                <div class="entry-col">
 
-            {% for new in news %}
-            <div class="card p-3 col-12 col-md-6 col-lg-4">
-                <div class="card-img pb-3">
-                    <img src="{{new.image_description.url}}" alt="">
+                    <div class="entry">
+
+                        <!-- - - - - - - - - - - - - - Entry attachment - - - - - - - - - - - - - - - - -->
+                        <div class="thumbnail-attachment">
+                            <a href="{% url 'details' pk=new.pk %}">
+                                <img src="{{new.image_description.url}}" alt="">
+                            </a>
+                        </div>
+
+                        <!-- - - - - - - - - - - - - - Entry body - - - - - - - - - - - - - - - - -->
+                        <div class="entry-body">
+
+                            <h5 class="entry-title">
+                                <a href="{% url 'details' pk=new.pk %}">{{new.title}}</a>
+                            </h5>
+                            <div class="entry-meta">
+
+                                <time class="entry-date" datetime="2018-03-18">{{new.date_add}}</time>
+                                <span>par</span>
+                                <a class="entry-cat">{{new.author}}</a>
+
+                            </div>
+                            <p>{{new.text_description|truncatewords:25|safe}}</p>
+
+                            <div class="entry-action">
+                                &ensp; {{new.comments.count}}
+                                <i class="fa fa-comments" aria-hidden="true"></i>
+                                <a class="pull-right" href="{% url 'details' pk=new.pk %}">Plus</a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
                 </div>
-                <div class="card-box">
 
-                    <a href="">
-                        <h2 class="card-title py-3 mbr-fonts-style display-5">{{new.title|truncatechars:20}}</h2>
-                    </a>
+                {% endfor %}
 
-                    <p class="mbr-text mbr-fonts-style display-7">
-                        {{new.text_description|truncatewords:20|safe}}
-                    </p>
-                    <p>{{new.date_add|naturalday:"DATE_FORMAT"}}
-                        <a class="pull-right" href="{% url 'details' pk=new.pk %}">...lire plus</a>
-                    </p>
-                </div>
             </div>
-            {% endfor %}
-
         </div>
 
     </div>
@@ -97,9 +119,9 @@
             <div class="title col-12 col-md-8">
                 <h2 class="align-center pb-3 mbr-fonts-style display-1">
                     <strong>
-                        ABOUT</strong>
+                        A propos</strong>
                 </h2>
-                <h3 class="mbr-section-subtitle align-center mbr-light mbr-fonts-style display-2">What is INNOVATION
+                <h3 class="mbr-section-subtitle align-center mbr-light mbr-fonts-style display-2">Qu'est ce que l'innovation ?
                 </h3>
 
             </div>
@@ -113,11 +135,20 @@
 
     <div class="container">
         <div class="media-container-row">
-            <div class="mbr-text col-12 col-md-8 mbr-fonts-style display-7">Innovation is the process of translating an idea or invention into a good or service that creates value or for
-                which customers will pay. In business, innovation often results when ideas are applied by the company in
-                order to further satisfy the needs and expectations of the customers, perceptible by increase in consumption.
-                That means more effective products,
-                <a href="">Read more...</a> &nbsp;</div>
+            <div class="mbr-text col-12 col-md-8 mbr-fonts-style display-7">L'innovation est le processus de traduction d'une idée ou d'une invention en un bien ou un service qui crée de
+                la valeur ou pour lequel les clients paieront. Dans les affaires, l'innovation se traduit souvent par l'application
+                d'idées par l'entreprise afin de satisfaire davantage les besoins et les attentes des clients, perceptibles
+                par l'augmentation de la consommation.
+                <a style="color:blue" class="read-more-1">Lire plus</a>
+                <div id="display1" style="display:none"> Cela signifie des produits, processus, services, technologies ou idées plus efficaces, facilement disponibles
+                    pour les marchés, la société et les gouvernements. L’innovation est le fondement de la modernisation,
+                    nécessaire à l’émergence de chaque pays, c’est-à-dire à la création de richesses, à la création d’emplois
+                    et à la croissance économique générale. Le secret de l'innovation est que cela demande beaucoup de patience
+                    "si vous n'essayez pas, vous ne savez pas - de nombreux échecs seront enregistrés, mais continuez à essayer".
+                    C'est un processus important et passionnant.
+                    <a style="color:blue" class="read-short-1">Réduire</a>
+                </div>
+            </div>
         </div>
     </div>
 </section>
@@ -129,7 +160,7 @@
     <div class="container">
         <div class="media-container-row">
             <div class="title col-12 col-md-8">
-                <h2 class="align-center pb-3 mbr-fonts-style display-2">Why Create the University of Ngaoundere Innovation Centre of Excellence (UNICE)</h2>
+                <h2 class="align-center pb-3 mbr-fonts-style display-2">Pourquoi créer le Centre d'Excellence de l'Innovation de l'Université de Ngaoundère (UNICE en anglais)</h2>
                 <h3 class="mbr-section-subtitle align-center mbr-light mbr-fonts-style display-5"></h3>
 
             </div>
@@ -143,12 +174,41 @@
 
     <div class="container">
         <div class="media-container-row">
-            <div class="mbr-text col-12 col-md-8 mbr-fonts-style display-7">A university is an institution of tertiary education and research. In the past couple of years, the role of higher
-                education has been a matter of growing interests, and Cameroon’s universities have embarked on professionalization
-                with the hope of creating jobs, wealth and economic growth. Studies from developed and emerging economies
-                show that higher education is very important to the national economy, with a graduate workforce raising productivity
-                and contributing to economic growth
-                <a href="">Read more...</a>
+            <div class="mbr-text col-12 col-md-8 mbr-fonts-style display-7">Une université est une institution d'enseignement supérieur et de recherche. Ces deux dernières années, le rôle
+                de l’enseignement supérieur a suscité un intérêt croissant et les universités camerounaises se sont lancées
+                dans la professionnalisation dans l’espoir de créer des emplois, de la richesse et de la croissance économique.
+                Les études des économies développées et émergentes montrent que l'enseignement supérieur est très important
+                pour l'économie nationale, avec une main-d'œuvre diplômée qui augmente la productivité et contribue à la
+                croissance économique.
+                <a style="color:blue" class="read-more-2">Lire plus</a>
+                <div id="display2" style="display:none">
+                    La base de recherche universitaire est également considérée comme essentielle pour encourager l'innovation, la base de recherche
+                    étant considérée comme un élément essentiel du cadre qui soutient l'innovation et la compétitivité économique
+                    nationale. Les universités peuvent apporter de nombreux avantages à leurs régions. Elles offrent des
+                    possibilités d’éducation, sont une source de recherche et d’appui à l’innovation et peuvent travailler
+                    avec des entreprises locales, régionales et nationales tout en jouant un rôle important dans la société
+                    civile. Les universités sont parfaitement situées pour aider et soutenir les collaborations nécessaires
+                    qui peuvent être importantes pour le succès national et leurs connexions internationales constituent
+                    un lien essentiel. Par conséquent, les universités devraient profiter à leurs régions, non seulement
+                    par l’éducation et la recherche, mais aussi en tant qu’acteurs économiques, source d’activité économique
+                    vitale dans une région, en particulier pendant les périodes de récession économique. Les centres d'innovation
+                    de l'enseignement supérieur se concentrent sur la promotion d'une enquête multidisciplinaire, encouragent
+                    les partenariats avec l'industrie ou stimulent l'esprit d'entreprise. Le Centre d’excellence pour l’innovation
+                    de l’Université de Ngaoundere (UNICE) doit créer et renforcer les partenariats industriels. Ce modèle
+                    conduit à des installations où les entreprises peuvent être intégrées et travailler de concert avec les
+                    écoles d'ingénieurs et les facultés universitaires pour commercialiser les résultats de recherche existants
+                    ou créer de nouveaux produits et services. Ces partenariats génèrent des avantages mutuels: des expériences
+                    d'apprentissage entrepreneuriales pour les étudiants, le personnel et les facultés qui, à leur tour,
+                    prêtent leurs talents pour résoudre les problèmes auxquels sont confrontés les entreprises et l'industrie.
+                    L'espace et l'équipement de recherche universitaires seront accessibles aux entreprises en démarrage
+                    et à l'industrie. Cela favorisera la collaboration entre le monde universitaire et l'industrie, offrira
+                    aux étudiants et aux professeurs une expérience concrète et soutiendra la croissance économique. L’UNICE
+                    sera une communauté d’entrepreneurs du secteur et de chercheurs universitaires travaillant en partenariat
+                    pour lancer des percées: fusionner l’inhabituel, prendre des risques et penser en grand!
+
+                    
+                </div>
+                <a style="color:blue;" class="read-short-2"></a>
             </div>
         </div>
     </div>
@@ -161,10 +221,10 @@
         <div class="media-container-row">
             <div class="title col-12 col-md-8">
                 <h2 class="align-center pb-3 mbr-fonts-style display-1">
-                    <strong>OBJECTIVES</strong>
+                    <strong>Vision</strong>
                 </h2>
-                <h3 class="mbr-section-subtitle align-center mbr-light mbr-fonts-style display-7">The University of Ngaoundere Innovation Centre of Excellence (UNICE) has as mission to produce innovation
-                    and innovators through three (3) approaches:</h3>
+                <h3 class="mbr-section-subtitle align-center mbr-light mbr-fonts-style display-7">Le Centre d'excellence de l'innovation de l'Université de Ngaoundéré (UNICE) a pour mission de produire des
+                    innovations et des innovateurs à travers trois (3) approches:</h3>
 
             </div>
         </div>
@@ -185,11 +245,11 @@
                 </div>
                 <div class="card-box">
                     <h4 class="card-title py-3 mbr-fonts-style display-5">
-                        EDUCATION
+                        L' ÉDUCATION
                     </h4>
                     <p class="mbr-text mbr-fonts-style display-7">
-                        Our multi-disciplinary educational mission seeks to engage faculty and students in close collaboration with corporate partners
-                        to develop and commercialise new products and services
+                        Notre mission éducative multidisciplinaire cherche à impliquer les professeurs et les étudiants en étroite collaboration
+                        avec les entreprises partenaires pour développer et commercialiser de nouveaux produits et services.
                     </p>
                 </div>
             </div>
@@ -200,11 +260,12 @@
                 </div>
                 <div class="card-box">
                     <h4 class="card-title py-3 mbr-fonts-style display-5">
-                        COLLABORATION
+                        LA COLABORATION
                     </h4>
                     <p class="mbr-text mbr-fonts-style display-7">
-                        Bring industry thought leaders together with university experts to seed innovative thinking and enable collaboration in design,
-                        technology, prototyping, market studies, products, services and business models.
+                        Rassembler des leaders de l'industrie et des experts universitaires pour susciter une réflexion novatrice et favoriser la
+                        collaboration en matière de conception, de technologie, de prototypage, d'études de marché, de produits,
+                        de services et de modèles commerciaux.
                     </p>
                 </div>
             </div>
@@ -215,11 +276,11 @@
                 </div>
                 <div class="card-box">
                     <h4 class="card-title py-3 mbr-fonts-style display-5">
-                        INCUBATION
+                        L' INCUBATION
                     </h4>
-                    <p class="mbr-text mbr-fonts-style display-7">Support innovation activities through the use of the Innovation Centre of Excellence facilities, research
-                        laboratories, incubators and financial support mainly from the University of Ngaoundere Venture Development
-                        Fund (UNVDF).
+                    <p class="mbr-text mbr-fonts-style display-7">Soutenir les activités d'innovation grâce à l'utilisation des installations du Centre d'innovation, des
+                        laboratoires de recherche, des incubateurs et du soutien financier provenant principalement du Fonds
+                        de développement de l'Université de Ngaoundere Venture (UNVDF).
                     </p>
                 </div>
             </div>
@@ -242,7 +303,7 @@
             <div class="title col-12 col-lg-8">
                 <h2 class="mbr-section-title align-center pb-3 mbr-fonts-style display-1">
                     <strong>
-                        CONTACT US</strong>
+                        Contactez nous</strong>
                 </h2>
                 <h3 class="mbr-section-subtitle align-center mbr-light pb-3 mbr-fonts-style display-7">Be a partner or benefit from our expertise, Please send us a message</h3>
             </div>
@@ -251,14 +312,13 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="media-container-column col-lg-8" data-form-type="formoid">
-                <div data-form-alert="" hidden="">Thanks for filling out the form!</div>
+                <div data-form-alert="">Thanks for filling out the form!</div>
 
-                <form class="mbr-form" action="https://mobirise.com/" method="post" data-form-title="Mobirise Form">
-                    <input type="hidden" data-form-email="true" value="3jgYClo1f0ARZ+IWDuVj3lTrabjmjZrjWzJ+gPysM8bgjaVolxex+rbPxCYs+qiUuXcmCKmWgBAk8ULg89LFYQGSyWtpzyMt1NyysvZ0TDazd8yZf6ku9/DqIBVc7Y/V">
+                <form class="mbr-form " id="context-us" method="post">
                     <div class="row row-sm-offset">
                         <div class="col-md-4 multi-horizontal" data-for="name">
                             <div class="form-group">
-                                <label class="form-control-label mbr-fonts-style display-7" for="name-form1-j">Name</label>
+                                <label class="form-control-label mbr-fonts-style display-7" for="name-form1-j">Nom</label>
                                 <input type="text" class="form-control" name="name" data-form-field="Name" required="" id="name-form1-j">
                             </div>
                         </div>
@@ -270,7 +330,7 @@
                         </div>
                         <div class="col-md-4 multi-horizontal" data-for="phone">
                             <div class="form-group">
-                                <label class="form-control-label mbr-fonts-style display-7" for="phone-form1-j">Phone</label>
+                                <label class="form-control-label mbr-fonts-style display-7" for="phone-form1-j">Téléphone</label>
                                 <input type="tel" class="form-control" name="phone" data-form-field="Phone" id="phone-form1-j">
                             </div>
                         </div>
@@ -282,7 +342,7 @@
 
                     <span class="input-group-btn">
                         <button href="#" type="submit" class="btn btn-primary btn-form display-4">
-                            <span class="mbri-paper-plane mbr-iconfont mbr-iconfont-btn"></span>SEND</button>
+                            <span class="mbri-paper-plane mbr-iconfont mbr-iconfont-btn"></span>Envoyer</button>
                     </span>
                 </form>
             </div>
@@ -294,4 +354,29 @@
 
 <script src="{% static 'js/home/jquery.touch-swipe.min.js' %}"></script>
 <script src="{% static 'js/home/script.js' %}"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#contact-us').on('submit', function (event) {
+
+        })
+        $('.read-more-1').click(function(){
+            $(this).fadeOut();
+            $("#display1").css('display','inline-block');
+        })
+        $('.read-short-1').click(function(){
+            $('.read-more-1').fadeIn();
+            $("#display1").css('display','none');
+        })
+        $('.read-more-2').click(function(){
+            $(this).fadeOut();
+            $("#display2").css('display','inline-block');
+            $('.read-short-2').css('display','inline-block');
+        })
+        $('.read-short-2').click(function(){
+            $('.read-more-2').fadeIn();
+            $("#display2").css('display','none');
+        })
+    })
+</script>
 {% endblock javascript %}

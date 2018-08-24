@@ -299,7 +299,7 @@ img.alignright {
 }
 
 [class*="page-section"] {
-  padding: 112px 0;
+  padding: 90px 0;
 }
 
 [class*="page-section"].size2 {
@@ -378,6 +378,7 @@ img.alignright {
 
 .flex-row[class*="item-col-"]:not(.no-gutters)>* {
   padding: 30px 15px 0;
+  margin-bottom: 20px;
 }
 
 .item-col-1>* {
@@ -3469,7 +3470,6 @@ hr.style-5 {
 
 .icons-box.style-1 .icons-item .item-box>i:not([class*="licon-"]) {
   font-style: normal;
-  font-family: 'Lora', sans-serif;
   line-height: 40px;
 }
 
@@ -3954,10 +3954,6 @@ hr.style-5 {
 
 /*----------- Carousel Sliders --------------*/
 
-.carousel-type-1 .owl-carousel .owl-nav,
-.carousel-type-2 .owl-carousel .owl-dots {
-  display: none !important;
-}
 
 .carousel-type-2.var2 .owl-carousel {
   padding: 0 50px;
@@ -4714,11 +4710,11 @@ iframe::scrollbar {
 }
 
 .entry .entry-body p:not(:last-child) {
-  margin-bottom: 28px;
+  margin-bottom: 20px;
 }
 
 .entry .entry-meta:not(:last-child) {
-  margin-bottom: 13px;
+  margin-bottom: 8px;
 }
 
 .entry .entry-meta>*:not(span) {
@@ -7524,4 +7520,32 @@ a.with-avatar span {
   display: inline-block;
   vertical-align: middle;
   border-bottom: 1px solid #047bf8
+}
+/* Tags */
+.tagcloud{
+  margin: -5px -2.5px 0;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.tagcloud a{
+  color: #8f8e8c;
+  font-size: 11px;
+  line-height: 16px;
+  padding: 4px 10px 4px;
+  text-transform: uppercase;
+  display: block;
+  background: #fff;
+  letter-spacing: .5px;
+  border: 2px solid #c9c9c9;
+  border-radius: 3px;
+  margin: 5px 2.5px 0;
+}
+
+.tagcloud a:hover{
+  border-color: #8f8e8c;
 }

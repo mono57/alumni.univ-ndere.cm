@@ -1,4 +1,4 @@
-{% extends "base2.html" %} {% load static %} {% block title %} Register {% endblock title %} {% block css %}
+{% extends "base2.html" %} {% load static %} {% block title %} Inscription {% endblock title %} {% block css %}
 <style>
     .errorlist {
         color: red;
@@ -7,107 +7,128 @@
         font-size: 12px;
     }
 </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/css/bootstrap-multiselect.css">
 {% endblock css %} {% block content %}
 <div class="container-fuid">
     <div class="table-struct full-width full-height">
         <div class="table-cell vertical-align-middle auth-form-wrap">
             <div class="auth-form  ml-auto mr-auto no-float">
-                <form class="form-wrap" method="POST">
-                    {% csrf_token %}
                     <div class="mb-30">
-                        <h3 class="text-center txt-dark mb-10">Register to Alumni
-                            <br>UNIV-NDERE</h3>
-                        <h6 class="text-center nonecase-font txt-grey">Enter your details below</h6>
-                    </div>
-
-
-
-                    <div class="form-row">
-                        <div class="col-md-6 form-group">
-                            <label for="">Nom </label>
-                            {{form.nom.errors}}
-                            <input type="text" name="nom" class="form-control">
+                            <h3 class="text-center txt-dark mb-10">Inscription sur Alumni
+                                <br>UNIV-NDERE</h3>
+                            
                         </div>
-                        <div class="col-md-6 form-group">
-                            <label for="">Prenom </label>
-                            {{form.prenom.errors}}
-                            <input type="text" name="prenom" class="form-control">
+                {% if not request.user.is_authenticated %}
+                <form class="form-wrap" method="POST">
+                        {% csrf_token %}
+                        
+    
+    
+                        <h6 class="text-center nonecase-font txt-grey">Entrez les details suivants</h6>
+                        <div class="form-row">
+                            <div class="col-md-6 form-group">
+                                <label for="" class="required">Nom </label>
+                                {{form.nom.errors}}
+                                <input type="text" placeholder="Votre nom" name="nom" class="form-control">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="" class="required">Prenom </label>
+                                {{form.prenom.errors}}
+                                <input type="text"  placeholder="Votre prenom" name="prenom" class="form-control">
+                            </div>
+    
                         </div>
-
-                    </div>
-
-                    <div class="form-row">
-
-                        <div class="col-md-6 form-group">
-                            <label for="">Adresse email </label>
-                            {{form.email.errors}}
-                            <input type="email" name="email" class="form-control">
+    
+                        <div class="form-row">
+    
+                            <div class="col-md-6 form-group">
+                                <label for="" class="required">Adresse email </label>
+                                {{form.email.errors}}
+                                <input type="email" name="email"  placeholder="Votre email" class="form-control">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="" class="required">Mot de passe </label>
+                                {{form.password.errors}}
+                                <input type="password" name="mot_de_passe" class="form-control">
+                            </div>
+    
                         </div>
-                        <div class="form-group col-md-6">
-                            <label for="">Mot de passe </label>
-                            {{form.password.errors}}
-                            <input type="password" name="mot_de_passe" class="form-control">
+    
+                        <div class="form-row">
+    
+                            <div class="form-group col-md-6">
+                                <label for="">Dernier établissement</label>
+                                <select name="faculte" id="school" class="form-control">
+                                    <option value="EGEM">EGEM</option>
+                                    <option value="FALSH">FALSH</option>
+                                    <option value="FS">FS</option>
+                                    <option value="FSJP">FSJP</option>
+                                    <option value="IUT" selected>IUT</option>
+                                    <option value="FSG">FSG</option>
+                                    <option value="ESMV">ESMV</option>
+                                    <option value="ENSAI">ENSAI</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="">Matricule </label>
+                                <a class="block mb-10 pull-right font-12" href="{% url 'accounts:registration_conditions' %}">j'ai oublié</a>
+                                {{form.matricule.errors}}
+                                <input type="text" name="matricule" class="form-control masked" pattern="\d\d\w\d\d\d\w\w" placeholder="15I417IU">
+                            </div>
                         </div>
-
-                    </div>
-
-                    <div class="form-row">
-
-                        <div class="form-group col-md-6">
-                            <label for="">Faculty or School</label>
-                            <select name="faculte" id="" class="form-control">
-                                <option value="EGEM">EGEM</option>
-                                <option value="FALSH">FALSH</option>
-                                <option value="FS">FS</option>
-                                <option value="FSJP">FSJP</option>
-                                <option value="IUT" selected>IUT</option>
-                                <option value="FSG">FSG</option>
-                                <option value="ESMV">ESMV</option>
-                                <option value="ENSAI">ENSAI</option>
-                            </select>
+                        <div class="form-row">
+    
+                            <div class="form-group col-md-6">
+                                <label for="">Année d'entrée</label>
+                                {{form.annee_entree.errors}}
+                                <input type="date" name="annee_entree" class="form-control">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="">Dernier diplome</label>
+                                <input type="text" name="diplome" class="form-control">
+                            </div>
                         </div>
-                        <div class="form-group col-md-6">
-                            <label for="">Matricule </label>
-                            {{form.matricule.errors}}
-                            <input type="text" name="matricule" class="form-control masked" pattern="\d\d\w\d\d\d\w\w" placeholder="15I417IU">
+    
+                        <div class="form-row">
+                            <div class="col-md-6 form-group">
+                                <label for="">Entreprise </label>
+                                <input type="text" name="entreprise" class="form-control">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="">Fonction dans l'entreprise</label>
+                                <input type="text" name="fonction" class="form-control">
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-row">
-
-                        <div class="form-group col-md-6">
-                            <label for="">Year of entry </label>
-                            {{form.annee_entree.errors}}
-                            <input type="date" name="annee_entree" class="form-control">
+                        <div class="form-row">
+                            <div class="col-md-6 form-group">
+                                <label for="">Pays de résidence</label>
+                                {% include "accounts/pays.html" %}
+                            </div>
+                            <div class="col-md-6 form-group">
+                                    <label for="">Teléphone</label>
+                                    <input type="text" name="telephone" class="form-control">
+                                </div>
+    
                         </div>
-                        <div class="form-group col-md-6">
-                            <label for="">Last degree</label>
-                            <input type="text" name="diplome" class="form-control">
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="col-md-6 form-group">
-                            <label for="">Entreprise </label>
-                            <input type="text" name="entreprise" class="form-control">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label for="">Function in this entreprise</label>
-                            <input type="text" name="fonction" class="form-control">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-md-12 form-group">
-                            <label for="">Contry of résidence </label>
-                            {% include "accounts/pays.html" %}
-                        </div>
-
-                    </div>
-                    <a href="{% url 'accounts:registration_conditions' %}" class="capitalize-font txt-primary block mb-10 pull-right font-12">Read the registration conditions</a>
-                    <button name="btnValider" type="submit" class="btn btn-success btnValider">Valider</button>
-                </form>
-                
+                        <a href="{% url 'accounts:registration_conditions' %}" class=" block mb-10 pull-right font-12">Lire les conditions d'inscription</a>
+                        <button name="btnValider" type="submit" class="btn btn-success btnValider">Valider</button>
+                    </form>
+                    
+                {% else %}
+                <div class="text-center txt-dark">
+                    <p>Vous êtes déjà inscrit!</p>
+                </div>
+                {% endif %}
             </div>
         </div>
     </div>
 </div>
-{% endblock content %} {% block javascript %} {% endblock javascript %}
+{% endblock content %} {% block javascript %} 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/js/bootstrap-multiselect.min.js"></script>
+<script>
+    $(document).ready(function(){
+       
+    })
+</script>
+
+{% endblock javascript %}

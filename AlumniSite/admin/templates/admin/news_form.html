@@ -1,4 +1,13 @@
-{% extends "admin/base/navbar.html" %} {% load static %} {% block title %} Add news {% endblock title %} {% block content%}
+{% extends "admin/base.html" %} {% load static %} {% block title %} Ajout d'actualité {% endblock title %} {% block css %}
+<style>
+    .errorlist {
+        color: red;
+        margin-bottom: 0px;
+        margin-top: 0px;
+        font-size: 12px;
+    }
+</style>
+{% endblock css %} {% block content%}
 
 <div class="content-box">
     <div class="row">
@@ -9,29 +18,30 @@
 
                 <h5 class="element-header">Ajoutez une actualité</h5>
                 <div class="form-group">
-
-                    <input class="form-control" placeholder="Event Title" type="text" name="title">
-
-                </div>
-                <div class="form-group">
-
-                    <input class="form-control" placeholder="Redacteur" type="text" name="author">
+                    {{form.title.errors}}
+                    <input class="form-control" placeholder="Titre de l'actualité" type="text" name="title" required>
 
                 </div>
                 <div class="form-group">
+                    {{form.author.errors}}
+                    <input class="form-control" placeholder="Redacteur" type="text" name="author" required>
 
+                </div>
+                <div class="form-group">
+                    {{form.date_add.errors}}
 
-                    <input class="form-control" placeholder="Date" type="Date" name="date_add">
+                    <input class="form-control" placeholder="Date d'ajout" type="Date" name="date_add" required>
                 </div>
 
                 <div class="form-group">
-
-                    <input class="form-control" placeholder="Image de description" type="file" name="image_description">
+                    {{form.image_illustration.errors}}
+                    <input class="form-control" placeholder="Image d' illustration" type="file" name="image_description" required>
 
                 </div>
                 <div class="element-wrapper">
                     <div class="element-box">
-                        <textarea cols="80" class="ckeditor" id="editeur" name="text_description" rows="10"></textarea>
+                        {{form.text_description.errors}}
+                        <textarea cols="80" class="ckeditor" id="editeur" name="text_description" rows="10" required></textarea>
                     </div>
                 </div>
 

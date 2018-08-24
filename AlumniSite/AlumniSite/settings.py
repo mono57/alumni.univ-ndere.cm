@@ -37,12 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'django_social_share',
     'django.contrib.postgres',
+    'django_extensions',
 
     #news apps
     'accounts',
     'main',
     'forum',
-    'admin'
+    'admin',
 ]
 
 MIDDLEWARE = [
@@ -92,9 +93,6 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'mybase',
-        'USER':'myuser',
-        'PASSWORD':'amono571',
-        'HOST':'127.0.0.1',
     }
 }
 
@@ -120,9 +118,9 @@ MEDIA_URL = '/media/'
 
 # Internationalization
 
-LANGUAGE_CODE = 'en'
+LANGUAGE_CODE = 'fr-fr'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Africa/Ndjamena'
 
 USE_I18N = True
 

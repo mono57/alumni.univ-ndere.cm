@@ -1,0 +1,28 @@
+{% extends "base2.html" %} {% block title %} Suppression {% endblock title %} {% block content %}
+
+<div id="content" class="page-content-wrap">
+
+    <div class="container wide">
+
+        <div class="content-element">
+            <p>Êtes vous sûr de vouloir supprimer ce groupe
+                <strong>
+                    {{object}}
+                </strong>?</p>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <button class="btn btn-success" type="submit">Oui</button>
+                    <a href="{% url 'forum:manage_group' %}">Non</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %} {% block javascript %}
+<script>
+    $('.add-user').click(function () {
+
+    })
+</script>
+{% endblock javascript %}

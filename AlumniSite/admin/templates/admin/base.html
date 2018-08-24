@@ -8,29 +8,19 @@
     <meta charset="utf-8">
     <meta content="ie=edge" http-equiv="x-ua-compatible">
     <meta content="width=device-width, initial-scale=1" name="viewport">
-    <link rel="shortcut icon" href="{% static 'img/uniceshort-199x131.png' %}" type="image/x-icon">
-    {% include "admin/base/css.html" %}
+    <link rel="shortcut icon" href="{% static 'img/uniceshort-199x131.png' %}" type="image/x-icon"> {% include "admin/base/css.html" %}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
+
 </head>
 
 <body class="menu-position-side menu-side-left full-screen with-content-panel">
     <div class="all-wrapper with-side-panel solid-bg-all">
-
-        <div class="search-with-suggestions-w">
-            <div class="search-with-suggestions-modal">
-                <div class="element-search">
-                    <input class="search-suggest-input" placeholder="Start typing to search..." type="text">
-                    <div class="close-search-suggestions">
-                        <i class="os-icon os-icon-x"></i>
-                    </div>
-
-                </div>
-            </div>
-        </div>
         <div class="layout-w">
 
             <div class="menu-w color-scheme-light color-style-transparent menu-position-side menu-side-left menu-layout-compact sub-menu-style-over sub-menu-color-bright selected-menu-color-light menu-activated-on-hover menu-has-selected-link">
                 <div class="logo-w">
-                    <a class="logo" href="">
+                    <a class="logo" href="{% url 'admin:index' %}">
                         <img src="{% static 'img/uniceshort-199x131.png' %}" alt="">
                         <div class="logo-label">UNICE - ADMIN</div>
                     </a>
@@ -42,7 +32,7 @@
                         </div>
                         <div class="logged-user-info-w">
                             <div class="logged-user-name">{{request.user.get_full_name}}</div>
-                            <div class="logged-user-role">Administrator</div>
+                            <div class="logged-user-role">Administrateur</div>
                         </div>
                         <div class="logged-user-toggler-arrow">
                             <div class="os-icon os-icon-chevron-down"></div>
@@ -54,7 +44,7 @@
                                 </div>
                                 <div class="logged-user-info-w">
                                     <div class="logged-user-name">{{request.user.get_full_name}}</div>
-                                    <div class="logged-user-role">Administrator</div>
+                                    <div class="logged-user-role">Administrateur</div>
                                 </div>
                             </div>
                             <div class="bg-icon">
@@ -62,125 +52,76 @@
                             </div>
                             <ul>
                                 <li>
-                                    <a href="">
-                                        <i class="os-icon os-icon-mail-01"></i>
-                                        <span>Incoming Mail</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="">
-                                        <i class="os-icon os-icon-user-male-circle2"></i>
-                                        <span>Profile Details</span>
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="#">
+                                    <a href="{% url 'logout' %}">
                                         <i class="os-icon os-icon-signs-11"></i>
-                                        <span>Logout</span>
+                                        <span>Deconnexion</span>
                                     </a>
                                 </li>
                             </ul>
                         </div>
                     </div>
                 </div>
-                <div class="menu-actions">
-
-
-
-                </div>
-                <div class="element-search autosuggest-search-activator">
-                    <input placeholder="Start typing to search..." type="text">
-                </div>
-                <h1 class="menu-page-header">Page Header</h1>
                 <ul class="main-menu">
-
-
-                    <li class="sub-header">
-                        <span>Options</span>
-                    </li>
                     <li class=" has-sub-menu">
-                        <a href="{% url 'admin:statistiques' %}">
-                            <div class="icon-w">
-                                <i class="os-icon os-icon-graph-down"></i>
-                            </div>
-                            <span>Stats</span>
-                        </a>
-                        <div class="sub-menu-w">
-                            <div class="sub-menu-header">Applications</div>
-                            <div class="sub-menu-icon">
-                                <i class="os-icon os-icon-package"></i>
-                            </div>
-                            <div class="sub-menu-i">
-                                <ul class="sub-menu">
-                                    <li>
-                                        <a href="apps_email.html">Email Application</a>
-                                    </li>
-
-                                </ul>
-
-                            </div>
-                        </div>
-                    </li>
-
-
-                    <li class=" has-sub-menu">
-                        <a href="#">
+                        <a href="{% url 'admin:list_user' %}">
                             <div class="icon-w">
                                 <div class="os-icon os-icon-users"></div>
                             </div>
-                            <span>Users</span>
-                        </a>
-                        <div class="sub-menu-w">
-                            <div class="sub-menu-header">Users</div>
-                            <div class="sub-menu-icon">
-                                <i class="os-icon os-icon-users"></i>
-                            </div>
-                            <div class="sub-menu-i">
-                                <ul class="sub-menu">
-                                    <li>
-                                        <a href="">Big Profile</a>
-                                    </li>
-                                    <li>
-                                        <a href="">Compact Profile</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </li>
-                    <li class=" has-sub-menu">
-                        <a href="#">
-                            <div class="icon-w">
-                                <div class="os-icon os-icon-users"></div>
-                            </div>
-                            <span>Projects</span>
+                            <span>Utilisateurs</span>
                         </a>
 
                     </li>
                     <li class=" has-sub-menu">
-                        <a href="#">
+                        <a href="{% url 'admin:list_project' %}">
                             <div class="icon-w">
-                                <div class="os-icon os-icon-users"></div>
+                                <div class="os-icon os-icon-file-text"></div>
                             </div>
-                            <span>Manage Projects</span>
+                            <span>Projets</span>
                         </a>
 
                     </li>
+                    <li class=" has-sub-menu">
+                            <a href="{% url 'admin:list_group' %}">
+                                <div class="icon-w">
+                                    <div class="os-icon os-icon-database"></div>
+                                </div>
+                                <span>Groupes</span>
+                            </a>
+    
+                        </li>
                     <li class=" has-sub-menu">
                         <a href="{% url 'admin:manage_events' %}">
                             <div class="icon-w">
-                                <div class="os-icon os-icon-users"></div>
+                                <div class="os-icon os-icon-activity"></div>
                             </div>
-                            <span>Events</span>
+                            <span>Événements</span>
                         </a>
 
                     </li>
                     <li class=" has-sub-menu">
-                        <a href="#">
+                        <a href="{% url 'admin:list_news' %}">
                             <div class="icon-w">
-                                <div class="os-icon os-icon-users"></div>
+                                <div class="os-icon os-icon-code"></div>
                             </div>
-                            <span>Donate</span>
+                            <span>Actualités</span>
+                        </a>
+
+                    </li>
+                    <li class=" has-sub-menu">
+                        <a href="{% url 'admin:donate_list' %}">
+                            <div class="icon-w">
+                                <div class="os-icon os-icon-codepen"></div>
+                            </div>
+                            <span>Dons</span>
+                        </a>
+
+                    </li>
+                    <li class=" has-sub-menu">
+                        <a href="">
+                            <div class="icon-w">
+                                <div class="os-icon os-icon-command"></div>
+                            </div>
+                            <span>Messages</span>
                         </a>
 
                     </li>
@@ -188,51 +129,17 @@
                 </ul>
                 <div class="side-menu-magic">
                     <h4>Admin</h4>
-                    <p>Welcome to the Unice admin site</p>
+                    <p>Bienvenue dans le site d'administration</p>
                     <div class="btn-w">
-                        <a class="btn btn-white btn-rounded" href="{% url 'home' %}" target="_blank">Go to site</a>
+                        <a class="btn btn-white btn-rounded" href="{% url 'home' %}" target="_blank">Aller au site</a>
                     </div>
                 </div>
             </div>
-            <!--------------------
-END - Main Menu
--------------------->
+
             <div class="content-w">
-                <!--------------------
-START - Top Bar
--------------------->
                 <div class="top-bar color-scheme-transparent">
-                    <!--------------------
-START - Top Menu Controls
--------------------->
+
                     <div class="top-menu-controls">
-                        <div class="element-search autosuggest-search-activator">
-                            <input placeholder="Entrez un motif..." type="text">
-                        </div>
-                        <!--------------------
-START - Messages Link in secondary top menu
--------------------->
-                        <div class="messages-notifications os-dropdown-trigger os-dropdown-position-left">
-                            <i class="os-icon os-icon-mail-14"></i>
-                            <div class="new-messages-count">22</div>
-                            <div class="os-dropdown light message-list">
-                                <ul>
-                                    <li>
-                                        <a href="#">
-                                            <div class="user-avatar-w">
-                                                <img alt="Avatar" src="{% static 'admin/img/avatar1.jpg' %}">
-                                            </div>
-                                            <div class="message-content">
-                                                <h6 class="message-from">John Mayers</h6>
-                                                <h6 class="message-title">Account Update</h6>
-                                            </div>
-                                        </a>
-                                    </li>
-
-
-                                </ul>
-                            </div>
-                        </div>
                         <div class="logged-user-w">
                             <div class="logged-user-i">
                                 <div class="avatar-w">
@@ -242,23 +149,15 @@ START - Messages Link in secondary top menu
                                     <div class="logged-user-avatar-info">
                                         <div class="logged-user-info-w">
                                             <div class="logged-user-name">{{request.user.get_full_name}}</div>
-                                            <div class="logged-user-role">Administrator</div>
+                                            <div class="logged-user-role">Administrateurr</div>
                                         </div>
                                     </div>
 
                                     <ul>
-
                                         <li>
-                                            <a href="#">
-                                                <i class="os-icon os-icon-user-male-circle2"></i>
-                                                <span>Profile</span>
-                                            </a>
-                                        </li>
-
-                                        <li>
-                                            <a href="#">
+                                            <a href="{% url 'logout' %}">
                                                 <i class="os-icon os-icon-signs-11"></i>
-                                                <span>Logout</span>
+                                                <span>Deconnexion</span>
                                             </a>
                                         </li>
                                     </ul>
@@ -267,167 +166,17 @@ START - Messages Link in secondary top menu
                         </div>
                     </div>
                 </div>
-                <div class="content-panel-toggler">
-                    <i class="os-icon os-icon-grid-squares-22"></i>
-                    <span>Sidebar</span>
-                </div>
-                <div class="content-i">
-                    <div class="content-box">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="element-wrapper">
-                                    <h6 class="element-header">Dashboard</h6>
-                                    <div class="element-content">
-                                        <div class="row">
-                                            <div class="col-sm-4 col-xxxl-3">
-                                                <a class="element-box el-tablo" href="#">
-                                                    <div class="label">Active users</div>
-                                                    <div class="value nb-users">{{users.count}}</div>
-                                                    <div class="trending trending-up-basic">
-                                                        <span>{{users.count}}/{{users.count}}</span>
-
-                                                    </div>
-                                                </a>
-                                            </div>
-                                            <div class="col-sm-4 col-xxxl-3">
-                                                <a class="element-box el-tablo" href="#">
-                                                    <div class="label">Suspend users</div>
-                                                    <div class="value nb-suspend-user">{{user_not_active}}</div>
-                                                    <div class="trending trending-down-basic">
-                                                        <span>{{user_not_active}}/{{users.count}}</span>
-
-                                                    </div>
-                                                </a>
-                                            </div>
-                                            <div class="col-sm-4 col-xxxl-3">
-                                                <a class="element-box el-tablo" href="#">
-                                                    <div class="label">New request</div>
-                                                    <div class="value nb-etudiant">{{etudiants.count}}</div>
-
-                                                </a>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="row pt-4">
-                                <div class="col-sm-12">
-                                    {% block content %} {% endblock content %}
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <!--------------------
-START - Sidebar
--------------------->
-                    <div class="content-panel">
-                        <div class="content-panel-close">
-                            <i class="os-icon os-icon-close"></i>
-                        </div>
-                        <div class="element-wrapper">
-                            <h6 class="element-header">Quick links</h6>
-                            <div class="element-box-tp">
-                                <div class="el-buttons-list full-width">
-                                    <a class="btn btn-white btn-sm" href="{% url 'admin:create_news' %}">
-                                        <i class="os-icon os-icon-delivery-box-2"></i>
-                                        <span>Create news</span>
-                                    </a>
-                                    <a class="btn btn-white btn-sm" href="">
-                                        <i class="os-icon os-icon-window-content"></i>
-                                        <span>Customer Comments</span>
-                                    </a>
-                                    <a class="btn btn-white btn-sm" href="#">
-                                        <i class="os-icon os-icon-wallet-loaded"></i>
-                                        <span>Store Settings</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <!--------------------
-START - Support Agents
--------------------->
-                        <div class="element-wrapper">
-                            <h6 class="element-header">Administrateurs</h6>
-                            {% for admin in admins %}
-                            <div class="element-box-tp">
-                                <div class="profile-tile">
-                                    <a class="profile-tile-box" href="users_profile_small.html">
-                                        <div class="pt-avatar-w">
-                                            <img alt="" src="{% static 'admin/img/avatar1.png' %}">
-                                        </div>
-                                        <div class="pt-user-name">{{admin.get_full_name}}</div>
-                                    </a>
-                                    <div class="profile-tile-meta">
-                                        <ul>
-                                            <li>Last Login: {% if admin.is_online %}
-                                                <strong>
-                                                    <span class="status-pill smaller green"></span> Online Now</strong>
-                                                {% else %}
-                                                <strong>{{admin.last_login|timesince}}</strong>
-                                                {% endif %}
-                                            </li>
-                                            <li>Tickets:
-                                                <strong>
-                                                    <a href="">12</a>
-                                                </strong>
-                                            </li>
-                                            <li>Response Time:
-                                                <strong>2 hours</strong>
-                                            </li>
-                                        </ul>
-                                        <div class="pt-btn">
-                                            <a class="btn btn-success btn-sm" href="">Send Message</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            {% endfor %}
-                        </div>
-                        <!--------------------
-END - Support Agents
--------------------->
-                        <!--------------------
-START - Recent Activity
--------------------->
-                        <div class="element-wrapper">
-                            <h6 class="element-header">Recent Activity</h6>
-                            <div class="element-box-tp">
-                                <div class="activity-boxes-w">
-                                    <div class="activity-box-w">
-                                        <div class="activity-time">10 Min</div>
-                                        <div class="activity-box">
-                                            <div class="activity-avatar">
-                                                <img alt="" src="{% static 'admin/img/avatar1.png' %}">
-                                            </div>
-                                            <div class="activity-info">
-                                                <div class="activity-role">John Mayers</div>
-                                                <strong class="activity-title">Opened New Account</strong>
-                                            </div>
-                                        </div>
-                                    </div>  
-                                </div>
-                            </div>
-                        </div>
-                        <!--------------------
-END - Recent Activity
--------------------->
-
-                    </div>
-                    <!--------------------
-END - Sidebar
--------------------->
-                </div>
+                {% block content %} {% endblock content %}
             </div>
+            <div class="display-type"></div>
         </div>
-        <div class="display-type"></div>
     </div>
-    {% include "admin/base/js.html" %} {% block javascript %} {% endblock javascript %}
+    {% include "admin/base/js.html" %} {% block javascript %}
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="{% static 'admin/js/dataTables.bootstrap.min.js' %}"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>{% endblock javascript %}
 
 </body>
-<!-- Mirrored from light.pinsupreme.com/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 21 Jun 2018 14:22:43 GMT -->
 
 </html>

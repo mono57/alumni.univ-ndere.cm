@@ -1,0 +1,71 @@
+<style>
+    #orange {
+        display: block;
+    }
+
+    #mtn {
+        display: none;
+    }
+
+    #express-union {
+        display: none;
+    }
+</style>
+
+<a class="btn btn-style-5" data-toggle="modal" data-target="#modalContribution" data-whatever="@getbootstrap">Contribuer</a>
+
+<div class="modal fade" id="modalContribution" tabindex="-1" role="dialog" aria-labelledby="modalContributionLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalContributionLabel">Contributions</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    {% csrf_token %}
+
+                    <div class="form-group row">
+
+                        <label for="inputPassword" class="col-sm-4 col-form-label">Mode Payement:</label>
+                        <div class="col-sm-8 payement">
+                            <select name="payement" id="payement" class="form-control">
+                                <option value="1">Express Union</option>
+                                <option value="2">MTN money</option>
+                                <option value="3" selected>Orange money</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="content"><h5>A lire!!</h5>
+                        <p id="orange">Orange consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam.
+                            Morbi leo risus, porta ac consectetur ac, vestibulum at eros</p>
+                        <p id="mtn">Mtn consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam.
+                            Morbi leo risus, porta ac consectetur ac, vestibulum at eros</p>
+    
+                        <p id="express-union">Express consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget
+                            quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros</p></div>
+                    <br>
+                    <br>
+
+
+                    <div class="form-group row">
+
+                        <label for="inputPassword" class="col-sm-4 col-form-label">Montant:</label>
+                        <div class="col-sm-8 montant">
+                            <input type="number" class="form-control" id="montant">
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                <button type="button" class="btn btn-primary " id="contrib"  data-id="{{project.pk}}">Contribuer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+  

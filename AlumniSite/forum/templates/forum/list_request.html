@@ -1,0 +1,53 @@
+{% extends "base2.html" %} {% load static %} {% block title %} Notifications {% endblock title %} {% block content %}
+<div id="content" class="page-content-wrap">
+    <div class="container">
+        <h2>Notifications</h2>
+        <div class="element-wrapper">
+            <div class="element-box-tp">
+                <div class="table-responsive">
+                    <table class="table table-padded">
+                       
+                        <tbody>
+                            {% for notifications in request.user.get_request %} {% for notification in notifications %}
+                            <tr>
+
+                                <td>
+                                    <div class="user-with-avatar">
+                                        <img alt="" src="img/avatar1.jpg">
+                                        <span>{{notification.alumni}}</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="smaller lighter">Adhésion au groupe</div>
+                                </td>
+                                <td class="text-center">
+
+                                    <span class="smaller lighter">{{notification.date_request}}</span>
+                                </td>
+                                <td class="text-center">
+                                    <a class="badge badge-success-inverted">{{notification.group}}</a>
+                                </td>
+
+                                <td class="row-actions text-center">
+                                    <a class="danger" style="color:green" href="{% url 'forum:accept_request' notification.id %}">
+                                        Accepter
+                                    </a> &ensp;
+                                    <a class="danger" style="color:red" href="{% url 'forum:decline_request' notification.id %}">
+                                        Rejeter
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            {% empty %}
+                            <td colspan="5" class="text-center">
+                                <div class="smaller lighter">Aucune notification</div>
+                            </td>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

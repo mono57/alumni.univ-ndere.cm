@@ -1,0 +1,119 @@
+{% extends "admin/base.html" %} {% load static %} {% block title %} Don {% endblock title %} {% block content %}
+
+<div class="content-i">
+    <div class="content-box">
+        <div class="element-wrapper">
+            <h6 class="element-header">Nouveaux dons</h6>
+            <div class="element-box">
+
+                <div class="table-responsive">
+                    <table width="100%" class="table table-striped table-lightfont" id="listcontributions">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Montant</th>
+                                <th>Alumni</th>
+                                <th>Projet</th>
+                                <th>Date</th>
+                                <th class="text-center">Actions</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {% for contribution in contributions %}
+                            <tr>
+                                <td>{{contribution.id}}</td>
+                                <td>{{contribution.montant}}</td>
+                                <td>{{contribution.alumni.get_full_name}}</td>
+                                <td>{{contribution.project.name}}</td>
+                                <td>{{contribution.donate_date}}</td>
+                                <td class="row-actions">
+                                    <a class="btn btn-primary confirm" data-id="{{contribution.id}}">
+                                        Approuver
+                                    </a>
+
+                                    <a class="danger" href="">
+                                        <i class="os-icon os-icon-ui-15"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            
+                                    <td colspan='6' class="text-center">Aucun nouveau don</td>
+                               
+                            {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+                
+            </div>
+            <h6 class="element-header">Dons confirmés et encaissés</h6>
+            <div class="table-responsive">
+                    <table width="100%" class="table table-striped table-lightfont">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Montant</th>
+                                <th>Alumni</th>
+                                <th>Projet</th>
+                                <th>Date</th>
+                                <th class="text-center">Actions</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {% for donate in donates %}
+                            <tr>
+                                <td>{{donate.id}}</td>
+                                <td>{{donate.montant}} FCFA</td>
+                                <td>{{donate.alumni.get_full_name}}</td>
+                                <td>{{donate.project.name}}</td>
+                                <td>{{donate.donate_date}}</td>
+                                <td class="row-actions">
+                                    <div class="badge badge-success-inverted">
+                                        Confirmé
+                                    </div>
+
+                                    <a class="danger" href="">
+                                        <i class="os-icon os-icon-ui-15"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            {% empty %}
+                          
+                                    <td colspan='6' class="text-center">Aucun don reçu</td>
+                               
+                            {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %} {% block javascript %}
+
+<script>
+    $(document).ready(function () {
+        
+        $('.confirm').click(function () {
+            var $id = $(this).attr('data-id');
+            var $object = $(this);
+            alert($id);
+                $.ajax({
+                url: '{% url "admin:confirm_donate" %}',
+                data: 'id=' + $id,
+                dataType: 'json',
+                success: function (data) {
+                    if (data.ok) {
+                        location.reload()
+                    }
+                }
+
+            })
+        })
+    });
+</script>
+{% endblock javascript %}

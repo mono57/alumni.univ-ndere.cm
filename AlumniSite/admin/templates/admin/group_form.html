@@ -1,0 +1,62 @@
+{% extends "admin/base.html" %} {% load static %} {% block title %} Ajout d'un groupe' {% endblock title %} {% block css%}
+<style>
+    .errorlist {
+        color: red;
+        margin-bottom: 0px;
+        margin-top: 0px;
+        font-size: 12px;
+    }
+</style>
+{% endblock css %} {% block content%}
+
+<div class="content-box">
+    <div class="row">
+        <div class="col-sm-12">
+
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <h5 class="element-header">Création d'un nouveau groupe</h5>
+                <div class="form-group">
+                    <label for="">Nom du groupe</label>
+                    {{form.name.errors}}
+                    <input class="form-control" placeholder="Nom du groupe" type="text" name="name" required>
+                </div>
+                <div class="element-wrapper">
+                    <div class="element-box">
+                        <label for="">Description du groupe</label>
+                        {{form.description.errors}}
+                        <textarea cols="80" class="form-control" id="editeur" name="description" rows="10" required></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="">Avatar du groupe</label>
+                    {{form.start_date.errors}}
+                    <input class="form-control" placeholder="" type="file" name="avatar">
+                </div>
+                <div class="form-group">
+                    <label for="">Status</label>
+                   <select name="status" class="form-control" id="">
+                       <option value="ferme">Semi-ouvert</option>
+                       <option value="ouvert">Ouvert</option>
+                   </select>
+                </div>
+                <div class="form-group">
+                    <label for="">Catégorie du groupe</label>
+                    <select name="category" class="form-control" id="">
+                        <option value="loisir">Loisir</option>
+                        <option value="informatique">informatique</option>
+                    </select>    
+                </div>
+                
+                <button class="btn btn-primary" type="submit">Ajouter</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %} {% block javascript %}
+
+{% endblock javascript %}

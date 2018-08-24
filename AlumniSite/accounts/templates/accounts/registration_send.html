@@ -1,27 +1,24 @@
-{% extends "base2.html" %}
-
-{% block title %}
-Registration
-{% endblock title %}
-{% block css %}
+{% extends "base2.html" %} {% block title %} Inscription {% endblock title %} {% block css %}
 <style>
-
-    .message{
+    .message {
         margin-top: 100px;
     }
 </style>
-{% endblock css %}
-{% block content %}
+{% endblock css %} {% block content %}
 <div class="container message">
     <div class="alert alert-success">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
             ×</button>
         <span class="glyphicon glyphicon-ok"></span>
-        <strong>Success Message</strong>
+        <strong>Message</strong>
         <hr class="message-inner-separator">
         <p>
-            your registration request has been sent successfully. Please wait for our administrators to validate your account. The confirmation
-            will be sent to you by email . Thank you!!! <br> <h2 class="txt-dark mb-10">Alumni University of Ngaoundéré</h2>
+            Votre demande d'inscription a été envoyée avec succes. Attendez que nos administrateurs vérifient que vos données sont correctes. Cela prendra peut être un petit temps. Mais soyez patient, la confirmation
+            vous sera envoyée par email. Veuillez attendre avant toutes tentatives de connexion.
+            <br> Merci !!!
+            <br>
+
+            <h2 class="txt-dark mb-10">Alumni Université de Ngaoundéré</h2>
         </p>
     </div>
 </div>

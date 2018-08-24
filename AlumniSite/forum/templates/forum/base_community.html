@@ -1,0 +1,61 @@
+{% extends "base2.html" %} {% load static %} {% block title %} Groupe {% endblock title %} {% block content %}
+<div id="content" class="page-content-wrap">
+    <div class="container-fluid">
+        <div class="support-index">
+            <div class="support-tickets">
+                <div class="support-tickets-header">
+                    <div class="tickets-control">
+                        <h5>Groupes </h5>
+                    </div>
+                </div>
+                {% for g in sub_groups %}
+                {% url 'forum:group_details' pk=g.group.id  as group_url %}
+                <div class="support-ticket {% if request.path == group_url %} active{% endif %}">
+                    <div class="st-meta">
+                        <div class="badge badge-success-inverted">{{g.group.category}}</div>
+                        {% if g.group.status == 'open' %}
+                        <i class="fa fa-unlock" aria-hidden="true"></i>
+                        {% else %}
+                        <i class="fa fa-lock" aria-hidden="true"></i>
+                        {% endif %}
+                        <div class="badge badge-dark">
+                            <a href="{{group_url}}" style="color:white">
+                                aller à
+                            </a>
+                        </div>
+                    </div>
+                    <div class="st-body">
+                        <div class="avatar">
+                            {% if g.group.avatar %}
+                            <img alt="" src="{{g.group.avatar.url}}"> {% else %}
+                            <img alt="" src="{% static 'img/donate.png' %}"> {% endif %}
+                        </div>
+                        <div class="ticket-content">
+                            <h6 class="ticket-title">{{g.group.name}}</h6>
+                            <div class="ticket-description">{{g.group.description|truncatewords:8}}</div>
+                        </div>
+                    </div>
+                    <div class="st-foot">
+                        <span class="label">créateur:</span>
+                        <a class="value with-avatar" href="#">
+                            <img alt="" src="{% static 'img/logo_user.png' %}">
+                            <span>{{g.group.get_admin}}</span>
+                        </a>
+                        <span class="label">crée le :</span>
+                        <span class="value">{{g.group.created_at}}</span>
+                    </div>
+                </div>
+                {% endfor %}
+
+
+                <div class="load-more-tickets">
+                    <a href="{% url 'forum:list_group' %}">
+                        <span>Voir plus de groupes...</span>
+                    </a>
+                </div>
+            </div>
+            {% block subcontent %} {% endblock %}
+        </div>
+    </div>
+</div>
+{% endblock content %} {% block javascript %} {% endblock javascript %}

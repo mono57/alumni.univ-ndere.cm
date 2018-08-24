@@ -1,0 +1,84 @@
+{% load static %} {% if group.subjects %} {% for subjects in group.subjects %}
+<div class="ticket-reply highlight">
+    <div class="ticket-reply-info">
+        <div class="tribe-events-category-tech-events next-month">
+            <a class="author with-avatar" href="#">
+                <img alt="" src="{% static 'img/logo_user.png' %}">
+                <span>{{subjects.alumni}}</span>
+            </a>
+            <div class="tribe-events-tooltip">
+                <header>
+                    <h6>Profile de {{subjects.alumni}}</h6>
+                    <time datetime="2018-07-27">{{subjects.alumni.date_joined}}</time>
+                </header>
+                <div class="clearfix">
+                    <a class="author with-avatar" href="#">
+                        <img alt="" src="{% static 'img/logo_user.png' %}">
+                        <p>Établissement : {{subjects.alumni.get_user_profile.faculte}}</p>
+                    </a>
+                    
+                    
+                </div>
+            </div>
+
+            <span class="info-data">
+                <span class="label">Posté le</span>
+                <span class="value">{{subjects.date_add}}</span>
+            </span>
+        </div>
+
+        {% if request.user == subjects.alumni %}
+        <div class="actions" href="#">
+            <i class="fa fa-cog" aria-hidden="true"></i>
+            <div class="actions-list">
+               <!-- <a class="subject-edit" href="#" data-id="{{subjects.id}}" data-toggle="modal" data-target="#example1Modal" data-whatever="@getbootstrap">
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                    <span>Editer</span>
+                </a>-->
+                <div class="modal fade" id="example1Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Editer</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <label for="message-text" class="col-form-label">Subjet:</label>
+                                        <textarea class="form-control edit-subject" id="message-text" name="subject"></textarea>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                                <button type="button" class="btn btn-primary post-comment" data-id="{{group.pk}}">Poster</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a class="danger subject-delete" href="#" data-id="{{subjects.id}}">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                    <span>Supprimer</span>
+                </a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    <div class="ticket-reply-content">
+        <p>{{subjects.content}}</p>
+    </div>
+    <div>
+        <p>
+            {{subjects.get_comments.count}} Commentaires
+            <a href="{% url 'forum:subject_details' pk=subjects.pk %}" class="pull-right">Ouvrir la discussion</a>
+        </p>
+    </div>
+
+</div>
+
+{% endfor %} {% else %}
+<p>Pas de sujets. Pourquoi ne pas en créer un?</p>{% endif %}

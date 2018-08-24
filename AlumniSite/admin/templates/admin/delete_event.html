@@ -1,0 +1,19 @@
+{% extends "admin/base.html" %}
+{% block title %}
+Supprimer
+{% endblock title %}
+{% block content %}
+<div class="content-i">
+    <div class="content-box">
+        <div class="element-wrapper">
+            <h6 class="element-header">Suppression d'un événement</h6>
+            <p>Êtes vous sur de vouloir supprimer cet événement <strong><u> {{object}} </u></strong>?</p>
+            <form method="POST">
+                {% csrf_token %}
+                <button class="btn btn-success" type="submit">Oui</button>
+                <a class="btn btn-danger" href="{% url 'admin:manage_events' %}" >Non</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

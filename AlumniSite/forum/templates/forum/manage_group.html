@@ -1,0 +1,232 @@
+{% extends "base2.html" %} {% load static %} {% block title %} Manage group {% endblock title %} {% block content %}
+<!-- - - - - - - - - - - - - - Content - - - - - - - - - - - - - - - - -->
+
+<div id="content" class="page-content-wrap">
+
+    <div class="container wide">
+
+        <div class="content-element">
+
+            <div class="single-post">
+
+                <h1 class="title align-center"> Gérer vos groupes et événements</h1>
+                <br>
+                <div class="content-element3">
+
+                    <div class="row">
+                        <div class="col-md-8 col-sm-12">
+
+                            <h5 class="e-title">Les groupes dans lesquels vous êtes administrateurs</h5>
+
+                            <div class="row">
+                                {% for group in request.user.get_admin_group %}
+                                <div class="col-sm-6">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{group.name}}</h5>
+                                            <p class="card-text">{{group.description|truncatewords:15}}</p>
+                                            <div class="form-group">
+                                                <label for="" class="control-label">Membres
+                                                    <span style="color:blue"> {{group.get_members|length}}</span>
+                                                </label>
+                                                <br>
+
+                                                <div class="tagcloud">
+
+                                                    <a class="add-member">Ajouter un membre</a>
+                                                    <a data-id="{{group.pk}}">Supprimer</a>
+
+                                                </div>
+                                            </div>
+                                            <!--<a href="{% url 'forum:delete_group' group.pk %}">Supprimer ce groupe</a> -->
+                                        </div>
+                                    </div>
+                                </div>
+                                {% empty %}
+                                <div>
+                                    <label for="">Vous n'êtes administrateur dans aucun groupe</label>
+                                </div>
+                                {% endfor %}
+
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-12">
+
+                            <h5 class="e-title">Vos événements</h5>
+
+                            {% for event in request.user.get_created_event %}
+                            <ul class="custom-list">
+                                <li>
+                                    <span>Titre: {{event.titre}} </span>
+                                </li>
+                                <li>
+                                    <span>Date: {{event.date_evenement}} </span>
+                                </li>
+                                <li>
+                                    <span>Heure:</span>
+                                    {{event.heure_debut}} @ {{event.heure_fin}}
+                                </li>
+
+                                <li class="clearfix">
+                                    <span class="f-left">Actions:</span>
+
+                                    <div class="tagcloud">
+
+                                        <a href="{% url 'update_event' event.pk %}">Modifier</a>
+
+                                        <a type="button" data-toggle="modal" data-target="#deleteEventModal">
+                                            Supprimer
+                                        </a>
+
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="deleteEventModal" tabindex="-1" role="dialog" aria-labelledby="deleteEventModalTitle" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Voulez vous vraiment supprimer cet événement
+                                                        <strong>{{event.titre}}</strong> ?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
+                                                        <button type="button" class="btn btn-primary delete-event" data-id="{{event.pk}}">Oui</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </li>
+
+                            </ul>
+                            {%empty%}
+                            <div>
+                                <label for="">Vous n'avez crée aucun événement</label>
+                            </div>
+                            {% endfor %}
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="table-responsive" style="display:none" id="add-user-table">
+                <table class="table table-padded" id="list-add-user">
+
+                    <tbody>
+                        {% for user in users %}
+                        <tr>
+                            <td colspan="2">Ajouter au groupe en tant que admin
+                                <input type="checkbox" name="" id="is-admin">
+                            </td>
+
+                            <td>
+                                <span>{{user.get_full_name}}</span>
+                            </td>
+
+                            <td class="text-center">
+
+                                <span class="smaller lighter">{{user.get_user_profile.faculte}}</span>
+                            </td>
+
+
+                            <td class="row-actions text-center">
+                                <a class="danger" style="color:green" href="">
+                                    Ajouter
+                                </a> &ensp;
+
+                            </td>
+                        </tr>
+
+                        {% empty %}
+                        <td colspan="5" class="text-center">
+                            <div class="smaller lighter">Aucun utilisateur</div>
+                        </td>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+
+    </div>
+
+
+</div>
+
+<!-- - - - - - - - - - - - - end Content - - - - - - - - - - - - - - - -->
+{% endblock content %} {% block javascript %}
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="{% static 'admin/js/dataTables.bootstrap.min.js' %}"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+
+<script>
+    $('#list-add-user').DataTable({
+        "language": {
+            "sProcessing": "Traitement en cours...",
+            "sSearch": "Rechercher&nbsp;:",
+            "sLengthMenu": "Afficher _MENU_ &eacute;l&eacute;ments",
+            "sInfo": "Affichage de l'&eacute;l&eacute;ment _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
+            "sInfoEmpty": "Affichage de l'&eacute;l&eacute;ment 0 &agrave; 0 sur 0 &eacute;l&eacute;ment",
+            "sInfoFiltered": "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+            "sInfoPostFix": "",
+            "sLoadingRecords": "Chargement en cours...",
+            "sZeroRecords": "Aucun &eacute;l&eacute;ment &agrave; afficher",
+            "sEmptyTable": "Aucune donn&eacute;e disponible dans le tableau",
+            "oPaginate": {
+                "sFirst": "Premier",
+                "sPrevious": "Pr&eacute;c&eacute;dent",
+                "sNext": "Suivant",
+                "sLast": "Dernier"
+            },
+            "oAria": {
+                "sSortAscending": ": activer pour trier la colonne par ordre croissant",
+                "sSortDescending": ": activer pour trier la colonne par ordre d&eacute;croissant"
+            },
+            "select": {
+                "rows": {
+                    _: "%d lignes séléctionnées",
+                    0: "Aucune ligne séléctionnée",
+                    1: "1 ligne séléctionnée"
+                }
+            }
+        }
+    })
+    $('.add-member').click(function () {
+        $('#add-user-table').css('display', 'block');
+
+    })
+    $('.remove-member').click(function () {
+        $('.table-user').css('display', 'none');
+        $('.table-member').css('display', 'block');
+    })
+    $('.delete-event').click(function () {
+        var $button = $(this);
+        var $id = $button.attr('data-id');
+        $button.attr('data-dismiss', 'modal');
+        $.ajax({
+            url: '{% url "forum:delete_event" %}',
+            data: 'id=' + $id,
+            dataType: 'json',
+            success: function (data) {
+                if (data.ok) {
+
+                    location.reload()
+
+                }
+            }
+
+        })
+    })
+</script>
+{% endblock javascript %}

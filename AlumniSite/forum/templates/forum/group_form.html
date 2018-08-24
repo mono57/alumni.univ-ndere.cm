@@ -1,4 +1,4 @@
-{% extends "base2.html" %} {% block title %} Création d'un événement {% endblock title %} {% block content %}
+{% extends "base2.html" %} {% block title %} Création d'un groupe {% endblock title %} {% block content %}
 <div class="wrapper pa-0">
   <!-- Main Content -->
   <div class="page-wrapper pa-0 ma-0 auth-page">
@@ -10,8 +10,8 @@
             <div class="row">
               <div class="col-sm-12 col-xs-12">
                 <div class="mb-30">
-                  <h3 class="text-center txt-dark mb-10">Create group to Alumni community<br> ALUMNI UNIV-NDERE</h3>
-                  <h6 class="text-center nonecase-font txt-grey">Enter the details below</h6>
+                  <h3 class="text-center txt-dark mb-10">Création de groupe dans la communauté<br> ALUMNI UNIV-NDERE</h3>
+                  <h6 class="text-center nonecase-font txt-grey">Entrez les details suivants</h6>
                 </div>
                 <div class="form-wrap">
                   <form method="POST" enctype="multipart/form-data">
@@ -19,33 +19,33 @@
                     {% csrf_token %} 
                     
                     <div class="form-group">
-                      <label class="control-label mb-10" for="">The name of group</label>
+                      <label class="control-label mb-10" for="">Nom du groupe</label>
                       <input type="text" class="form-control" name="name" required>
                     </div>
                     <div class="form-group">
-                      <label class="pull-left control-label mb-10" for="">Small description</label>
+                      <label class="pull-left control-label mb-10" for="">Petite description</label>
                       <textarea class="form-control" name="description" required></textarea>
                     </div>
                     <div class="form-group">
-                      <label class="pull-left control-label mb-10" for="">Group's avatar</label>
+                      <label class="pull-left control-label mb-10" for="">Avatar du groupe</label>
                       <input type="file" name="avatar" id="" class="form-control">
                     </div>
                     <div class="form-group">
-                      <label class="pull-left control-label mb-10" for="">Cathegory</label>
+                      <label class="pull-left control-label mb-10" for="">Cathégorie</label>
                       <select name="category" class="form-control" id="">
-                          <option value="loisir">Loisir</option>
-                          <option value="educatif">Educational</option>
+                          <option value="loisir">Sport</option>
+                          <option value="educatif">Informaticiens</option>
                       </select>
                     </div>
                     <div class="form-group">
-                      <label class="pull-left control-label mb-10" for="">Group's status</label>
+                      <label class="pull-left control-label mb-10" for="">Status du groupe</label>
                       <select name="status" class="form-control" id="">
-                          <option value="close">Semi-opened</option>
-                          <option value="open" selected>Opened</option>
+                          <option value="Ouvert">Ouvert</option>
+                          <option value="Fermé" selected>Semi-ouvert</option>
                       </select>
                     </div>
                     <div class="form-group text-center">
-                      <button type="submit" class="btn btn-info btn-success btn-rounded">Create</button>
+                      <button type="submit" class="btn btn-info btn-success btn-rounded">Créer</button>
                     </div>
                   </form>
                 </div>

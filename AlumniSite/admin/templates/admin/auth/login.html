@@ -5,10 +5,9 @@
 <!-- Mirrored from light.pinsupreme.com/auth_login.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 21 Jun 2018 14:23:14 GMT -->
 
 <head>
-    <title>Login | Admin</title>
+    <title>Connexion | Admin</title>
     <meta charset="utf-8">
-    <meta content="ie=edge" http-equiv="x-ua-compatible">
-    {% include "admin/base/css.html" %}
+    <meta content="ie=edge" http-equiv="x-ua-compatible"> {% include "admin/base/css.html" %}
 </head>
 
 <body class="auth-wrapper">
@@ -16,25 +15,39 @@
         <div class="auth-box-w">
             <div class="logo-w">
                 <a href="">
-                    <img alt="" src="{% static 'admin/img/logo-big.png' %}">
+                    <img alt="" src="">
                 </a>
             </div>
-            <h4 class="auth-header">Administration Ndéré-Alumni</h4>
+            <h4 class="auth-header">Administration Alumni UNIV-NDÉRÉ</h4>
             <form method="POST">
-                {% csrf_token %}
-                {{form.errors}}
+                {% csrf_token %}{% if error %}
+                <div class="form-group">
+
+                    <label for="message" style="color:#a94447;font-family:Verdana,sans-serif;" class="control-label">
+                        Désolé. Vos identifiants sont incorrects
+                    </label>
+
+                </div>
+                {% endif %}
+                {% if not_permission %}
+                <div class="form-group">
+
+                    <label for="message" style="color:#a94447;font-family:Verdana,sans-serif;" class="control-label">
+                        Vous ne pouvez pas acceder au site d'administration. Vous n'êtes un administrateur de ce site.
+                    </label>
+
+                </div>
+                {% endif %}
                 <div class="form-group">
                     <label for="">Email</label>
-                    <input class="form-control" placeholder="Enter your email" type="text" name="username">
-                    <div class="pre-icon os-icon os-icon-user-male-circle"></div>
+                    {{form.email}}
                 </div>
                 <div class="form-group">
-                    <label for="">Password</label>
-                    <input class="form-control" placeholder="Enter your password" type="password" name="password">
-                    <div class="pre-icon os-icon os-icon-fingerprint"></div>
+                    <label for="">Mot de passe</label>
+                    {{form.password}}
                 </div>
                 <div class="buttons-w">
-                    <button class="btn btn-primary" type="submit">Log me in</button>
+                    <button class="btn btn-primary" type="submit">Se connecter</button>
                 </div>
             </form>
         </div>

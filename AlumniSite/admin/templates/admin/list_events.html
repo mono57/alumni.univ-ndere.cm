@@ -1,12 +1,100 @@
-{% extends "admin/base/navbar.html" %}
-{% block title %}
-Liste des événements
-{% endblock title %}
+{% extends "admin/base.html" %} {% load static %} {% block title %} Événements {% endblock title %} {% block content %}
 
-{% block css %}
+<div class="content-i">
+    <div class="content-box">
+        <div class="element-wrapper">
+            <h6 class="element-header">Tous les événements</h6>
+            <div class="element-box">
+                <h5>Activer ou supprimer les événements</h5>
+                <div class="table-responsive">
+                    <table id="listNews" width="100%" class="table table-striped table-lightfont">
+                        <thead>
+                            <tr>
+                                <th>Titre</th>
+                                <th>Lieu</th>
+                                <th>Createur</th>
+                                <th>Date d'événement</th>
+                                <th>Debut</th>
+                                <th>Fin</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Titre</th>
+                                <th>Lieu</th>
+                                <th>Createur</th>
+                                <th>Date d'événement</th>
+                                <th>Debut</th>
+                                <th>Fin</th>
+                                <th>Actions</th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            {% for event in events %}
+                            <tr>
+                                <td>{{event.titre}}</td>
+                                <td>{{event.lieu}}</td>
+                                <td>{{event.createur}}</td>
+                                <td>{{event.date_evenement}}</td>
 
-{% endblock css %}
+                                <td>{{event.heure_debut}}</td>
+                                <td>{{event.heure_fin}}</td>
+                                <td class="row-actions">
+                                    {% if event.activated %}
+                                    <a>
+                                        <div class="status-pill green"></div>
+                                    </a>
+                                    {% else %}
+                                    <a class="activated" data-id='{{event.id}}'>
+                                        <i class="os-icon os-icon-grid-10"></i>
+                                    </a>
+                                    {% endif %}
+                                    <a class="danger" href="{% url 'admin:delete_event' event.pk %}">
+                                        <i class="os-icon os-icon-ui-15"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <td colspan='7' class="text-center">Aucun événement n'est crée</td>
 
-{% block content %}
+                            {% endfor %}
 
-{% endblock content %}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %} {% block javascript %}
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="{% static 'admin/js/dataTables.bootstrap.min.js' %}"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#listNews").DataTable({
+
+        });
+        $(".activated").click(function () {
+            var $id = $(this).attr("data-id");
+            $.ajax({
+                type: 'GET',
+                url: '{% url "admin:event_activation" %}',
+                data: 'pk=' + $id,
+                dataType: 'JSON',
+                success: function (data) {
+                    if (data.ok) {
+
+                        location.reload()
+                    }
+                }
+            });
+        })
+
+    })
+</script>
+{% endblock javascript %}

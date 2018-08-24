@@ -1,12 +1,14 @@
-from django.views.generic import TemplateView, ListView, CreateView, DetailView, View
+from django.views.generic import TemplateView, ListView, CreateView, DetailView, View, UpdateView
 from django.views.generic.edit import FormView
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Evenement, Actualite, Comment
-from main.forms import CreateEventForm, ContactForm
+from .models import Evenement, Actualite, Comment, Project, Contribution, Inscription
+from main.forms import EventForm, ContactForm, ProjectForm
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
+from django.db.models import Q
+import datetime
 
 
 class HomePageView(TemplateView):
@@ -22,15 +24,15 @@ class IndexView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['news'] = Actualite.objects.all()
-        context['events'] = Evenement.objects.all()
-        context['first_event'] = Evenement.objects.first()
+        context['news'] = Actualite.objects.all()[:3]
+        context['events'] = Evenement.objects.filter(activated=True)[:3]
         return context
 
 class ListActualite(ListView):
     template_name = 'main/liste_actu.html'
     context_object_name = 'news'
     model = Actualite
+    paginate_by = 6
 
 class DetailNews(DetailView):
     model = Actualite
@@ -39,8 +41,8 @@ class DetailNews(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['latest_news'] = Actualite.objects.all()[:3]
-        context['events'] = Evenement.objects.all()[:3]
+        context['latest_news'] = Actualite.objects.exclude(id=self.object.id)[:3]
+        context['events'] = Evenement.objects.filter(activated=True)[:3]
         
         return context
     
@@ -49,6 +51,8 @@ class ListEvenement(ListView):
     template_name = 'main/liste_event.html'
     context_object_name = 'evenements'
     model = Evenement
+    queryset = Evenement.objects.get_activated_events()
+    paginate_by = 5
 
 class DetailEvent(DetailView):
     model = Evenement
@@ -57,50 +61,42 @@ class DetailEvent(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['related_events'] = Evenement.objects.all()[:5]
-        print(self.get_object())
+        context['related_events'] = Evenement.objects.exclude(id=self.object.id)[:3]
         return context
 
-@login_required(login_url='login')
-def create_event(request):
-    
-    if request.method == 'POST':
-        form = CreateEventForm(request.POST or None, request.FILES or None)
-        print(request.FILES)
-        if form.is_valid():
-            new_event = Evenement(
-                titre=request.POST.get('titre'),
-                description = request.POST.get('description'),
-                lieu = request.POST.get('lieu'),
-                image_illustration = request.FILES.get('image_illustration'),
-                date_evenement = request.POST.get('date_evenement'),
-                heure_debut = request.POST.get('heure_debut'),
-                heure_fin = request.POST.get('heure_fin'),
-                createur = request.user
-            )
-            print(form.cleaned_data)
-            new_event.save()
-            print("Enregistrement effectué avec succès")
-            return redirect('event')
-        else:
-            print(request.POST)
-            print(request.FILES)
-            print(form.errors)
-            print('le formulaire n est pa valide')
-    form = CreateEventForm()
-    context = {'form':form}
-    return render(request, 'main/create_event.html', context)
-
-
-class CreateEventView(CreateView,LoginRequiredMixin):
-    form_class = CreateEventForm
+class CreateEventView(LoginRequiredMixin,CreateView):
+    form_class = EventForm
     template_name = 'main/create_event.html'
-    success_url = reverse_lazy('main:liste_event')
+    success_url = reverse_lazy('event')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['action'] = "Création d'evénement"
+        return context
 
     def form_valid(self, form):
-
+        form.instance.createur = self.request.user
+        form.save()
         return super().form_valid(form)
 
+
+class UpdateEventView(LoginRequiredMixin,UpdateView):
+    form_class = EventForm
+    template_name = 'main/create_event.html'
+    model = Evenement
+    success_url = reverse_lazy('event')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['action'] = "Modification d'un evénement"
+        context['title'] = "Modification"
+        return context
+
+    def form_valid(self, form):
+        form.instance.createur = self.request.user
+        form.save()
+        return super().form_valid(form)
+        
 class ContactView(FormView):
     template_name = 'contact/contact.html'
     success_url = reverse_lazy('/')
@@ -110,8 +106,11 @@ class ContactView(FormView):
         return super().form_valid(form)
 
 
-class ProjectsView(TemplateView):
+class ProjectsView(LoginRequiredMixin, ListView):
     template_name = "main/projects.html"
+    model = Project
+    context_object_name = 'projects'
+    queryset = Project.objects.filter(activated=True)
 
 class AddComment(View):
         
@@ -129,3 +128,64 @@ class AddComment(View):
             'ok':True,
         }
         return JsonResponse(data)
+
+class DetailsProject(DetailView):
+    model = Project
+    template_name = 'main/details_project.html'
+    context_object_name = 'project'
+    queryset = Project.objects.filter(activated=True)
+    paginate_by = 1
+
+class MakeSuggestion(CreateView):
+    form_class = ProjectForm
+    template_name = 'main/suggest_project_form.html'
+    success_url = reverse_lazy('projects')
+
+    def form_valid(self, form):
+        form.instance.add_by = self.request.user
+        form.save()
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        print(form.errors)
+        return super().form_invalid(form)
+
+def addContribution(request):
+    ok = False
+    if request.method=='GET':
+        id = request.GET.get('project')
+        montant = request.GET.get('montant')
+        project = get_object_or_404(Project, pk=id)
+        new_contribution = Contribution(
+            alumni = request.user,
+            montant = montant,
+            project = project,
+            mode_payement = request.GET.get('mode')
+        )
+        new_contribution.save()
+
+        if new_contribution:
+            ok = True
+    data = {
+        'ok':ok
+    }
+    return JsonResponse(data)
+
+@login_required
+def eventRegister(request):
+    ok = False
+    if request.method=='GET':
+        id = request.GET.get('id')
+        evenement = get_object_or_404(Evenement, pk=id)
+        inscription = Inscription(
+            alumni = request.user,
+            event = evenement
+        )
+        inscription.save()
+
+        if inscription:
+            ok = True
+    data = {
+        'ok':ok
+    }
+    return JsonResponse(data)

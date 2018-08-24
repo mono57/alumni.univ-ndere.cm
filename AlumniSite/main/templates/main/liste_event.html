@@ -1,10 +1,15 @@
-{% extends "base2.html" %} {% load humanize %} {% block title %} Evenements {% endblock title %} {% block content %} {% load
-static %}
+{% extends "base2.html" %} {% load humanize %} {% block title %} Evénements {% endblock title %} {% block content %} {% load
+static %} {% load main_extras %}
 <div id="content" class="page-content-wrap">
   <div class="container">
 
     <fieldset class="field-event">
-      <h1 class="page-title">Events</h1>
+      <div>
+        <h1 class="page-title">Evénement(s)
+          <a class="btn btn-success pull-right" href="{% url 'create_event' %}">Créer un evénement</a>
+        </h1>
+
+      </div>
       <div class="event-box style-2 list-type">
 
         <!-- Event -->
@@ -12,16 +17,16 @@ static %}
         <div class="event">
 
           <div class="event-date">
-
+            <div class="day">{{evenement.date_evenement|date:'l'}}</div>
             <h3 class="numb">{{evenement.date_evenement|date:'d'}}</h3>
             <h6 class="month">{{evenement.date_evenement|date:'F'}}</h6>
-            <div class="day">{{evenement.date_evenement|date:'o'}}</div>
+
 
           </div>
 
           <div class="event-img">
 
-            <a href="#">
+            <a href="{% url 'details_events' pk=evenement.pk %}">
               <img src="{{evenement.image_illustration.url}}" alt="">
             </a>
 
@@ -31,41 +36,77 @@ static %}
 
 
             <h5 class="event-title">
-              <a href="#">{{evenement.titre}}</a>
+              <a href="{% url 'details_events' pk=evenement.pk %}">{{evenement.titre}}</a>
             </h5>
             <p>
               <i class="fa fa-map-marker"></i> {{evenement.lieu}}
               <br>
-              <i class="fa fa-calendar"></i> {{evenement.date_evenement}} à {{evenement.heure_evenement}}</p>
+              <i class="fa fa-calendar"></i> {{evenement.date_evenement}} à {{evenement.heure_debut}}</p>
 
             <p>{{evenement.description|truncatewords:20}}</p>
 
             <div class="event-action flex-row align-items-center">
 
-              <a href="{% url 'details_events' pk=evenement.pk %}" class="btn btn-style-3">More Details</a>
-              <div class="event-icons">
+              <a href="{% url 'details_events' pk=evenement.pk %}" class="btn btn-style-3">Plus de details</a>
 
-                <a href="#">
-                  <i class="licon-share2"></i>
-                </a>
-                <a href="#">
-                  <i class="licon-map-marker"></i>
-                </a>
-                <a href="#">
-                  <i class="licon-at-sign"></i>
-                </a>
+              {% if request.user.is_authenticated %}
+              
+              {% if request.user in evenement.registration %}
+              <button class="btn btn-style-3 unregister" data-id="{{evenement.pk}}">Déjà inscrit</button>
+              {% else %}
+              <button class="btn btn-style-3 register" data-id="{{evenement.pk}}">S'inscrire</button>
+              {% endif %} {% endif %}
 
-              </div>
+
 
             </div>
 
           </div>
 
         </div>
+        {% empty %}
+        <div>
+          <h3>Pas d'evénements</h3>
+        </div>
         {% endfor %}
+
+      </div>
+      <div class="pull-right">
+        {% if is_paginated %}
+        <div class="pagination">
+          {% if page_obj.has_previous %}
+          <a href="?page={{ page_obj.previous_page_number }}">Précédente</a> — {% endif %} Page {{ page_obj.number }} sur {{ page_obj.paginator.num_pages }} {% if page_obj.has_next%}
+          —
+          <a href="?page={{ page_obj.next_page_number }}">Suivante</a>
+          {% endif %}
+        </div>
+        {% endif %}
       </div>
     </fieldset>
   </div>
 </div>
 
-{% endblock content %}
+{% endblock content %} {% block javascript %}
+<script>
+  $(document).ready(function () {
+
+    $('.register').click(function () {
+      var $button = $(this);
+      var $id = $button.attr("data-id");
+      $.ajax({
+        url: '{% url "event_register" %}',
+        data: 'id=' + $id,
+        dataType: 'json',
+        success: function (data) {
+          if (data.ok) {
+
+location.reload()
+          }
+        }
+
+      })
+    })
+
+  })
+</script>
+{% endblock javascript %}

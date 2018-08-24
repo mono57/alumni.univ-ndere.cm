@@ -1,125 +1,167 @@
 {% extends "admin/base.html" %} {% load static %} {% block content %}
-<!--START - Recent Ticket Comments-->
-<div class="element-wrapper">
-    <h6 class="element-header">Nouvels enregistrements</h6>
-    <div class="element-box-tp">
-        <div class="table-responsive">
-            {% if etudiants %}
-            <table class="table table-padded">
-                <thead>
-                    <tr>
 
-                        <th>Nom & Prenom</th>
-                        <th>Entrée</th>
-                        <th class="text-center">Sortie</th>
-                        <th>Matricule</th>
-                        <th>Entreprise</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for etudiant in etudiants %}
-                    <tr>
-
-                        <td>
-                            <div class="user-with-avatar">
-                                <span>{{etudiant.get_full_name}}</span>
-                            </div>
-                        </td>
-                        <td>
-                            <span>{{etudiant.entree}}</span>
-
-                        </td>
-                        <td>
-                            <span></span>
-
-                        </td>
-                        <td class="text-center">
-                            <a class="badge badge-success-inverted" href="#">{{etudiant.matricule}}</a>
-                        </td>
-                        <td class="text-center">
-
-                            <span>{{etudiant.entreprise}}</span>
-                        </td>
-                        <td class="row-actions">
-                            <a class="add" data-id='{{etudiant.id}}'>
-                                <i class="os-icon os-icon-grid-10"></i>
-                            </a>
-
-                            <a class="danger delete" data-id='{{etudiant.id}}'>
-                                <i class="os-icon os-icon-ui-15"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    {% endfor %}
-
-                </tbody>
-            </table>
-            {% else %}
-
-            <div class="alert alert-info" role="alert">
-                <h3>Aucune demande d'inscription</h3>
-            </div>
-            {% endif %}
-        </div>
-    </div>
-    <h5 class="form-header">Liste des utilisateurs</h5>
-
-    <div class="controls-above-table">
+<div class="content-i">
+    <div class="content-box">
         <div class="row">
-            <div class="col-sm-6">
-                <a class="btn btn-sm btn-secondary" href="{% url 'admin:list_user' %}">Tous les utilisateurs</a>
+            <div class="col-sm-12">
+                <div class="element-wrapper">
+                    <h6 class="element-header">Tableau de bord</h6>
+                    <div class="element-content">
+                        <div class="row">
+                            <div class="col-sm-4 col-xxxl-3">
+                                <div class="element-box el-tablo">
+                                    <div class="label" style="color:blue">Utilisateurs actifs</div>
+                                    <div class="value nb-users">{{users.count}}</div>
+
+                                </div>
+                            </div>
+                            <div class="col-sm-4 col-xxxl-3">
+                                <div class="element-box el-tablo">
+                                    <div class="label" style="color:blue">Utilisateurs suspendus</div>
+                                    <div class="value nb-suspend-user">{{suspend_users.count}}</div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 col-xxxl-3">
+                                <div class="element-box el-tablo">
+                                    <div class="label" style="color:blue">Inscriptions</div>
+                                    <div class="value nb-etudiant">{{etudiants.count}}</div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
             </div>
-
         </div>
+        <div class="row">
+            <div class="row pt-4">
+                <div class="col-sm-12">
+                    <div class="element-wrapper">
+                        <h6 class="element-header">Nouvelle(s) inscription(s) </h6>
+                        <div class="element-box-tp">
+                            <div class="table-responsive">
+
+                                <table class="table table-padded">
+                                    <thead>
+                                        <tr>
+
+                                            <th>Nom & Prénom</th>
+                                            <th>Année d'entrée</th>
+                                            <th class="text-center">Faculté</th>
+                                            <th>Matricule</th>
+                                            <th>Entreprise</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for etudiant in etudiants %}
+                                        <tr>
+
+                                            <td>
+                                                <div class="user-with-avatar">
+                                                    <span>{{etudiant.get_full_name}}</span>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <span>{{etudiant.entree}}</span>
+
+                                            </td>
+                                            <td>
+                                                <span>{{etudiant.faculte}}</span>
+
+                                            </td>
+                                            <td class="text-center">
+                                                <a class="badge badge-success-inverted" href="#">{{etudiant.matricule}}</a>
+                                            </td>
+                                            <td class="text-center">
+
+                                                <span>{{etudiant.entreprise}}</span>
+                                            </td>
+                                            <td class="row-actions">
+                                                <a class="add" data-id='{{etudiant.id}}'>
+                                                    <i class="os-icon os-icon-grid-10"></i>
+                                                </a>
+
+                                                <a class="danger delete" data-id='{{etudiant.id}}'>
+                                                    <i class="os-icon os-icon-ui-15"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        {% empty %}
+                                        <td colspan="6" class="text-center">
+                                            <div>Aucune nouvelle inscription</div>
+                                        </td>
+                                        {% endfor %}
+
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
-    <div class="table-responsive">
-        <table class="table table-bordered table-lg table-v2 table-striped">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Country</th>
-                    <th>Last Login</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for user in users %}
 
-                <tr>
-                    <!--<td class="text-center">
-                        <input class="form-control" type="checkbox">
-                    </td>-->
-                    <td>{{user.pk}}</td>
-                    <td>{{user.first_name}}</td>
+    <div class="content-panel">
+        <div class="content-panel-close">
+            <i class="os-icon os-icon-close"></i>
+        </div>
+        <div class="element-wrapper">
+            <h6 class="element-header">Lien rapides</h6>
+            <div class="element-box-tp">
+                <div class="el-buttons-list full-width">
+                    <a class="btn btn-white btn-sm" href="{% url 'admin:create_news' %}">
+                        <i class="os-icon os-icon-delivery-box-2"></i>
+                        <span>Créer une actualité</span>
+                    </a>
+                    <a class="btn btn-white btn-sm" href="{% url 'admin:list_news' %}">
+                        <i class="os-icon os-icon-window-content"></i>
+                        <span>Liste des actualités</span>
+                    </a>
 
-                    <td class="text-right">{{user.last_name}}</td>
-                    <td>{{"Ngaoundéré"}}</td>
+                </div>
+            </div>
+        </div>
+        <div class="element-wrapper">
+            <h6 class="element-header">Administrateurs</h6>
+            {% for admin in admins %}
+            <div class="element-box-tp">
+                <div class="profile-tile">
+                    <a class="profile-tile-box" href="users_profile_small.html">
+                        <div class="pt-avatar-w">
+                            <img alt="" src="{% static 'admin/img/avatar1.png' %}">
+                        </div>
+                        <div class="pt-user-name">{{admin.get_full_name}}</div>
+                    </a>
+                    <div class="profile-tile-meta">
+                        <ul>
+                            <li>Last Login: {% if admin.is_online %}
+                                <strong>
+                                    <span class="status-pill smaller green"></span> En ligne</strong>
+                                {% else %}
+                                <strong>{{admin.last_login|timesince}}</strong>
+                                {% endif %}
+                            </li>
+                            <li>Tickets:
+                                <strong>
+                                    <a href="">12</a>
+                                </strong>
+                            </li>
 
-                    <td>{{user.last_login}}</td>
+                        </ul>
 
-                    <td class="row-actions">
-                        {% if user.is_active == False %}
-
-                        <a class=" activated" data-id='{{user.id}}'>
-                            <i class="os-icon os-icon-grid-10"></i>
-                        </a>
-                        {% else %}
-                        <a class="danger suspend" data-id='{{user.id}}'>
-                            <i class="os-icon os-icon-ui-15"></i>
-                        </a>
-                        {% endif %}
-
-                    </td>
-                </tr>
-
-                {% endfor %}
-            </tbody>
-        </table>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
     </div>
 </div>
+
 
 {% endblock content %} {% block javascript %}
 <script>
@@ -133,14 +175,16 @@
             dataType: 'JSON',
             success: function (data) {
                 if (data.ok) {
-                    
-                    if(data.request_registration == 0){
-                        $entry.parent().parent().parent().html('<div class="alert alert-info" role="alert"><h3>Aucune demande d\'inscription</h3></div>')
-                    }else{
+
+                    if (data.etudiants == 0) {
+                        $entry.parent().parent().parent().html(
+                            '<td colspan="6" class="text-center">Aucune demande d\'inscription</td>'
+                        )
+                    } else {
                         $entry.parent().parent().fadeOut(1000);
                     }
-                    $('.nb-etudiant').text(data.request_registration);
-                    $('.nb-users').text(data.users_count);
+                    $('.nb-etudiant').text(data.etudiants);
+                    $('.nb-users').text(data.users);
                 } else {
                     alert("rien n'a été ajouter");
                 }
@@ -159,12 +203,16 @@
                 url: '{% url "admin:processDeleteUser" %}',
                 data: 'pk=' + $id,
                 dataType: 'JSON',
-                headers: {'X_METHODOVERRIDE': 'DELETE'},
+                headers: {
+                    'X_METHODOVERRIDE': 'DELETE'
+                },
                 success: function (data) {
                     if (data.ok) {
-                        if(data.request_registration == 0){
-                            $entry.parent().parent().parent().html('<div class="alert alert-info" role="alert"><h3>Aucune demande d\'inscription</h3></div>')
-                        }else{
+                        if (data.request_registration == 0) {
+                            $entry.parent().parent().parent().html(
+                                '<div class="alert alert-info" role="alert"><h3>Aucune demande d\'inscription</h3></div>'
+                            )
+                        } else {
                             $entry.parent().parent().fadeOut(1000);
                         }
                         $('.nb-etudiant').text(data.request_registration);
@@ -177,45 +225,6 @@
                 }
             });
         }
-    });
-    $(".suspend").click(function () {
-        if (confirm("Êtes vous sûre de vouloir suspendre cet utilisateur?")) {
-            var $id = $(this).attr("data-id");
-            var $entry = $(this);
-
-            $.ajax({
-                type: 'GET',
-                url: '{% url "admin:processSuspendUser" %}',
-                data: 'pk=' + $id,
-                dataType: 'JSON',
-                success: function (data) {
-                    if (data.ok) {
-                        $entry.parent().html('<a class=" activated"><i class="os-icon os-icon-grid-10"></i></a>');
-                        $('.nb-suspend-user').text(data.suspend_user);
-                        $('.nb-users').text(data.users_count);
-                    }
-                }
-            });
-        }
-    });
-    $(".activated").click(function () {
-
-        var $id = $(this).attr("data-id");
-        var $entry = $(this);
-        $.ajax({
-            type: 'GET',
-            url: '{% url "admin:processActiveUser" %}',
-            data: 'pk=' + $id,
-            dataType: 'JSON',
-            success: function (data) {
-                if (data.ok) {
-                    $entry.parent().html('<a class="danger suspend"><i class="os-icon os-icon-ui-15"></i></a>');
-                    $('.nb-suspend-user').text(data.suspend_user);
-                    $('.nb-users').text(data.users);
-                }
-            }
-        });
-
     });
 </script>
 {% endblock javascript %}

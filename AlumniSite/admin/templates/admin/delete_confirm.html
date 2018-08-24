@@ -1,0 +1,19 @@
+{% extends "admin/base/navbar.html" %}
+{% block title %}
+Suppression
+{% endblock title %}
+{% block content %}
+<div class="content-i">
+    <div class="content-box">
+        <div class="element-wrapper">
+            <h6 class="element-header">Suppression d'une actualité</h6>
+            <p>Êtes vous sure de vouloir supprimer cette actualité <strong><u> {{object}} </u></strong>?</p>
+            <form method="POST">
+                {% csrf_token %}
+                <button class="btn btn-success" type="submit">Oui</button>
+                <a class="btn btn-danger" href="{% url 'admin:list_news' %}" >Non</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

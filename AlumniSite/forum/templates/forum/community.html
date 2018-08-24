@@ -22,27 +22,56 @@
     <section id="one" class="wrapper">
       <div class="inner split">
         <section>
-          <h2>Magna feugiat adipiscing</h2>
-          <p>Lorem ipsum nisl sed cursus magna et amet veroeros. Sed phasellus aliquam et tempus lorem feugiat adipiscing lorem.
-            Morbi pharetra vitae felis placerat pharetra. Nulla risus orci, dapibus id malesuada et nec, malesuada quis orci.
-            Pellentesque eget consequat.</p>
+          <h2>Communauté Alumni</h2>
+          <br>
+          <p>&ensp; La communauté Alumni de Ngaoundéré a pour objectif de développer une entraide professionnelle par le partage
+            d’expériences et de conseils et de mettre en place des événements thématiques destinés aux anciens et aux étudiants.
+            </p>
+          <br>
           <ul class="actions">
+            <!-- <li>
+              <a href="#" class="btn btn-info btn-success btn-rounded">Lire plus</a>
+            </li> -->
             <li>
-              <a href="#" class="btn btn-info btn-success btn-rounded">Learn more</a>
+              <a href="{% url 'forum:create_group' %}" class="btn btn-info btn-success btn-rounded pull-right">Créer un groupe</a>
             </li>
             <li>
-              <a href="{% url 'forum:create_group' %}" class="btn btn-info btn-success btn-rounded pull-right">Create group</a>
+             
+              <button type="button" class="btn btn-success" data-toggle="modal" data-target="#InvitationModal">Inviter les amis</button>
+
+              <div class="modal fade" id="InvitationModal" tabindex="-1" role="dialog" aria-labelledby="InvitationModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="InvitationModalLabel">Inviter ses amis à rejoindre le réseau</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <form>
+                        <div class="form-group">
+                          <label for="recipient-name" class="col-form-label">Email :</label>
+                          <input type="email" placeholder="Entrez l'adresse email de votre ami(e)" class="form-control" id="recipient-name">
+                        </div>
+                      </form>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Quitter</button>
+                      <button type="button" class="btn btn-primary">Inviter</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </li>
           </ul>
-
-
-
         </section>
         <section>
           <ul class="checklist">
-            <li>Ipsum nisl sed cursus magna</li>
-            <li>Amet veroeros sed aliquam consequat</li>
-            <li>Tempus lorem adipiscing et lorem</li>
+            <li>Intégrer un groupe de discussion
+            </li>
+            <li>Créez et administrez un groupe de discussion</li>
+            <li>Echanger sur tous les sujets</li>
             <li>Morbi pharetra vitae felis placerat</li>
             <li>Pharetra nulla risus orci dapibus</li>
           </ul>
@@ -57,23 +86,36 @@
         <div class="spotlight">
           <div class="image">
             {% if group.avatar %}
-            <img src="{{group.avatar.url}}" alt="" /> {% else %}
-            <img src="{% static 'img/join_us.png' %}" alt="" /> {% endif %}
+            <img src="{{group.avatar.url}}" alt="" height="150" /> {% else %}
+            <img src="{% static 'img/join_us.png' %}" alt="" height="150" /> {% endif %}
           </div>
           <div class="content">
             <h3>{{group.name}}</h3>
-            <p>{{group.description}}
+            <p>{{group.description|truncatewords:20}}
             </p>
             <ul class="actions">
+              {% if request.user in group.get_members %}
+
               <li>
-                <a href="{% url 'forum:group_details' pk=group.id %}" class="btn btn-info btn-success btn-rounded">Join Us</a>
+                <a href="{% url 'forum:group_details' pk=group.id %}" class="btn btn-info btn-success btn-rounded">Ouvrir</a>
+
               </li>
+
+              {% else %} {% if request.user in group.get_request %}
               <li>
-                14
+                <div class="alert alert-secondary">En attente de validation</div>
+              </li>
+              {% else %}
+              <li>
+                <button data-id="{{group.id}}" class="btn btn-info btn-success btn-rounded request">Adhérer au groupe</a>
+              </li>
+              {% endif %} {% endif %}
+              <li>
+                {{group.subjects.count}}
                 <i class="fa fa-comments" aria-hidden="true"></i>
               </li>
               <li>
-                25
+                {{group.get_members|length}}
                 <i class="fa fa-users" aria-hidden="true"></i>
               </li>
               <li>
@@ -86,11 +128,34 @@
 
         <ul class="actions special">
           <li>
-            <a href="" class="btn btn-info btn-success btn-rounded">Views all groups</a>
+            <a href="{% url 'forum:list_group' %}" class="btn btn-info btn-success btn-rounded">Voir tous les groupes</a>
           </li>
         </ul>
       </div>
     </section>
   </div>
 </div>
-{% endblock content %}
+{% endblock content %} {% block javascript %}
+<script>
+  $(document).ready(function () {
+    $('.request').click(function () {
+      var $button = $(this);
+      var $id = $button.attr("data-id");
+      $.ajax({
+        url: '{% url "forum:request_group" %}',
+        data: 'id=' + $id,
+        dataType: 'json',
+        success: function (data) {
+          if (data.ok) {
+            location.reload();
+          }
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+          alert("Vous devez vous connecter")
+        }
+
+      })
+    })
+  })
+</script>
+{% endblock javascript %}

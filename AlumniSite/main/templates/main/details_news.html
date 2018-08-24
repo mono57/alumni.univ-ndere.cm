@@ -1,25 +1,29 @@
-{% extends "base.html" %} {% load static %}{% load social_share %} {% block title %} Details {% endblock title %} {% block content %}
+{% extends "base2.html" %} {% load static %}{% load social_share %} {% block title %} Details {% endblock title %}
+
+{% block content %}
 
 <!-- - - - - - - - - - - - - - Content - - - - - - - - - - - - - - - - -->
 <div id="wrapper" class="wrapper-container">
   <div id="content" class="page-content-wrap">
+    <div id="content">
+      <div class="container wide">
 
-    <div class="container wide">
+        <div class="entry-box single-entry">
 
-      <div class="entry-box single-entry">
+          <div class="entry">
 
-        <div class="entry">
+            <!-- - - - - - - - - - - - - - Entry body - - - - - - - - - - - - - - - - -->
+            <div class="entry-body">
 
-          <!-- - - - - - - - - - - - - - Entry body - - - - - - - - - - - - - - - - -->
-          <div class="entry-body">
+              <h1 class="entry-title">
+                {{news.title}}
+              </h1>
+              <div class="entry-meta">
+                <time class="entry-date" datetime="2018-03-18">{{news.date_add}}</time>
+                <span>par</span>
+                <a class="entry-cat">{{news.author}}</a>
 
-            <h1 class="entry-title">
-              {{news.title}}
-            </h1>
-            <div class="entry-meta">
-              <time class="entry-date" datetime="2018-03-18">{{news.date_add}}</time>
-              <span>par</span>
-              <a href="#" class="entry-cat">{{news.author}}</a>
+              </div>
 
             </div>
 
@@ -27,221 +31,169 @@
 
         </div>
 
-      </div>
+        <div class="row">
 
-      <div class="row">
+          <main id="main" class="col-lg-9">
 
-        <main id="main" class="col-lg-9">
+            <div class="content-element">
 
-          <div class="content-element">
+              <div class="entry-box single-entry">
 
-            <div class="entry-box single-entry">
+                <!-- Entry -->
+                <div class="entry">
 
-              <!-- Entry -->
-              <div class="entry">
+                  <!-- - - - - - - - - - - - - - Entry attachment - - - - - - - - - - - - - - - - -->
+                  <div class="thumbnail-attachment">
 
-                <!-- - - - - - - - - - - - - - Entry attachment - - - - - - - - - - - - - - - - -->
-                <div class="thumbnail-attachment">
-                  <a href="#">
                     <img src="{{news.image_description.url}}" alt="">
+
+                  </div>
+
+                  {{news.text_description|safe}}
+
+
+
+
+
+                </div>
+
+              </div>
+
+
+
+            </div>
+            <div class="share-wrap">
+
+              <span class="share-title">Partager:</span>
+              <ul class="social-icons share">
+
+                <li>
+                  <a href="https://www.facebook.com/sharer/sharer.php?u=http://CodingForEntrepreneurs.com/" class="sh-facebook">
+                    <i class="fa fa-facebook" aria-hidden="true"></i>
                   </a>
-                </div>
+                </li>
+                <li>
+                  <a href="https://twitter.com/home?status=I'm%20going%20to%20learn%20to%20Code...%20Come%20build%20an%20web%20apsp%20with%20me!%20%23CFE%20and%20@justinmitchel%20http://codingforentrepreneurs.com/"
+                    class="sh-twitter">
+                    <i class="fa fa-twitter" aria-hidden="true"></i>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://plus.google.com/share?url=http://codingforentrepreneurs.com" class="sh-google">
+                    <i class="fa fa-google-plus" aria-hidden="true"></i>
+                  </a>
+                </li>
 
-                {{news.text_description|safe}}
-
-
-
-
-
-              </div>
-
-            </div>
-
-
-
-          </div>
-          <div class="share-wrap">
-
-            <span class="share-title">Partager:</span>
-            <ul class="social-icons share">
-
-              <li>
-                <a href="" class="sh-facebook">
-                  <i class="fa fa-facebook" aria-hidden="true"></i>
-                </a>
-              </li>
-              <li>
-                <a href="" class="sh-twitter">
-                  <i class="fa fa-twitter" aria-hidden="true"></i>
-                </a>
-              </li>
-              <li>
-                <a href="" class="sh-google">
-                  <i class="fa fa-google-plus" aria-hidden="true"></i>
-                </a>
-              </li>
-             
-            </ul>
-
-          </div>
-          <div class="content-element7">
-
-            <h3 class="title">Related Posts</h3>
-
-            <div class="entry-box flex-row item-col-3">
-
-              <!-- Entry -->
-              <div class="entry">
-
-
-
-                <!-- - - - - - - - - - - - - - Entry body - - - - - - - - - - - - - - - - -->
-                <div class="entry-body">
-
-                  <h5 class="entry-title">
-                    <a href="#">Nam Elit Agna Endrerit Sit</a>
-                  </h5>
-                  <div class="entry-meta">
-
-                    <span>on</span>
-                    <time class="entry-date" datetime="2018-03-18">March 2, 2018</time>
-                    <span>by</span>
-                    <a href="#" class="entry-cat">Robert Smith</a>
-                    <span>in</span>
-                    <a href="#">News</a>
-
-                  </div>
-
-                </div>
-
-              </div>
+              </ul>
 
             </div>
+            
+            <div class="content-element">
 
-          </div>
+              <h3 class="title"> {{news.comments.count}} Commentaires</h3>
 
-          <div class="content-element">
+              <ol class="comments-list">
 
-            <h3 class="title"> {{news.comments.count}} Comments</h3>
+                {% for comment in news.comments %}
+                <li class="comment">
 
-            <ol class="comments-list">
+                  <article>
 
-              {% for comment in news.comments %}
-              <li class="comment">
+                    <!-- - - - - - - - - - - - - - Avatar - - - - - - - - - - - - - - - - -->
 
-                <article>
+                    <div class="gravatar">
 
-                  <!-- - - - - - - - - - - - - - Avatar - - - - - - - - - - - - - - - - -->
 
-                  <div class="gravatar">
-
-                    
                       <img src="{% static 'img/logo_user.png' %}" alt="">
-                   
 
-                  </div>
 
-                  <!-- - - - - - - - - - - - - - End of avatar - - - - - - - - - - - - - - - - -->
+                    </div>
 
-                  <!-- - - - - - - - - - - - - - Comment body - - - - - - - - - - - - - - - - -->
+                    <!-- - - - - - - - - - - - - - End of avatar - - - - - - - - - - - - - - - - -->
 
-                  <div class="comment-body">
+                    <!-- - - - - - - - - - - - - - Comment body - - - - - - - - - - - - - - - - -->
 
-                    <header class="comment-meta">
+                    <div class="comment-body">
 
-                      <h6 class="comment-author">
-                        <label>{{comment.author}}</label>
-                      </h6>
-                      <div class="comment-info">
-                        <time datetime="2015-10-17 02:41" class="comment-date">{{comment.add_at}}</time>
-                        <!-- - - -  <a href="#" class="comment-reply-link">
+                      <header class="comment-meta">
+
+                        <h6 class="comment-author">
+                          <label>{{comment.author}}</label>
+                        </h6>
+                        <div class="comment-info">
+                          <time datetime="2015-10-17 02:41" class="comment-date">{{comment.add_at}}</time>
+                          <!-- - - -  <a href="#" class="comment-reply-link">
                           <i class="licon-reply"></i>Reply</a>-->
-                      </div>
+                        </div>
 
-                    </header>
+                      </header>
 
-                    <p>{{comment.text}}</p>
+                      <p>{{comment.text}}</p>
 
-                  </div>
-                  <!--/ .comment-body-->
+                    </div>
+                    <!--/ .comment-body-->
 
-                  <!-- - - - - - - - - - - - - - End of comment body - - - - - - - - - - - - - - - - -->
+                    <!-- - - - - - - - - - - - - - End of comment body - - - - - - - - - - - - - - - - -->
 
-                </article>
+                  </article>
 
-              </li>
-              {% endfor %}
+                </li>
+                {% endfor %}
 
 
-            </ol>
+              </ol>
 
-          </div>
+            </div>
 
-          <div class="content-element">
+            <div class="content-element">
 
-            <h3 class="title">Leave a Comment</h3>
-            <p class="text-size-small">Your email address will not be published. Fields marked with an 
-              <span class="required"></span>  are required.</p>
+              <h3 class="title">Poster un commentaire</h3>
+              <p class="text-size-small">Votre addresse email ne sera pas publiée. Les champs marqués
+                <span class="required"></span> sont réquis.</p>
 
-            <form class="contact-form style-2">
-              {% csrf_token %}
-              <div class="contact-item">
+              <form class="contact-form style-2">
+                {% csrf_token %}
+                <div class="contact-item">
 
-                <label class="required">Your Name</label>
-                <input type="text" class="form-control" required id="author">
+                  <label class="required">Votre Nom</label>
+                  <input type="text" class="form-control" required id="author">
 
-              </div>
+                </div>
 
-              <div class="contact-item">
+                <div class="contact-item">
 
-                <label class="required">Your Email</label>
-                <input type="email" class="form-control" required id="email">
+                  <label class="required">Votre Email</label>
+                  <input type="email" class="form-control" required id="email">
 
-              </div>
+                </div>
 
-              <div class="contact-item">
+                <div class="contact-item">
 
-                <label>Website</label>
-                <input type="url" class="form-control" id="website">
+                  <label>Site web</label>
+                  <input type="url" class="form-control" id="website">
 
-              </div>
+                </div>
 
-              <div class="contact-item">
+                <div class="contact-item">
 
-                <label class="required">Comment</label>
-                <textarea rows="8" class="form-control" required id="text"></textarea>
+                  <label class="required">Commentaire</label>
+                  <textarea rows="8" class="form-control" required id="text"></textarea>
 
-              </div>
+                </div>
 
-              <div class="contact-item">
+                <div class="contact-item">
 
-                <button class="btn btn-style-4 submit-comment" data-id="{{news.pk}}" type="button" id="submit">Soumettre</button>
+                  <button class="btn btn-style-4 submit-comment" data-id="{{news.pk}}" type="button" id="submit">Soumettre</button>
 
-              </div>
+                </div>
 
-            </form>
+              </form>
 
-          </div>
+            </div>
 
-        </main>
-        <aside id="sidebar" class="col-lg-3">
-
-          <!-- Widget -->
-          <div class="widget">
-
-            <form class="search-form style-2">
-
-              <input type="text" placeholder="Search" class="form-control">
-              <button type="submit">
-                <i class="licon-magnifier"></i>
-              </button>
-
-            </form>
-
-          </div>
-
-          <!-- Widget -->
-          <!--<div class="widget">
+          </main>
+          <aside id="sidebar" class="col-lg-3">
+            <!--<div class="widget">
           
           <h5 class="widget-title">Categories</h5>
           
@@ -256,222 +208,130 @@
         </div>
       -->
 
-          <!-- Widget -->
-          <div class="widget">
+            <!-- Widget -->
+            <div class="widget">
 
-            <h5 class="widget-title">Latest Posts</h5>
+              <h5 class="widget-title">Les actualités récentes</h5>
 
-            <div class="entry-box entry-small">
+              <div class="entry-box entry-small">
 
-              <!-- Entry -->
-              {% for latest in latest_news %}
-              <div class="entry-col">
+                <!-- Entry -->
+                {% for latest in latest_news %}
+                <div class="entry-col">
 
-                <div class="entry">
+                  <div class="entry">
 
-                  <!-- - - - - - - - - - - - - - Entry attachment - - - - - - - - - - - - - - - - -->
-                  <div class="thumbnail-attachment">
-                    <a href="{% url 'details' pk=latest.id %}">
-                      <img src="{{latest.image_description.url}}" alt="">
-                    </a>
-                  </div>
+                    <!-- - - - - - - - - - - - - - Entry attachment - - - - - - - - - - - - - - - - -->
+                    <div class="thumbnail-attachment">
+                      <a href="{% url 'details' pk=latest.id %}">
+                        <img src="{{latest.image_description.url}}" alt="">
+                      </a>
+                    </div>
 
-                  <!-- - - - - - - - - - - - - - Entry body - - - - - - - - - - - - - - - - -->
-                  <div class="entry-body">
+                    <!-- - - - - - - - - - - - - - Entry body - - - - - - - - - - - - - - - - -->
+                    <div class="entry-body">
 
-                    <h6 class="entry-title">
-                      <a href="{% url 'details' pk=latest.id %}">{{latest.title|truncatechars:25}}</a>
-                    </h6>
-                    <div class="entry-meta">
+                      <h6 class="entry-title">
+                        <a href="{% url 'details' pk=latest.id %}">{{latest.title|truncatechars:25}}</a>
+                      </h6>
+                      <div class="entry-meta">
 
-                      <span>{{latest.date_add}}</span>
+                        <span>{{latest.date_add}}</span>
+
+                      </div>
 
                     </div>
 
                   </div>
 
                 </div>
+                {% endfor %}
+
+
+
+
 
               </div>
-              {% endfor %}
-
-
-
-
 
             </div>
+            <!-- Widget -->
+            <div class="widget">
 
-          </div>
+              <h5 class="widget-title">Événements avenir</h5>
+              <div class="event-box style-2">
 
+                <!-- Event -->
+                {% if events %}
+                {% for event in events %}
+                <div class="event">
 
+                  <div class="event-date">
 
+                    <h3 class="numb">{{event.date_evenement|date:'d'}}</h3>
+                    <h6 class="month">{{event.date_evenement|date:'F'}}</h6>
+                    <div class="day">{{event.date_evenement|date:'o'}}</div>
 
-          <!-- Widget -->
-          <div class="widget">
+                  </div>
 
-            <h5 class="widget-title">Calendar</h5>
-            <div class="widget-calendar">
-              <div class="owl-carousel" data-max-items="1">
+                  <div class="event-body">
 
+                    <h6 class="event-title">
+                      <a href="#">{{event.titre}}</a>
+                    </h6>
 
-                <div class="item">
+                    <p class="e-info">{{event.heure_evenement}} {{event.lieu}}</p>
 
-                  <div class="calendar-wrap">
-                    <table>
-                      <tr>
-                        <!--titles for td-->
-                        <th colspan="7">November 2018</th>
-                      </tr>
-                      <tr class="days">
-                        <td>M</td>
-                        <td>T</td>
-                        <td>W</td>
-                        <td>T</td>
-                        <td>F</td>
-                        <td>S</td>
-                        <td>S</td>
-                      </tr>
-                      <tr>
-                        <td>1</td>
-                        <td>2</td>
-                        <td>3</td>
-                        <td>4</td>
-                        <td>5</td>
-                        <td>6</td>
-                        <td>7</td>
-                      </tr>
-                      <tr>
-                        <td>8</td>
-                        <td class="link">
-                          <a href="#">9</a>
-                        </td>
-                        <td>10</td>
-                        <td class="link current">
-                          <a href="#">11</a>
-                        </td>
-                        <td>12</td>
-                        <td>13</td>
-                        <td>14</td>
-                      </tr>
-                      <tr>
-                        <td class="link">
-                          <a href="#">15</a>
-                        </td>
-                        <td>16</td>
-                        <td>17</td>
-                        <td>18</td>
-                        <td>19</td>
-                        <td class="link">
-                          <a href="#">20</a>
-                        </td>
-                        <td>21</td>
-                      </tr>
-                      <tr>
-                        <td>22</td>
-                        <td>23</td>
-                        <td class="link">
-                          <a href="#">24</a>
-                        </td>
-                        <td>25</td>
-                        <td>26</td>
-                        <td>27</td>
-                        <td>28</td>
-                      </tr>
-                      <tr>
-                        <td>29</td>
-                        <td>30</td>
-                        <td>31</td>
-                        <td class="next-month">1</td>
-                        <td class="next-month">2</td>
-                        <td class="next-month">3</td>
-                        <td class="next-month">4</td>
-                      </tr>
-                    </table>
                   </div>
 
                 </div>
-
-              </div>
-            </div>
-
-            <a href="#" class="btn btn-small btn-style-6">« Nov</a>
-
-          </div>
-
-          <!-- Widget -->
-          <div class="widget">
-
-            <h5 class="widget-title">Upcoming Events</h5>
-            <div class="event-box style-2">
-
-              <!-- Event -->
-             {% for event in events %}
-             <div class="event">
-
-              <div class="event-date">
-
-                <h3 class="numb">{{event.date_evenement|date:'d'}}</h3>
-                <h6 class="month">{{event.date_evenement|date:'F'}}</h6>
-                <div class="day">{{event.date_evenement|date:'o'}}</div>
+                {% endfor %}
+                <a href="{% url 'event' %}" class="btn btn-small btn-style-6">Plus d'événements</a>
+                {% else %}
+                <p>Pas d'événement</p>
+                {% endif %}
 
               </div>
 
-              <div class="event-body">
-
-                <h6 class="event-title">
-                  <a href="#">{{event.titre}}</a>
-                </h6>
-
-                <p class="e-info">{{event.heure_evenement}} {{event.lieu}}</p>
-
-              </div>
-
-            </div>
-             {% endfor %}
+              
 
             </div>
 
-            <a href="{% url 'event' %}" class="btn btn-small btn-style-6">More Events</a>
-
-          </div>
-
-          <!-- Widget -->
+            <!-- Widget -->
 
 
-        </aside>
+          </aside>
+
+        </div>
 
       </div>
 
     </div>
-
   </div>
 </div>
 <!-- - - - - - - - - - - - - end Content - - - - - - - - - - - - - - - -->
 
 
-{% endblock content %}
-{% block javascript %}
+{% endblock content %} {% block javascript %}
 <script>
+  $('#submit').click(function (event) {
 
-  $('#submit').click(function(event){
-
-    var $id  = $(this).attr('data-id');
+    var $id = $(this).attr('data-id');
     var $author = $('#author').val();
     var $email = $('#email').val();
     var $website = $('#website').val();
     var $text = $('#text').val();
     event.preventDefault();
     $.ajax({
-      url:'{% url "addComment" %}',
-      data: 'pk=' + $id + '&author=' + $author + '&email=' + $email + '&website=' + $website + '&text=' + $text,
+      url: '{% url "addComment" %}',
+      data: 'pk=' + $id + '&author=' + $author + '&email=' + $email + '&website=' + $website + '&text=' +
+        $text,
       dataType: 'json',
-      success: function(data){
-        if(data.ok){
+      success: function (data) {
+        if (data.ok) {
           location.reload();
         }
       }
     });
   });
-
 </script>
 {% endblock javascript %}

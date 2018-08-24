@@ -96,69 +96,7 @@ $(function () {
 
   $('.floated-chat-w .chat-messages').perfectScrollbar();
 */
-  // #2. CALENDAR INIT
-
-  if ($("#fullCalendar").length) {
-    var calendar, d, date, m, y;
-
-    date = new Date();
-
-    d = date.getDate();
-
-    m = date.getMonth();
-
-    y = date.getFullYear();
-
-    calendar = $("#fullCalendar").fullCalendar({
-      header: {
-        left: "prev,next today",
-        center: "title",
-        right: "month,agendaWeek,agendaDay"
-      },
-      selectable: true,
-      selectHelper: true,
-      select: function select(start, end, allDay) {
-        var title;
-        title = prompt("Event Title:");
-        if (title) {
-          calendar.fullCalendar("renderEvent", {
-            title: title,
-            start: start,
-            end: end,
-            allDay: allDay
-          }, true);
-        }
-        return calendar.fullCalendar("unselect");
-      },
-      editable: true,
-      events: [{
-        title: "Long Event",
-        start: new Date(y, m, 3, 12, 0),
-        end: new Date(y, m, 7, 14, 0)
-      }, {
-        title: "Lunch",
-        start: new Date(y, m, d, 12, 0),
-        end: new Date(y, m, d + 2, 14, 0),
-        allDay: false
-      }, {
-        title: "Click for Google",
-        start: new Date(y, m, 28),
-        end: new Date(y, m, 29),
-        url: "http://google.com/"
-      }]
-    });
-  }
-
-  // #3. FORM VALIDATION
-
-  if ($('#formValidate').length) {
-    $('#formValidate').validator();
-  }
-
-  // #4. DATE RANGE PICKER
-
-  $('input.single-daterange').daterangepicker({ "singleDatePicker": true });
-  $('input.multi-daterange').daterangepicker({ "startDate": "03/28/2017", "endDate": "04/06/2017" });
+  
 
   // #5. DATATABLES
 
@@ -173,29 +111,6 @@ $(function () {
   if ($('#editableTable').length) {
     $('#editableTable').editableTableWidget();
   }
-
-  // #7. FORM STEPS FUNCTIONALITY
-
-  $('.step-trigger-btn').on('click', function () {
-    var btn_href = $(this).attr('href');
-    $('.step-trigger[href="' + btn_href + '"]').click();
-    return false;
-  });
-
-  // FORM STEP CLICK
-  $('.step-trigger').on('click', function () {
-    var prev_trigger = $(this).prev('.step-trigger');
-    if (prev_trigger.length && !prev_trigger.hasClass('active') && !prev_trigger.hasClass('complete')) return false;
-    var content_id = $(this).attr('href');
-    $(this).closest('.step-triggers').find('.step-trigger').removeClass('active');
-    $(this).prev('.step-trigger').addClass('complete');
-    $(this).addClass('active');
-    $('.step-content').removeClass('active');
-    $('.step-content' + content_id).addClass('active');
-    return false;
-  });
-  // END STEPS FUNCTIONALITY
-
 
   // #8. SELECT 2 ACTIVATION
 
@@ -669,29 +584,7 @@ $(function () {
 
   os_init_sub_menus();
 
-  // #12. CONTENT SIDE PANEL TOGGLER
-
-  $('.content-panel-toggler, .content-panel-close, .content-panel-open').on('click', function () {
-    $('.all-wrapper').toggleClass('content-panel-active');
-  });
-
-  // #13. EMAIL APP 
-
-  $('.more-messages').on('click', function () {
-    $(this).hide();
-    $('.older-pack').slideDown(100);
-    $('.aec-full-message-w.show-pack').removeClass('show-pack');
-    return false;
-  });
-
-  $('.ae-list').perfectScrollbar({ wheelPropagation: true });
-
-  $('.ae-list .ae-item').on('click', function () {
-    $('.ae-item.active').removeClass('active');
-    $(this).addClass('active');
-    return false;
-  });
-
+  
   // CKEDITOR ACTIVATION FOR MAIL REPLY
   if (typeof CKEDITOR !== 'undefined') {
     CKEDITOR.disableAutoInline = true;
