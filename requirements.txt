@@ -8,7 +8,7 @@ graphviz==0.8.3
 humanize==0.5.1
 idna==2.6
 oauthlib==2.1.0
-Pillow==5.1.0
+Pillow==8.1.1
 pkg-resources==0.0.0
 pydotplus==2.0.2
 PyJWT==1.6.4
